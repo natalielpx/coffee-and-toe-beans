@@ -1,0 +1,11 @@
+# Built programs
+/coffee-and-toe-beans
+/snapshot
+/dist/
+*.exe
+
+# Editors and the Mac
+.DS_Store
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,47 @@
+{
+  "_about": [
+    "The view of Paris through the café window, shared by every interior style.",
+    "skyline_at: where the distant rooftops start, as a share of the window's height (0 top, 1 bottom).",
+    "colors: the city's colors in full daylight; the game dims and tints them for the hour.",
+    "eiffel: the tower's tip. x is its position across the window (0 left, 1 right).",
+    "  Its golden lights come on once the café lamps are brighter than lights_on_when_lamps_above,",
+    "  go off at lights_off_at, and can't come back on before lights_never_before.",
+    "  It sparkles for sparkle_minutes at the top of every evening hour, up to last_sparkle.",
+    "seed: change it to rearrange the generated rooftops."
+  ],
+  "seed": 11,
+  "skyline_at": 0.5,
+  "colors": {
+    "far": "#727c8c",
+    "limestone": "#d9cdb3",
+    "limestone_shadow": "#b8ab90",
+    "zinc": "#6c7886",
+    "zinc_light": "#7f8b98",
+    "zinc_dark": "#545e6a",
+    "chimney": "#cdbd9f",
+    "pot": "#b35f3c",
+    "iron": "#3c3c44",
+    "window_dark": "#4f5765",
+    "window_lit": ["#ffd27e", "#ffe2a8", "#ffc46a", "#ffd9a0", "#cfe0ff"],
+    "moon": "#f3ecd2",
+    "star": "#fff6dc",
+    "cloud": "#e4e6ea",
+    "snow": "#f4f6fa",
+    "fog": "#c8ccd2",
+    "rain": "#dde5ee",
+    "city_glow": "#7a5446"
+  },
+  "eiffel": {
+    "sprite": "eiffel",
+    "x": 0.76,
+    "lit": "#f2bd55",
+    "sparkle": "#fffaf0",
+    "lights_on_when_lamps_above": 0.8,
+    "lights_off_at": "23:45",
+    "lights_never_before": "12:00",
+    "sparkle_minutes": 5,
+    "last_sparkle": "23:00"
+  },
+  "near_sprite": "roof_near",
+  "railing_sprite": "railing"
+}

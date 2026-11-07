@@ -1,0 +1,36 @@
+{
+  "_about": [
+    "Weather outside the café window.",
+    "kinds: each kind of weather, with its dials (cloud, rain, snow, fog from 0 to 1;",
+    "  wind from -1 to 1 slants the rain) and how long it usually lasts, in minutes.",
+    "ambient.first: how likely each kind is at the start of a day.",
+    "ambient.next: after each kind, how likely each other kind is to follow.",
+    "  Bigger number = more likely. These are relative weights, not percentages.",
+    "ambient.winter_only: kinds that only happen in the winter months listed.",
+    "fade_minutes: how long one kind takes to fade into the next."
+  ],
+  "fade_minutes": 6,
+  "kinds": {
+    "clear":      {"cloud": 0.15, "rain": 0,    "snow": 0,   "fog": 0,    "wind": 0.1,  "lasts_minutes": [35, 100]},
+    "cloudy":     {"cloud": 0.75, "rain": 0,    "snow": 0,   "fog": 0.05, "wind": 0.2,  "lasts_minutes": [25, 80]},
+    "drizzle":    {"cloud": 0.88, "rain": 0.28, "snow": 0,   "fog": 0.12, "wind": 0.15, "lasts_minutes": [30, 100]},
+    "rain":       {"cloud": 0.95, "rain": 0.62, "snow": 0,   "fog": 0.15, "wind": 0.3,  "lasts_minutes": [40, 140]},
+    "heavy_rain": {"cloud": 1,    "rain": 1,    "snow": 0,   "fog": 0.3,  "wind": 0.45, "lasts_minutes": [12, 35]},
+    "fog":        {"cloud": 0.65, "rain": 0,    "snow": 0,   "fog": 0.85, "wind": 0,    "lasts_minutes": [40, 120]},
+    "snow":       {"cloud": 0.9,  "rain": 0,    "snow": 0.6, "fog": 0.2,  "wind": 0.12, "lasts_minutes": [30, 90]}
+  },
+  "ambient": {
+    "first": {"rain": 4, "drizzle": 3, "cloudy": 2, "clear": 1, "fog": 1, "snow": 0.5},
+    "next": {
+      "clear":      {"cloudy": 3, "fog": 1, "drizzle": 1},
+      "cloudy":     {"drizzle": 3, "rain": 2, "clear": 2, "fog": 1, "snow": 0.4},
+      "drizzle":    {"rain": 4, "cloudy": 2, "fog": 1, "snow": 0.3},
+      "rain":       {"drizzle": 3, "heavy_rain": 1, "cloudy": 1.5, "snow": 0.3},
+      "heavy_rain": {"rain": 3, "drizzle": 1},
+      "fog":        {"drizzle": 2, "cloudy": 2, "clear": 1},
+      "snow":       {"cloudy": 2, "drizzle": 1, "snow": 1}
+    },
+    "winter_only": ["snow"],
+    "winter_months": [12, 1, 2]
+  }
+}

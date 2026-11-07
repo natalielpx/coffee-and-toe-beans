@@ -1,0 +1,190 @@
+# Pixel art for the French interior.
+# See README.md in this folder for how these files work.
+
+palette brass
+  b #b48a3c  brass
+  B #e0bd6c  brass highlight
+
+palette walnut
+  L #7a5139  walnut, lit top
+  M #5a3a2a  walnut
+  m #4b3023  walnut, door
+  D #2f1d15  walnut, deep shadow
+  S #3a2519  walnut, panel shadow
+
+# --- On top of the bookshelf -------------------------------------------
+
+sprite ivy
+  g #4f7a43  leaf
+  G #6a9a55  leaf, lit
+  l #8cbb6a  leaf, catching the light
+  t #b5643f  terracotta pot
+  T #cf7c52  pot rim
+grid
+..gG....
+.gGgG.g.
+gGglgGg.
+.gGgGglg
+..glGg..
+.TTTTT..
+..ttt...
+g.......
+g.......
+.g......
+.G......
+g.......
+.g......
+end
+
+# --- Wall lamps ----------------------------------------------------------
+
+sprite sconce
+  use brass
+  s #f2e4c8 @lamp  lampshade
+  S #d8c4a0 @lamp  lampshade, underside
+grid
+.s.
+sss
+sSs
+SSS
+.b.
+.B.
+bBb
+end
+
+sprite table_lamp
+  use brass
+  s #f0e0c0 @lamp  pleated shade
+  S #d4bf98 @lamp  pleated shade, fold
+grid
+..sss..
+.sSsSs.
+sSsSsSs
+SSSSSSS
+...B...
+...b...
+...B...
+...b...
+..bBb..
+.bbbbb.
+end
+
+# --- Nala's chalkboard menu ----------------------------------------------
+# Her handwriting is still on it. At this size it's just squiggles, which is
+# rather the point.
+
+sprite chalkboard
+  W #6b4630  frame
+  w #4a2f22  frame, lower ledge
+  k #2b3330  slate
+  K #323b37  slate, old smudge
+  c #c4c6bf  chalk
+  C #8f948d  chalk, faint
+  p #d9a6a0  pink chalk
+  y #dccf98  yellow chalk
+grid
+WWWWWWWWWWWWW
+WkkkkkkkkkkkW
+WkkyyKyykkkkW
+WkkkkkkkkkkkW
+WkccKcckkkCkW
+WkkkkkkkKkkkW
+WkcccKckkkCkW
+WkkkkkkkkkkkW
+WkcKccckkkCkW
+WkkkkkkkkkkkW
+WkpkpkkkCkCkW
+WkkpkkkkCCCkW
+wwwcwwwwwwwww
+end
+
+# --- The sideboard, with a few things on it -------------------------------
+
+sprite sideboard
+  use walnut brass
+grid
+LLLLLLLLLLLLLLLLLL
+MMMMMMMMMMMMMMMMMM
+DDDDDDDDDDDDDDDDDD
+DmmmmmmmDDmmmmmmmD
+DmLLLLLmDDmLLLLLmD
+DmLmmmSmDDmLmmmSmD
+DmLmmmSbDDbLmmmSmD
+DmLmmmSmDDmLmmmSmD
+DmSSSSSmDDmSSSSSmD
+DmmmmmmmDDmmmmmmmD
+DDDDDDDDDDDDDDDDDD
+.D..............D.
+end
+
+sprite book_stack
+  r #8c3b33  red cloth
+  g #4f6b4a  green cloth
+  u #3b5878  blue cloth
+  y #b8913a  mustard cloth
+grid
+.rrrr
+ggggg
+.uuuu
+yyyy.
+end
+
+# --- A cat bed on the floor -------------------------------------------------
+
+sprite cushion
+  R #a8553a  velvet rim
+  r #7f3f2b  velvet rim, underside
+  c #e6d4ba  fleece
+  C #c9b393  fleece, in the hollow
+grid
+...RRRRRRRR...
+.RRccccccccRR.
+RRcCCCCCCCCcRR
+RRRccccccccRRR
+.rRRRRRRRRRRr.
+..rrrrrrrrrr..
+end
+
+# --- The old cast-iron radiator under the window ---------------------------
+
+sprite radiator
+  a #a8a296  painted iron
+  A #cdc7b9  painted iron, lit ridge
+  d #6d685e  shadow
+grid
+.a.a.a.a.a.a.a.a.a.a.a
+aAaAaAaAaAaAaAaAaAaAaA
+aAaAaAaAaAaAaAaAaAaAaA
+aAaAaAaAaAaAaAaAaAaAaA
+aAaAaAaAaAaAaAaAaAaAaA
+dddddddddddddddddddddd
+end
+
+# --- On your table (cups are in drinks.txt) ----------------------------------------------------------
+
+sprite candle
+  f #fff0b8 @flame  flame tip
+  F #ffb54a @flame  flame
+  w #efe2c2  wax
+  g #c9c2ae @lamp  glass votive (glows amber when lit)
+  G #8f8a7c @lamp  glass votive, base
+grid
+.f.
+.F.
+gwg
+gwg
+GGG
+end
+
+sprite your_book
+  B #2c4538  cover edge
+  b #3c5a48  cover
+  y #c9a24a  gilt title
+  p #e8dcc2  pages
+grid
+BBBBBBBBB
+BbbyyybbB
+BbbbbbbbB
+ppppppppp
+end
+

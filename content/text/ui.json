@@ -1,0 +1,34 @@
+{
+  "_about": [
+    "Words the player sees on screen, outside of the story itself.",
+    "Things in {curly braces} are filled in by the game; keep them as they are.",
+    "The story's words (what the narrator says) are in content/dialogue; the drinks are in content/drinks.json."
+  ],
+  "title": "Coffee and Toe Beans",
+  "subtitle": "",
+  "prompt": "press Enter to step inside",
+  "controls": "↑ ↓ choose  ·  Enter confirm  ·  Esc menu",
+  "too_small": [
+    "The café needs a little more room.",
+    "Please make this window at least {need}.",
+    "(It's {have} right now.)"
+  ],
+  "menu_title": "",
+  "menu_leave": "Leave the café",
+  "menu_stay": "Stay a little longer",
+  "menu_order": "Order a drink",
+  "drinks_title": "On the chalkboard today",
+  "drinks_hint": "↑ ↓ choose  ·  Enter order  ·  Esc back",
+  "drinks_later": "from {time}",
+  "goodbye": "The door closes softly behind you. À bientôt.",
+  "help": [
+    "Coffee and Toe Beans: a cozy cat café in your terminal.",
+    "",
+    "Usage:",
+    "  coffee-and-toe-beans                 open the café",
+    "  coffee-and-toe-beans --color 256     use 256 colors (or truecolor; default: auto)",
+    "  coffee-and-toe-beans --version       show the version",
+    "",
+    "In the café: arrow keys to choose, Enter to confirm, Esc for the menu."
+  ]
+}

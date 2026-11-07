@@ -1,0 +1,63 @@
+# Pixel art for the view of Paris through the window.
+# Most of the rooftops are drawn by the game from the colors in view.json;
+# these are the hand-drawn pieces.
+
+# The top of the Eiffel Tower, rising over the far roofs. Its feet are
+# hidden behind the distant buildings.
+sprite eiffel
+  e #5a4e48 @eiffel  ironwork
+  E #4a403b @eiffel  ironwork, shadow side
+  b #6b5e56 @beacon  the beacon at the very top
+grid
+...b...
+...e...
+...E...
+...E...
+..eEe..
+..eEe..
+..eEe..
+..eEe..
+.eeEee.
+.eEEEe.
+.e...e.
+.e...e.
+e.....e
+e.....e
+end
+
+# The roof of the building just across the street: zinc, a chimney stack
+# crowned with terracotta pots, and a little dormer window.
+sprite roof_near
+  z #6f7b89 @roof  zinc
+  Z #808c99 @roof  zinc, standing seam
+  t #9ea9b4 @roof  zinc, ridge catching the light
+  d #4f5965  gutter in shadow
+  c #c9b494  chimney stack
+  C #a08a6c  chimney stack, shadow side
+  p #b35a38  chimney pot
+  P #8a4128  chimney pot, shadow
+  L #e2d6bf  dormer stone
+  l #b7a98e  dormer stone, shadow
+  w #343c49 @window  dormer window
+grid
+..p.p.p.......................
+.cPcPcPC......................
+.ccccccC.............zZz......
+.ccccccC............zLLLz.....
+tccccccCtttttttttttLwwLltttttt
+zccccccCZzZzZzZzZzZLwwLlZzZzZz
+ZccccccCzZzZzZzZzZzLLLLlzZzZzZ
+zZzZzZzZzZzZzZzZzZzZzZzZzZzZzZ
+dddddddddddddddddddddddddddddd
+end
+
+# The wrought-iron balcony rail just outside the window. It repeats across.
+sprite railing
+  i #26262c  wrought iron
+  I #3a3a44  wrought iron, top rail
+grid
+IIII
+i...
+i.i.
+iiii
+end

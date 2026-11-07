@@ -1,0 +1,124 @@
+{
+  "_about": [
+    "The café's menu, in the order it's shown.",
+    "name and tagline appear on the menu; served is what the narrator says when the drink arrives (one is picked at random).",
+    "icon is the little picture on the menu, from content/sprites/drinks.txt. cup is one of the 'cups' below.",
+    "color is the drink itself; top is its surface: crema, foam, a sheen. Both are #rrggbb.",
+    "from and until (24-hour clock, café time) limit when a drink is served; leave both out to serve it all day. until may be after midnight.",
+    "cups: sprite is the picture; steam is where steam rises, counted in pixels from the picture's top-left corner.",
+    "pace: how a cup is drunk, in minutes. The first sip waits for the drink to cool a little; the cup is empty at finish_minutes; the steam fades by cool_minutes."
+  ],
+  "pace": {
+    "first_sip_minutes": 2,
+    "finish_minutes": 15,
+    "cool_minutes": 12,
+    "sips": 8
+  },
+  "drinks": [
+    {
+      "id": "cafe_creme",
+      "name": "Café crème",
+      "tagline": "espresso, softened with steamed milk",
+      "icon": "icon_creme",
+      "cup": "bistro",
+      "color": "#9a6b45",
+      "top": "#d8b48a",
+      "served": [
+        "A café crème arrives, its crema still trembling.",
+        "Your café crème is set down with a small, polite clink.",
+        "A café crème, in the cup with the green band. It smells like a good morning, whatever the hour."
+      ]
+    },
+    {
+      "id": "chocolat_chaud",
+      "name": "Chocolat chaud",
+      "tagline": "thick and dark, almost a dessert",
+      "icon": "icon_chocolat",
+      "cup": "mug",
+      "color": "#5a3422",
+      "top": "#7a4a30",
+      "served": [
+        "A chocolat chaud, so thick the spoon considers standing up on its own.",
+        "The big ochre mug arrives, heavy and warm. Chocolat chaud, the old-fashioned kind."
+      ]
+    },
+    {
+      "id": "chai_latte",
+      "name": "Chai latte",
+      "tagline": "black tea, cardamom, cinnamon, milk",
+      "icon": "icon_chai",
+      "cup": "tall_glass",
+      "color": "#b98a5e",
+      "top": "#efe0c8",
+      "served": [
+        "A chai latte arrives in a tall glass. Cardamom drifts up to meet you.",
+        "Chai latte, with a soft cap of foam and a whisper of cinnamon."
+      ]
+    },
+    {
+      "id": "earl_grey",
+      "name": "Thé Earl Grey",
+      "tagline": "bergamot, in a fine porcelain cup",
+      "icon": "icon_earlgrey",
+      "cup": "teacup",
+      "color": "#9a5f2e",
+      "top": "#b8773e",
+      "served": [
+        "Earl Grey, in the cup with the tiny painted roses. The bergamot gets there first.",
+        "A pot of Earl Grey has been steeping somewhere. Your cup arrives just right."
+      ]
+    },
+    {
+      "id": "matcha_latte",
+      "name": "Matcha latte",
+      "tagline": "whisked green tea and warm milk",
+      "icon": "icon_matcha",
+      "cup": "bowl",
+      "color": "#9fbf6e",
+      "top": "#cfe0a8",
+      "served": [
+        "A matcha latte, pale green and whisked smooth, in a wide bowl you hold with both hands.",
+        "Matcha latte. The foam is so fine it looks like moss after rain."
+      ]
+    },
+    {
+      "id": "vin_chaud",
+      "name": "Vin chaud",
+      "tagline": "mulled red wine, orange and cinnamon",
+      "icon": "icon_vinchaud",
+      "cup": "glass_mug",
+      "color": "#7e2430",
+      "top": "#a8404a",
+      "from": "17:00",
+      "until": "02:00",
+      "served": [
+        "Vin chaud, in a little glass mug. Orange peel and cinnamon, and the evening settles in.",
+        "A vin chaud arrives, a slice of orange riding on the rim."
+      ]
+    },
+    {
+      "id": "tisane_verveine",
+      "name": "Tisane verveine",
+      "tagline": "lemon verbena, for the late hours",
+      "icon": "icon_verveine",
+      "cup": "glass_cup",
+      "color": "#c9b545",
+      "top": "#ddd07a",
+      "from": "21:00",
+      "until": "06:00",
+      "served": [
+        "A tisane verveine, the color of late sunlight. Something to rest on.",
+        "Lemon verbena, steeped and gentle, in a glass cup. The night gets a little softer."
+      ]
+    }
+  ],
+  "cups": {
+    "bistro":     {"sprite": "cup_bistro",     "steam": [6, 1]},
+    "teacup":     {"sprite": "cup_teacup",     "steam": [7, 1]},
+    "mug":        {"sprite": "cup_mug",        "steam": [5, 1]},
+    "bowl":       {"sprite": "cup_bowl",       "steam": [7, 1]},
+    "tall_glass": {"sprite": "cup_tall_glass", "steam": [4, 0]},
+    "glass_mug":  {"sprite": "cup_glass_mug",  "steam": [5, 2]},
+    "glass_cup":  {"sprite": "cup_glass_cup",  "steam": [5, 0]}
+  }
+}

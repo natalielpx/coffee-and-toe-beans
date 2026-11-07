@@ -1,0 +1,40 @@
+sprite bulb
+  s #f2e4c8 @lamp
+  b #b48a3c
+grid
+sss
+.b.
+end
+
+sprite wick
+  f #ffb54a @flame
+  w #efe2c2
+grid
+f
+w
+end
+
+sprite mug
+  w #ebe6dc
+  o #8a8174
+grid
+owwo
+owwo
+.oo.
+end
+
+sprite spire
+  e #5a4e48 @eiffel
+  b #6b5e56 @beacon
+grid
+.b.
+.e.
+eee
+end
+
+sprite rail
+  i #26262c
+grid
+ii
+i.
+end

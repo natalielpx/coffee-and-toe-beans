@@ -1,0 +1,238 @@
+# Cups, glasses and menu icons for the drinks.
+# See README.md in this folder for how these files work.
+#
+# Pixels marked @drink are the inside of the cup. The game fills them with
+# the drink's own colors (from content/drinks.json) and empties them from the
+# top as you sip; the color written here is what an empty cup shows there.
+
+palette porcelain
+  o #8a8174  outline
+  W #fbf8f2  rim
+  w #ebe6dc  porcelain
+  v #c9c2b5  porcelain, shadow side
+  h #ddd6ca  handle
+  s #f3efe8  saucer
+  S #c8c1b4  saucer edge
+  d #d6cfc2 @drink  inside of the cup
+
+palette glass
+  O #9aa3a0  glass edge
+  g #e3e8e4  thick glass
+  G #f6f8f5  glass, catching the light
+  d #dfe3dd @drink  inside of the glass
+
+# --- Cups on the table --------------------------------------------------------
+
+# Café crème: the café's own cup, with the green bistro band.
+sprite cup_bistro
+  use porcelain
+  g #4d7a5e  green bistro band
+grid
+...ooooooo....
+..oWWWWWWWo...
+.oWdddddddWo..
+.owdddddddwo..
+.owWWWWWWWwohh
+.owwwwwwwvvo.h
+.oggggggggvo.h
+.owwwwwwwvvohh
+..owwwwwvvo...
+ossssssssssso.
+.oSSSSSSSSSo..
+end
+
+# Earl Grey: a wide, fine teacup with a band of tiny roses.
+sprite cup_teacup
+  use porcelain
+  r #c9868a  painted roses
+  l #8fa37f  painted leaves
+grid
+..ooooooooooo...
+.oWWWWWWWWWWWo..
+.oWdddddddddWo..
+.owdddddddddwo..
+.owWWWWWWWWWwohh
+..orwlwrwlwro..h
+..owwwwwwwvvohh.
+...oowwwwvoo....
+ossssssssssssso.
+.oSSSSSSSSSSSo..
+end
+
+# Chocolat chaud: a big stoneware mug with an ochre glaze.
+sprite cup_mug
+  o #6f5a3e  outline
+  Y #e2b45c  glaze, lit rim
+  y #c9973f  ochre glaze
+  z #a87a2f  glaze, shadow side
+  d #8a6a45 @drink  inside of the mug
+grid
+.oooooooooo...
+oYYYYYYYYYYo..
+oYddddddddYo..
+oydddddddzyooo
+oyYYYYYYYYzo.o
+oyyyyyyyyzzo.o
+oyyyyyyyyzzo.o
+oyyyyyyyyzzooo
+oyyyyyyyzzzo..
+.oooooooooo...
+end
+
+# Matcha latte: a French breakfast bowl, cream with a blue line.
+sprite cup_bowl
+  use porcelain
+  b #5b7fa6  blue line
+grid
+..oooooooooo..
+.oWWWWWWWWWWo.
+oWddddddddddWo
+owddddddddddwo
+owWddddddddWwo
+owwWWWWWWWWwvo
+.obbbbbbbbbbo.
+..owwwwwwvvo..
+...oowwwvoo...
+....oooooo....
+end
+
+# Chai latte: a tall glass, so you can watch it go down.
+sprite cup_tall_glass
+  use glass
+grid
+OGgggggO
+OGdddddO
+OGdddddO
+OGdddddO
+OGdddddO
+OGdddddO
+OGdddddO
+OGdddddO
+OGdddddO
+OGdddddO
+OgggggggO
+.OOOOOOO.
+end
+
+# Vin chaud: a little glass mug, with a slice of orange on the rim.
+sprite cup_glass_mug
+  use glass
+  q #f0a040  orange slice
+  Q #f7d070  orange slice, pith
+grid
+.qQq.....
+qQqQq....
+OGqqgggO.
+OGddddddOOO
+OGddddddO.O
+OGddddddO.O
+OGddddddO.O
+OGddddddOOO
+OGddddddO..
+OggggggggO.
+.OOOOOOOO..
+end
+
+# Tisane verveine: a glass teacup on a porcelain saucer.
+sprite cup_glass_cup
+  use glass
+  s #f3efe8  saucer
+  S #c8c1b4  saucer edge
+  o #8a8174  saucer outline
+grid
+OGgggggggO...
+OGddddddddOOO
+OGddddddddO.O
+.OGddddddOOOO
+..OGddddO....
+osssssssssso.
+.oSSSSSSSSo..
+end
+
+# --- Menu icons (up to 8 x 5 pixels, drawn on the menu's dark card) -----------
+
+sprite icon_creme
+  use porcelain
+  C #d2ad84  crema
+  g #4d7a5e  green band
+grid
+.oCCCCo.
+.owwwwoh
+.oggggoh
+.owwwwo.
+ssssssss
+end
+
+sprite icon_chocolat
+  o #6f5a3e  outline
+  c #5a3422  chocolate
+  y #c9973f  ochre glaze
+  z #a87a2f  glaze, shadow
+grid
+occcco..
+oyyyzoo.
+oyyyzo.o
+oyyyzoo.
+.oooo...
+end
+
+sprite icon_chai
+  O #9aa3a0  glass
+  f #efe0c8  foam
+  c #b98a5e  chai
+grid
+..OffO..
+..OccO..
+..OccO..
+..OccO..
+..OOOO..
+end
+
+sprite icon_earlgrey
+  use porcelain
+  T #9a5f2e  tea
+  r #c9868a  roses
+grid
+.oTTTTo.
+.orwrwoh
+..owwoh.
+ssssssss
+.SSSSSS.
+end
+
+sprite icon_matcha
+  use porcelain
+  M #b5cf8a  matcha foam
+  b #5b7fa6  blue line
+grid
+oMMMMMMo
+owwwwwwo
+.obbbbo.
+..owwo..
+..oooo..
+end
+
+sprite icon_vinchaud
+  O #9aa3a0  glass
+  q #f0a040  orange
+  r #8e2a35  mulled wine
+grid
+.Orrrqq.
+.OrrrrO.
+.OrrrrOO
+.OrrrrO.
+..OOOO..
+end
+
+sprite icon_verveine
+  use porcelain
+  O #9aa3a0  glass
+  l #7fae5a  verbena leaf
+  y #e3d88a  tisane
+grid
+...ll...
+.OyyyyO.
+.OyyyyOO
+..OyyO..
+ssssssss
+end
