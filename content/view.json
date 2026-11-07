@@ -2,7 +2,7 @@
   "_about": [
     "The view of Paris through the café window, shared by every interior style.",
     "skyline_at: where the distant rooftops start, as a share of the window's height (0 top, 1 bottom).",
-    "colors: the city's colors in full daylight; the game dims and tints them for the hour.",
+    "colors: the city's colours in full daylight; the game dims and tints them for the hour.",
     "eiffel: the tower's tip. x is its position across the window (0 left, 1 right).",
     "  Its golden lights come on once the café lamps are brighter than lights_on_when_lamps_above,",
     "  go off at lights_off_at, and can't come back on before lights_never_before.",

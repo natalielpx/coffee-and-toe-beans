@@ -7,5 +7,5 @@ import "embed"
 
 // FS is every content file, built into the game.
 //
-//go:embed *.json interiors sprites text dialogue
+//go:embed *.json interiors sprites text dialogue cats moments narrator
 var FS embed.FS

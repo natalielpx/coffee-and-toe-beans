@@ -50,7 +50,7 @@ func checkSize(t *testing.T, view string, w, h int) {
 
 func TestViewFillsTheTerminal(t *testing.T) {
 	g := newGame(t, Config{})
-	for _, size := range [][2]int{{80, 32}, {120, 40}, {81, 33}, {200, 60}, {60, 20}, {79, 32}, {80, 31}, {10, 3}} {
+	for _, size := range [][2]int{{104, 42}, {140, 50}, {105, 43}, {200, 60}, {80, 32}, {103, 42}, {104, 41}, {10, 3}} {
 		g.Resize(size[0], size[1])
 		checkSize(t, g.View(), size[0], size[1])
 	}
@@ -75,11 +75,11 @@ func TestTooSmallIsPolite(t *testing.T) {
 	g := newGame(t, Config{})
 	g.Resize(70, 24)
 	v := visible(g.View())
-	if !strings.Contains(v, "80×32") || !strings.Contains(v, "70×24") {
+	if !strings.Contains(v, "104×42") || !strings.Contains(v, "70×24") {
 		t.Errorf("too-small message should say what's needed and what there is:\n%s", v)
 	}
-	g.Resize(100, 40)
-	if strings.Contains(visible(g.View()), "70×24") {
+	g.Resize(110, 44)
+	if strings.Contains(visible(g.View()), "needs a little more room") {
 		t.Error("message should go away once the window is big enough")
 	}
 }
@@ -103,14 +103,15 @@ func TestStepInsideAndLeave(t *testing.T) {
 	if g.pause == nil || !strings.Contains(visible(g.View()), "Leave the café") {
 		t.Fatal("Esc should open the pause menu")
 	}
-	g.Key(KeyDown) // the second choice is to stay
-	g.Key(KeyConfirm)
+	g.Key(KeyBack) // Esc again: stay
 	if g.pause != nil || g.phase != phaseCafe {
-		t.Fatal("choosing to stay should close the menu and stay")
+		t.Fatal("Esc should close the menu and stay")
 	}
 
 	g.Key(KeyBack)
-	g.Key(KeyConfirm) // the first choice is to leave
+	g.Key(KeyDown)
+	g.Key(KeyDown)
+	g.Key(KeyConfirm) // the last choice is to leave
 	if g.phase != phaseLeaving {
 		t.Fatal("choosing to leave should start leaving")
 	}
@@ -144,9 +145,9 @@ func TestEscClosesTheMenu(t *testing.T) {
 }
 
 func TestNoQuittingByAccident(t *testing.T) {
-	// Leaving takes Esc, then choosing "Leave the café" (the first choice,
-	// as Nala asked). Any other pair of keys, or long runs without Esc,
-	// never close the game.
+	// Leaving takes Esc, then choosing "Leave the café" (on the title card
+	// it's the only choice, so Esc then Enter). Any other pair of keys, or
+	// long runs without Esc, never close the game.
 	keys := []Key{KeyUp, KeyDown, KeyLeft, KeyRight, KeyConfirm, KeyBack, KeyNone}
 	for _, a := range keys {
 		for _, b := range keys {

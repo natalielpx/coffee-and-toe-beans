@@ -1,0 +1,57 @@
+{
+  "_about": [
+    "The \"while you were away\" note, shown when you come back: an opener for how long you were gone, then a line about one cat, on the same page.",
+    "The cats' lines are in each cat's file in content/moments (the \"away\" part), so a new cat brings its own.",
+    "gaps: names for how long you were gone, shortest first; under_hours is where each ends (the last one is for anything longer).",
+    "long_from_hours: from this many hours, the cats' \"long\" lines are used instead of the \"short\" ones.",
+    "second_page_chance: how often (0 to 1) a second page adds a small change in the café, for gaps from second_page_from and longer.",
+    "changes: from is the shortest gap a change fits.",
+    "Keep the opener and a cat line together under about 3 lines of 46 letters."
+  ],
+  "gaps": [
+    {"name": "minutes", "under_hours": 1},
+    {"name": "hours", "under_hours": 10},
+    {"name": "day", "under_hours": 48},
+    {"name": "days", "under_hours": 168},
+    {"name": "week"}
+  ],
+  "long_from_hours": 10,
+  "second_page_chance": 0.5,
+  "second_page_from": "day",
+  "openers": [
+    {"gap": "minutes", "text": "You weren't gone long."},
+    {"gap": "minutes", "text": "Back already."},
+    {"gap": "hours", "text": "You've been gone a few hours."},
+    {"gap": "hours", "text": "A few hours have gone by."},
+    {"gap": "hours", "text": "The light has changed since you left."},
+    {"gap": "day", "text": "It's been a day or so."},
+    {"gap": "day", "text": "You were here not long ago."},
+    {"gap": "days", "text": "It's been a few days."},
+    {"gap": "days", "text": "A few days since your last visit."},
+    {"gap": "week", "text": "It's been a while."},
+    {"gap": "week", "text": "You've been away for some time."},
+    {"gap": "week", "text": "It's been a long time. The café is just as you left it."}
+  ],
+  "changes": [
+    {"from": "day", "text": "Someone has wiped your table. It still smells faintly of lemon."},
+    {"from": "day", "text": "The candle on your table is new. The old one burned all the way down."},
+    {
+      "from": "day",
+      "text": "Someone has put your book back on your table, the bookmark where you last left it."
+    },
+    {"from": "day", "text": "The chalkboard has been rubbed out and written again, in Nala's handwriting."},
+    {
+      "from": "day",
+      "text": "The cushions in the cat bed have been plumped up. The cats are already flattening them."
+    },
+    {"from": "days", "text": "There's a new book on the shelf. Nala must have been by."},
+    {"from": "days", "text": "The menu on the chalkboard has changed a little. The prices haven't."},
+    {
+      "from": "days",
+      "text": "Someone has moved the lamp on the sideboard. The cats have already moved it back."
+    },
+    {"from": "week", "text": "The ivy on the bookcase has grown a little since you were last here."},
+    {"from": "week", "text": "The cat bed has a new cushion. Nobody has dared to sit on it yet."},
+    {"from": "week", "text": "Your chair is exactly where you left it. Someone made sure of that."}
+  ]
+}

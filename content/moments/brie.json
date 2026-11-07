@@ -1,0 +1,934 @@
+{
+  "_about": [
+    "Brie's moments, observations, Look around words and away lines.",
+    "Moments use the same format as content/dialogue (pages, choices, ignore); Brie's name shows on the box. Every moment needs 2 to 5 choices,",
+    "  Choices are shown in a random order each time. tier and max_tier the same: the moment only happens at that bond level.",
+    "  and it waits for your answer (the cat stays put). ignore is the quiet choice used only if you leave the café while it's open; it is never shown as an extra choice.",
+    "When a moment can happen (all optional): tier (lowest: stranger, curious, familiar, friend, your_cat), max_tier (highest),",
+    "  when (parts of the day: late night, dawn, morning, afternoon, evening, night), weather (clear, cloudy, drizzle, rain, heavy_rain, fog, snow),",
+    "  poses (her pose when it starts; left out: awake), spots (where she is),",
+    "  drink (\"any\" or a drink id, like cafe_creme), comes_to (she moves to this spot first, if her bond allows it).",
+    "What it does: each choice has a bond (how much closer it brings her; can be negative) and a manner (calm or sudden).",
+    "  then: what she does afterwards (stay, sit, loaf, sleep, leave, away), for the whole moment or for one choice.",
+    "Observations are small lines with no choices, shown in Look around when you look at her; text can be a list to pick from. Same conditions as moments.",
+    "Keep each page short: about 3 lines of 46 letters at most. An observation plus her look line should fit 4 lines.",
+    "look: what you see and can do when you look at her (Esc menu, Look around).",
+    "  looks: how she looks, by tier (the highest one she has reached is shown). doing: what she's up to, by pose; {where} is her spot in words (content/look.json).",
+    "  actions: things you can do, each from a tier (curious and up; strangers get none). Same fields as choices (bond, manner, then)",
+    "  plus reply (what happens, a page or two), poses (her pose; left out: awake), drink, comes_to.",
+    "  Each cat offers one action each time you look around; after it, the panel ends with a quiet observation about her (one without \"you\" in it) instead.",
+    "  rest: shown if you look around again while she is still resting (4 café minutes after an action).",
+    "away: what she was like while you were away, for the note when you come back (content/narrator/away.json).",
+    "  bond: new (stranger or curious), knows (familiar or friend) or yours (your cat). gone: short (under long_from_hours) or long."
+  ],
+  "cat": "brie",
+  "moments": {
+    "brie_sigh": {
+      "pages": [
+        ["Brie lets out a long, dramatic sigh.", "Brie sighs. It goes on for quite a while."],
+        "She glances at you, as if you should do something about it."
+      ],
+      "choices": [
+        {"text": "Sigh back", "bond": 2, "manner": "calm"},
+        {"text": "Ask her what's wrong", "bond": 1},
+        {"text": "Leave her to it", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_look": {
+      "max_tier": "curious",
+      "pages": ["Brie is looking at you. Not at you, exactly. Past you, actually."],
+      "choices": [
+        {"text": "Look away politely", "bond": 2, "manner": "calm"},
+        {"text": "Wave at her", "bond": -1, "manner": "sudden"},
+        {"text": "Look back", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "brie_rain": {
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": ["Brie watches the rain run down the glass.", "She sighs. In her opinion, Paris should be dry."],
+      "choices": [{"text": "Agree with her", "bond": 2, "manner": "calm"}, {"text": "Say you like the rain", "bond": 0}],
+      "ignore": 1
+    },
+    "brie_creme": {
+      "tier": "curious",
+      "drink": "cafe_creme",
+      "pages": [
+        "Brie's nose twitches. She has noticed your café crème.",
+        "She looks at the cup, then at you, then at the cup."
+      ],
+      "choices": [
+        {"text": "Tell her it's yours", "bond": 1},
+        {"text": "Let her smell the steam", "bond": 2, "manner": "calm"},
+        {"text": "Pretend you haven't noticed", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "brie_wash": {
+      "tier": "curious",
+      "pages": [
+        "Brie grooms one of her paws with great care, then another.",
+        "When she's done, she looks very pleased with herself."
+      ],
+      "choices": [
+        {"text": "Tell her she looks lovely", "bond": 2, "manner": "calm"},
+        {"text": "Smooth down your own hair", "bond": 1},
+        {"text": "Keep reading", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_blink": {
+      "tier": "familiar",
+      "pages": ["Brie closes her eyes slowly, then opens them again.", "From a cat, that's a compliment."],
+      "choices": [{"text": "Blink back, slowly", "bond": 3, "manner": "calm"}, {"text": "Smile at her", "bond": 1}],
+      "ignore": 2
+    },
+    "brie_table": {
+      "tier": "friend",
+      "comes_to": "table",
+      "drink": "any",
+      "pages": [
+        "Brie jumps onto your table and settles down beside your drink, as if it was in her place.",
+        "She doesn't look at you. But she stays, glancing at your book every now and then."
+      ],
+      "choices": [
+        {"text": "Make some room for her", "bond": 3, "manner": "calm"},
+        {"text": "Stroke her back", "bond": 2},
+        {"text": "Keep reading", "bond": 2, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_purr": {
+      "tier": "your_cat",
+      "comes_to": "table",
+      "pages": [
+        "Brie settles against your arm and starts to purr, very quietly.",
+        "She would never say so, but she likes you best."
+      ],
+      "then": "loaf",
+      "choices": [
+        {"text": "Keep very still", "bond": 2, "manner": "calm"},
+        {"text": "Scratch behind her ears", "bond": 2, "manner": "calm"},
+        {"text": "Say her name, softly", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 1
+    },
+    "brie_s_pass": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Brie walks past your table without looking at you.", "Then she walks past again, slower."],
+      "choices": [
+        {"text": "Keep still and let her", "bond": 2, "manner": "calm"},
+        {"text": "Say \"Bonjour, Brie\"", "bond": 1},
+        {"text": "Hold out a hand", "bond": 0}
+      ],
+      "ignore": 1
+    },
+    "brie_s_chair": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "spots": ["floor"],
+      "pages": ["Brie sits on the floor and looks at the empty chair across from you. Then at you. Then at the chair."],
+      "choices": [
+        {"text": "Pull the chair out for her", "bond": 2},
+        {"text": "Pat the seat", "bond": 1},
+        {"text": "Pretend you don't understand", "bond": 1, "manner": "calm"},
+        {"text": "Put your bag on it", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_s_fluff": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["A tuft of cream fur drifts past your nose. Across the room, Brie looks innocent."],
+      "choices": [
+        {"text": "Catch it", "bond": 1},
+        {"text": "Sneeze, quietly", "bond": 1, "manner": "calm"},
+        {"text": "Look at Brie", "bond": 0}
+      ],
+      "ignore": 2
+    },
+    "brie_s_book": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Brie looks at the book on your table, then at you, as if your taste in books were a disappointment."],
+      "choices": [
+        {"text": "Show her the cover", "bond": 2},
+        {"text": "Ask what she'd recommend", "bond": 1},
+        {"text": "Keep reading", "bond": 1, "manner": "calm"},
+        {"text": "Put the bookmark in, slowly", "bond": 1},
+        {"text": "Close the book", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_s_rain": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": [
+        "Brie sits on the sill with her back to the room.",
+        "She is watching the rain, and she would like everyone to know it."
+      ],
+      "choices": [
+        {"text": "Watch the rain too", "bond": 2, "manner": "calm"},
+        {"text": "Leave her be", "bond": 1},
+        {"text": "Ask if she likes the rain", "bond": 0}
+      ],
+      "ignore": 1
+    },
+    "brie_s_yawn": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "poses": ["loaf"],
+      "pages": ["Brie yawns, very slowly, without covering her mouth. She seems to find you boring."],
+      "choices": [
+        {"text": "Look offended", "bond": 2},
+        {"text": "Yawn back", "bond": 1},
+        {"text": "Agree you're a bit boring", "bond": 1, "manner": "calm"},
+        {"text": "Read her a line from your book", "bond": 0},
+        {"text": "Tell her a joke", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_s_scent": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "drink": "cafe_creme",
+      "pages": [
+        "Brie lifts her nose. She can smell your café crème from across the room.",
+        "She thinks slightly better of you."
+      ],
+      "choices": [
+        {"text": "Lift your cup to her", "bond": 2},
+        {"text": "Take a slow sip", "bond": 1, "manner": "calm"},
+        {"text": "Hide the cup behind your book", "bond": 0}
+      ],
+      "ignore": 2
+    },
+    "brie_s_lamp": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "when": ["evening"],
+      "spots": ["sideboard"],
+      "pages": [
+        "Brie settles by the lamp on the sideboard, in the warmest spot in the room.",
+        "She closes her eyes, then opens one to check on you."
+      ],
+      "choices": [
+        {"text": "Close your eyes too", "bond": 2, "manner": "calm"},
+        {"text": "Nod politely", "bond": 1},
+        {"text": "Turn the page of your book", "bond": 1},
+        {"text": "Wave", "bond": 0}
+      ],
+      "ignore": 1
+    },
+    "brie_s_tail": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Brie's tail swishes once, twice. Something you did has displeased her. You aren't sure what."],
+      "choices": [
+        {"text": "Apologise anyway", "bond": 2},
+        {"text": "Sit up straighter", "bond": 1},
+        {"text": "Stop moving altogether", "bond": 1, "manner": "calm"},
+        {"text": "Shrug", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_s_owner": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "when": ["morning"],
+      "pages": ["Brie walks across the café as if she owned it. To be fair, she might."],
+      "choices": [
+        {"text": "Bow your head a little", "bond": 2},
+        {"text": "Say good morning", "bond": 1, "manner": "calm"},
+        {"text": "Ask if she's the owner", "bond": 1},
+        {"text": "Laugh", "bond": 0}
+      ],
+      "ignore": 2
+    },
+    "brie_c_collar": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Brie's collar has twisted round. She is pretending she hasn't noticed."],
+      "choices": [
+        {"text": "Straighten it, gently", "bond": 2},
+        {"text": "Point it out to her", "bond": 1},
+        {"text": "Pretend you haven't noticed either", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_c_sun": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "when": ["morning", "afternoon"],
+      "weather": ["clear", "cloudy"],
+      "spots": ["sill"],
+      "pages": ["A patch of sun falls on the sill. Brie moves into it with great dignity, one paw at a time."],
+      "choices": [
+        {"text": "Tell her it suits her", "bond": 2},
+        {"text": "Turn your chair to the sun too", "bond": 1},
+        {"text": "Let her have it", "bond": 1, "manner": "calm"},
+        {"text": "Close the curtain a little", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_c_sip": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "drink": "any",
+      "pages": ["Brie watches you drink. When you put the cup down, she sighs, as if you've done it wrong."],
+      "choices": [
+        {"text": "Drink more elegantly", "bond": 2},
+        {"text": "Ask her how it's done", "bond": 1},
+        {"text": "Keep drinking your way", "bond": 1, "manner": "calm"},
+        {"text": "Offer her a sip", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_c_knead": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "spots": ["cushion"],
+      "pages": ["Brie kneads the cushion in the cat bed for a long time.", "Then she sits next to it instead."],
+      "choices": [
+        {"text": "Tell her it looks very comfortable", "bond": 2},
+        {"text": "Laugh, quietly", "bond": 1},
+        {"text": "See what she does next", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_c_sneeze": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Brie sneezes. Then she looks around to see if anyone saw."],
+      "choices": [
+        {"text": "Look away quickly", "bond": 2, "manner": "calm"},
+        {"text": "Say \"bless you\"", "bond": 2},
+        {"text": "Sneeze too, to keep her company", "bond": 1},
+        {"text": "Laugh", "bond": 0}
+      ],
+      "ignore": 1
+    },
+    "brie_c_reading": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "comes_to": "floor",
+      "pages": ["Brie has come close enough to read over your shoulder. She doesn't think much of the chapter."],
+      "choices": [
+        {"text": "Turn the page for her", "bond": 2},
+        {"text": "Read a line aloud", "bond": 1},
+        {"text": "Hold the book a little lower", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_c_downpour": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "weather": ["heavy_rain"],
+      "pages": [
+        "The rain is so loud that Brie flattens her ears.",
+        "She glares at the window as if it were being rude on purpose."
+      ],
+      "choices": [
+        {"text": "Glare at the window too", "bond": 2},
+        {"text": "Draw the curtain a little", "bond": 1},
+        {"text": "Tell her it'll pass", "bond": 1, "manner": "calm"},
+        {"text": "Hum something over the noise", "bond": 0},
+        {"text": "Tap the glass", "bond": -1, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "brie_c_stretch": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Brie stretches, front paws far ahead, back legs far behind. It takes a while. Everybody waits."],
+      "choices": [
+        {"text": "Stretch too", "bond": 2},
+        {"text": "Applaud, softly", "bond": 1},
+        {"text": "Wait politely", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_c_creme": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "drink": "cafe_creme",
+      "pages": [
+        "Brie sits as close as she dares to your café crème and looks at the ceiling, as if the cup weren't there."
+      ],
+      "choices": [
+        {"text": "Let her smell the foam", "bond": 2},
+        {"text": "Tell her it's very good today", "bond": 1},
+        {"text": "Look at the ceiling too", "bond": 1, "manner": "calm"},
+        {"text": "Pull the cup closer to you", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_c_sighs": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "when": ["late night", "night"],
+      "poses": ["loaf"],
+      "pages": [
+        "Brie lies by the lamp with her paws tucked in.",
+        "Every few minutes she lets out a small sigh, to remind the room she's there."
+      ],
+      "choices": [
+        {"text": "Sigh back, softly", "bond": 2, "manner": "calm"},
+        {"text": "Ask what's on her mind", "bond": 1},
+        {"text": "Say goodnight to her", "bond": 1},
+        {"text": "Keep very quiet", "bond": 1},
+        {"text": "Turn the lamp up", "bond": 0}
+      ],
+      "ignore": 1
+    },
+    "brie_f_reserved": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Brie jumps onto the chair across from you and sits as if she had a reservation."],
+      "choices": [
+        {"text": "Ask what she'll have", "bond": 2},
+        {"text": "Slide the menu towards her", "bond": 2},
+        {"text": "Nod, as to an old acquaintance", "bond": 1, "manner": "calm"},
+        {"text": "Tell her that seat is taken", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_f_forehead": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Brie licks a paw and smooths down a bit of fur on her forehead. She looks at you to check it worked."],
+      "choices": [
+        {"text": "Tell her it's perfect", "bond": 2},
+        {"text": "Point out the bit she missed", "bond": 1},
+        {"text": "Nod approvingly", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_f_sill": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "spots": ["sill"],
+      "pages": ["Brie sits on the sill and moves over, a little, as if someone might want to join her."],
+      "choices": [
+        {"text": "Lean over and look out with her", "bond": 2},
+        {"text": "Ask what she's looking at", "bond": 1},
+        {"text": "Point out the chimney pots", "bond": 1},
+        {"text": "Thank her, but stay put", "bond": 1, "manner": "calm"},
+        {"text": "Open the window a crack", "bond": 0}
+      ],
+      "ignore": 4
+    },
+    "brie_f_flop": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Brie flops onto her side with a heavy sigh, as if the whole day had been too much."],
+      "choices": [
+        {"text": "Ask her what happened", "bond": 2},
+        {"text": "Sigh too", "bond": 2},
+        {"text": "Offer your scarf as a pillow", "bond": 2},
+        {"text": "Tell her it's nearly evening", "bond": 1},
+        {"text": "Let her rest", "bond": 1, "then": "loaf", "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "brie_f_bookmark": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "comes_to": "floor",
+      "pages": ["Your bookmark has fallen on the floor. Brie is sitting next to it, looking innocent."],
+      "choices": [
+        {"text": "Ask her how that happened", "bond": 2},
+        {"text": "Pick it up and thank her", "bond": 1, "manner": "calm"},
+        {"text": "Leave it with her", "bond": 1}
+      ],
+      "ignore": 2
+    },
+    "brie_f_snow": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "weather": ["snow"],
+      "pages": [
+        "Brie watches the snow fall past the window.",
+        "Her tail curls round her paws, and she looks almost happy."
+      ],
+      "choices": [
+        {"text": "Watch the snow with her", "bond": 2, "manner": "calm"},
+        {"text": "Tell her it matches her fur", "bond": 2},
+        {"text": "Ask if she's ever been out in it", "bond": 1},
+        {"text": "Draw a cat on the misty glass", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "brie_f_purr": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Brie starts to purr, then seems to remember herself and stops."],
+      "choices": [
+        {"text": "Pretend you didn't hear", "bond": 2, "manner": "calm"},
+        {"text": "Tell her it's all right to purr", "bond": 2},
+        {"text": "Purr back, badly", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "brie_f_gold": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "when": ["evening", "night"],
+      "spots": ["sideboard"],
+      "pages": ["Brie sits by the lamp on the sideboard. In its light her fur looks almost gold. She knows."],
+      "choices": [
+        {"text": "Tell her she looks lovely", "bond": 2},
+        {"text": "Ask her to hold that pose", "bond": 1},
+        {"text": "Just look", "bond": 1, "manner": "calm"},
+        {"text": "Say it's a bit much", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_f_sugar": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "drink": "any",
+      "pages": [
+        "Brie has found a sugar cube on the floor.",
+        "She pushes it towards you with her nose, as if you'd dropped it."
+      ],
+      "choices": [
+        {"text": "Thank her very much", "bond": 2},
+        {"text": "Keep it as a souvenir", "bond": 2, "manner": "calm"},
+        {"text": "Put it in your drink", "bond": 1},
+        {"text": "Give it back to her", "bond": 1}
+      ],
+      "ignore": 2
+    },
+    "brie_f_tower": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "when": ["evening", "night"],
+      "weather": ["clear", "cloudy"],
+      "pages": [
+        "The Eiffel Tower lights up. Brie turns to look at it, then back at you, as if to say: you're welcome."
+      ],
+      "choices": [
+        {"text": "Thank her", "bond": 2},
+        {"text": "Say \"magnifique\"", "bond": 2},
+        {"text": "Watch it with her", "bond": 1, "manner": "calm"},
+        {"text": "Ask if she arranged it", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "brie_fr_page": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "comes_to": "table",
+      "pages": ["Brie lies down across your open book.", "You can't read any more, and that seems to be the idea."],
+      "choices": [
+        {"text": "Stroke her instead", "bond": 2},
+        {"text": "Close the book and give up", "bond": 2, "then": "loaf", "manner": "calm"},
+        {"text": "Read the bit you can see", "bond": 1},
+        {"text": "Lift a corner, gently", "bond": 0}
+      ],
+      "ignore": 2
+    },
+    "brie_fr_sips": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "drink": "any",
+      "comes_to": "table",
+      "pages": ["Brie sits beside your cup and watches every sip go by, very seriously."],
+      "choices": [
+        {"text": "Let her sniff the cup", "bond": 2},
+        {"text": "Raise the cup to her", "bond": 1},
+        {"text": "Drink slowly, for her sake", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_fr_bump": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": [
+        "Brie walks past your chair and bumps her head against your hand.",
+        "Then she keeps walking, as if it were an accident."
+      ],
+      "choices": [
+        {"text": "Scratch her ears as she goes", "bond": 2},
+        {"text": "Laugh softly", "bond": 1},
+        {"text": "Pretend it was an accident too", "bond": 1, "manner": "calm"},
+        {"text": "Call her back", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_fr_longsigh": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": ["Brie lets out the longest sigh yet. Then she looks at you, as if it's your turn."],
+      "choices": [
+        {"text": "Sigh, even longer", "bond": 3},
+        {"text": "Say \"I know\"", "bond": 2},
+        {"text": "Complain about the weather with her", "bond": 2},
+        {"text": "Ask if it's really that bad", "bond": 1},
+        {"text": "Sigh, a short one", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "brie_fr_blink": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Brie looks at you and closes her eyes, very slowly. She keeps them closed a long time."],
+      "choices": [
+        {"text": "Blink back, just as slowly", "bond": 3, "manner": "calm"},
+        {"text": "Smile", "bond": 2},
+        {"text": "Wink", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "brie_fr_knee": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Brie puts one front paw on your knee and looks up at you. She is considering it."],
+      "choices": [
+        {"text": "Tell her she's welcome", "bond": 2},
+        {"text": "Keep very still", "bond": 2, "manner": "calm"},
+        {"text": "Pat your knee", "bond": 1},
+        {"text": "Shift your legs", "bond": 0}
+      ],
+      "ignore": 2
+    },
+    "brie_fr_windows": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "when": ["evening"],
+      "pages": [
+        "Brie sits beside your chair and purrs, quietly, while the windows across the street light up one by one."
+      ],
+      "choices": [
+        {"text": "Count the windows with her", "bond": 2},
+        {"text": "Rest a hand near her", "bond": 2, "manner": "calm"},
+        {"text": "Hum along", "bond": 1}
+      ],
+      "ignore": 2
+    },
+    "brie_fr_foam": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "drink": "cafe_creme",
+      "comes_to": "table",
+      "pages": [
+        "Brie sits by your café crème and reaches a paw towards the foam.",
+        "She stops just short of it and looks at you."
+      ],
+      "choices": [
+        {"text": "Let her have a little", "bond": 2},
+        {"text": "Laugh", "bond": 2},
+        {"text": "Move the cup slowly away", "bond": 1},
+        {"text": "Say \"non\", very gently", "bond": 1, "manner": "calm"},
+        {"text": "Wipe her paw with a napkin", "bond": 0}
+      ],
+      "ignore": 4
+    },
+    "brie_fr_groomed": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Brie licks your hand twice, then stops. You have been groomed. It wasn't optional."],
+      "choices": [
+        {"text": "Thank her", "bond": 2},
+        {"text": "Groom her back with your fingers", "bond": 2},
+        {"text": "Hold still for more", "bond": 1, "manner": "calm"},
+        {"text": "Wipe your hand", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "brie_fr_dream": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "poses": ["sleep"],
+      "pages": ["Brie is asleep with her tail over her nose. Now and then, she sighs in her sleep."],
+      "choices": [
+        {"text": "Whisper goodnight", "bond": 2},
+        {"text": "Turn your pages more quietly", "bond": 2, "manner": "calm"},
+        {"text": "Watch her dream", "bond": 1}
+      ],
+      "ignore": 2
+    },
+    "brie_y_ankle": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Brie walks across the café and settles against your ankle, as if that's simply where she goes now."],
+      "choices": [
+        {"text": "Reach down and stroke her", "bond": 2},
+        {"text": "Tell her she's your favourite", "bond": 2},
+        {"text": "Stay just as you are", "bond": 2, "manner": "calm"},
+        {"text": "Wiggle your toes", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "brie_y_chin": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "comes_to": "table",
+      "pages": ["Brie lies down beside your book, puts her chin on the page and falls asleep."],
+      "choices": [
+        {"text": "Let her sleep", "bond": 2, "then": "sleep", "manner": "calm"},
+        {"text": "Stroke her head once", "bond": 2, "then": "sleep"},
+        {"text": "Read the other page", "bond": 1, "then": "sleep"}
+      ],
+      "ignore": 1
+    },
+    "brie_y_sigh": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Brie sighs her long, theatrical sigh.", "But this time she's looking at you, and she's purring."],
+      "choices": [
+        {"text": "Sigh back", "bond": 2},
+        {"text": "Tell her you missed her too", "bond": 2},
+        {"text": "Scratch her chin", "bond": 2},
+        {"text": "Just smile", "bond": 1, "manner": "calm"},
+        {"text": "Roll your eyes at her", "bond": 1}
+      ],
+      "ignore": 4
+    },
+    "brie_y_guard": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "drink": "cafe_creme",
+      "comes_to": "table",
+      "pages": ["Brie sits by your café crème as if she were guarding it from the rest of the café."],
+      "choices": [
+        {"text": "Thank your guard", "bond": 2},
+        {"text": "Share a little foam", "bond": 2},
+        {"text": "Let her keep watch", "bond": 1, "manner": "calm"},
+        {"text": "Ask who she's guarding it from", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "brie_y_cheek": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": [
+        "Brie rubs her cheek along your book, then your hand, then the book again.",
+        "Everything here is hers now."
+      ],
+      "choices": [
+        {"text": "Rub her cheek back", "bond": 2},
+        {"text": "Tell her it's all hers", "bond": 2},
+        {"text": "Ask if that includes the book", "bond": 1},
+        {"text": "Laugh", "bond": 1},
+        {"text": "Let her", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "brie_y_call": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "spots": ["sill"],
+      "pages": ["Brie calls to you from the windowsill: one short, polite meow. She wants you to see something."],
+      "choices": [
+        {"text": "Go and look with her", "bond": 3},
+        {"text": "Ask her what it is", "bond": 2},
+        {"text": "Meow back", "bond": 1},
+        {"text": "Look from your seat", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "brie_y_rain": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "pages": ["It's raining again. Brie doesn't sigh this time. She just curls up closer to you."],
+      "choices": [
+        {"text": "Stroke her", "bond": 2},
+        {"text": "Tell her it's cosy like this", "bond": 2},
+        {"text": "Listen to the rain together", "bond": 2, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "brie_y_late": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "when": ["late night"],
+      "pages": ["It's very late. Brie sits by your feet and looks at the door, then at you, as if to say: not yet."],
+      "choices": [
+        {"text": "Stay a while longer", "bond": 3, "manner": "calm"},
+        {"text": "Tell her you're not going yet", "bond": 2},
+        {"text": "Pick her up for a cuddle", "bond": 2}
+      ],
+      "ignore": 1
+    },
+    "brie_y_sleeve": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "comes_to": "table",
+      "pages": ["Brie grooms herself on your table, very thoroughly, and now and then grooms your sleeve by mistake."],
+      "choices": [
+        {"text": "Hold out your sleeve", "bond": 2},
+        {"text": "Stroke her back", "bond": 2},
+        {"text": "Tell her she missed a spot", "bond": 1},
+        {"text": "Let her finish", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "brie_y_chirp": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "when": ["morning"],
+      "pages": ["Brie greets you with a soft chirp you've never heard her make. She looks a little embarrassed."],
+      "choices": [
+        {"text": "Chirp back", "bond": 2},
+        {"text": "Say \"good morning, Brie\"", "bond": 2, "manner": "calm"},
+        {"text": "Ask her to do it again", "bond": 1},
+        {"text": "Pretend you didn't hear", "bond": 1}
+      ],
+      "ignore": 2
+    }
+  },
+  "observations": [
+    {"text": ["Brie flicks an ear.", "Brie yawns, showing every tooth."], "poses": ["sit", "loaf"]},
+    {"text": "Brie is sitting very straight, like a little statue.", "poses": ["sit"]},
+    {"text": "Brie is grooming her chest fluff.", "poses": ["sit", "loaf"]},
+    {"text": "Brie's eyes are half closed.", "poses": ["loaf"]},
+    {"text": ["Brie is asleep, her tail over her face.", "Brie is fast asleep."], "poses": ["sleep"]},
+    {
+      "text": "Brie watches a raindrop, and sighs.",
+      "spots": ["sill"],
+      "weather": ["drizzle", "rain", "heavy_rain"]
+    },
+    {
+      "text": "Brie has found the warm spot by the lamp.",
+      "spots": ["sideboard"],
+      "when": ["evening", "night"]
+    }
+  ],
+  "look": {
+    "looks": {
+      "stranger": "A fluffy cream cat with odd eyes, one blue, one amber. She pretends not to have noticed you.",
+      "curious": "Brie, fluffy and cream, with odd eyes. She keeps an eye on you. The blue one.",
+      "familiar": "Brie. Her fur is softer than it looks, and her collar is a little crooked.",
+      "friend": "Brie, your elegant friend. She lets you look as long as you like.",
+      "your_cat": "Brie, who has decided that you are hers."
+    },
+    "doing": {
+      "sit": "She sits very straight {where}.",
+      "stand": "She stands {where}, deciding where to go next.",
+      "loaf": "She is lying {where}, paws tucked in.",
+      "sleep": "She is asleep {where}, her tail over her face."
+    },
+    "rest": "Brie has had enough attention for now.",
+    "actions": [
+      {
+        "text": "Hold out your hand",
+        "tier": "curious",
+        "reply": ["Brie sniffs your fingers, then looks away, as if they weren't worth the trouble."],
+        "bond": 2,
+        "manner": "calm"
+      },
+      {
+        "text": "Say hello to her",
+        "tier": "curious",
+        "reply": ["Brie flicks an ear. That counts as a hello."],
+        "bond": 1
+      },
+      {
+        "text": "Let her sleep",
+        "tier": "curious",
+        "poses": ["sleep"],
+        "reply": ["You leave Brie to her nap. Her tail twitches once."],
+        "bond": 1,
+        "manner": "calm"
+      },
+      {
+        "text": "Stroke her back",
+        "tier": "familiar",
+        "reply": ["Brie arches into your hand, just once.", "Then she sits down again, very dignified."],
+        "bond": 2,
+        "manner": "calm"
+      },
+      {
+        "text": "Let her smell your café crème",
+        "tier": "familiar",
+        "drink": "cafe_creme",
+        "reply": ["Brie sniffs the cup for a long moment, then sighs. Approved."],
+        "bond": 3,
+        "manner": "calm"
+      },
+      {
+        "text": "Scratch under her chin",
+        "tier": "friend",
+        "reply": ["Brie closes her eyes and lifts her chin a little higher."],
+        "bond": 3,
+        "manner": "calm"
+      },
+      {
+        "text": "Pat the table beside you",
+        "tier": "friend",
+        "drink": "any",
+        "comes_to": "table",
+        "reply": ["Brie takes her time. Then she jumps onto your table and settles down beside your drink."],
+        "bond": 2
+      },
+      {
+        "text": "Run your fingers through her fur",
+        "tier": "your_cat",
+        "reply": ["Brie purrs, very quietly, so nobody else hears."],
+        "bond": 2,
+        "manner": "calm",
+        "then": "loaf"
+      }
+    ]
+  },
+  "away": [
+    {
+      "bond": "new",
+      "gone": "short",
+      "text": "Brie hasn't moved from her spot. She doesn't seem to have noticed you left."
+    },
+    {"bond": "new", "gone": "short", "text": "Brie is grooming. She looks up, then goes back to it."},
+    {
+      "bond": "new",
+      "gone": "long",
+      "text": "Brie gives you a long look, as if trying to remember where she's seen you."
+    },
+    {
+      "bond": "new",
+      "gone": "long",
+      "text": "Brie is on the windowsill, where she always is. She doesn't look round."
+    },
+    {"bond": "knows", "gone": "short", "text": "Brie looks at you as if you were late."},
+    {
+      "bond": "knows",
+      "gone": "short",
+      "text": "Brie sighs when you sit down. You were gone a bit long, apparently."
+    },
+    {
+      "bond": "knows",
+      "gone": "long",
+      "text": "Brie turns her back to you when you come in. Then she looks over her shoulder, to make sure you saw."
+    },
+    {"bond": "knows", "gone": "long", "text": "Brie pretends she didn't miss you. She isn't very good at it."},
+    {
+      "bond": "yours",
+      "gone": "short",
+      "text": "Brie kept your chair warm. She isn't happy about giving it back."
+    },
+    {
+      "bond": "yours",
+      "gone": "short",
+      "text": "Brie flicks her tail when she sees you. From her, that's a warm welcome."
+    },
+    {
+      "bond": "yours",
+      "gone": "long",
+      "text": "Brie meets you at the door, sighs very loudly, and walks you to your table."
+    },
+    {
+      "bond": "yours",
+      "gone": "long",
+      "text": "Brie has been sitting in your chair. She gets down, slowly, when you arrive."
+    }
+  ]
+}

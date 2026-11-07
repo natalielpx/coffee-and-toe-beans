@@ -2,7 +2,7 @@
 
 All of the café's hand-drawn pixel art lives in the `.txt` files in this
 folder. Each picture (a "sprite") is a little grid of letters, and a list
-above it says which color each letter means. You can open these files in any
+above it says which colour each letter means. You can open these files in any
 text editor, change them, rebuild the game, and see the result.
 
 ## A small example
@@ -25,11 +25,11 @@ sssssss
 end
 ```
 
-- `palette NAME` starts a list of colors that several sprites can share.
+- `palette NAME` starts a list of colours that several sprites can share.
 - `sprite NAME` starts a picture. Its name is how the interior files
   (`content/interiors/*.json`) refer to it.
-- `use NAME` borrows the colors of a palette.
-- Each color line is: **one character**, then a **color** like `#e0bd6c`
+- `use NAME` borrows the colours of a palette.
+- Each colour line is: **one character**, then a **colour** like `#e0bd6c`
   (or `none` for see-through), then optionally a **behavior** starting with
   `@`, then any note you like.
 - `grid` starts the picture, `end` finishes it. In the grid, `.` and spaces
@@ -49,9 +49,9 @@ cell, so pixels are square.
 | `@window` | A distant window that may light up at night. |
 | `@eiffel` | Part of the Eiffel Tower: golden when its lights are on, sparkles on the hour. |
 | `@beacon` | The tower's searchlight at the very top. |
-| `@drink`  | The inside of a cup or glass. It's filled with the drink's colors (from `content/drinks.json`) and empties from the top as you sip; the color you write is what the empty cup shows. |
+| `@drink`  | The inside of a cup or glass. It's filled with the drink's colours (from `content/drinks.json`) and empties from the top as you sip; the colour you write is what the empty cup shows. |
 
-## Colors
+## Colours
 
 Draw everything as it looks in **full daylight**. The game dims, warms and
 cools it for the time of day and the weather, and adds lamp light at night.

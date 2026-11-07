@@ -17,14 +17,14 @@ import (
 // is just another such file.
 
 type interiorFile struct {
-	Name     string            `json:"name"`
-	Size     [2]int            `json:"size"`
-	Colors   map[string]string `json:"colors"`
-	Elements []json.RawMessage `json:"elements"`
-	Lights   []lightDef        `json:"lights"`
-	Cup      cupDef            `json:"cup"`
-	Spots    map[string][2]int `json:"cat_spots"`
-	Daylight daylightDef       `json:"daylight"`
+	Name     string             `json:"name"`
+	Size     [2]int             `json:"size"`
+	Colors   map[string]string  `json:"colors"`
+	Elements []json.RawMessage  `json:"elements"`
+	Lights   []lightDef         `json:"lights"`
+	Cup      cupDef             `json:"cup"`
+	Spots    map[string]spotDef `json:"cat_spots"`
+	Daylight daylightDef        `json:"daylight"`
 }
 
 type lightDef struct {
@@ -74,13 +74,64 @@ type light struct {
 type pane struct{ x, y, w, h int }
 
 // Spot is a place in the room where a cat can be.
-type Spot struct{ X, Y int }
+type Spot struct {
+	Name string
+	X, Y int // the pixel under the middle of the cat
+	// Behind is the first element (counted from 0, in painting order) that
+	// stays in front of a cat here, such as the table's edge; -1 when the
+	// cat is in front of the whole room.
+	Behind int
+	Flip   bool     // cats here face the other way (their sprites mirrored)
+	Poses  []string // the poses that fit here ("sit", "loaf"...); empty: any
+	Near   int      // how close to your seat: 0 far, 1 nearby, 2 at your table
+	Place  string   // where you look to see it: "window", "cats" or "table"
+}
+
+// Allows says whether a cat can take this pose here.
+func (s Spot) Allows(pose string) bool {
+	if len(s.Poses) == 0 {
+		return true
+	}
+	for _, p := range s.Poses {
+		if p == pose {
+			return true
+		}
+	}
+	return false
+}
+
+// spotDef is a cat spot as written in an interior file: either just
+// [x, y], or {"at": [x, y], "behind": "table", "flip": true, "poses": [...]}.
+type spotDef struct {
+	At     [2]int   `json:"at"`
+	Behind string   `json:"behind"`
+	Flip   bool     `json:"flip"`
+	Poses  []string `json:"poses"`
+	Near   int      `json:"near"`
+	Place  string   `json:"place"`
+}
+
+func (s *spotDef) UnmarshalJSON(data []byte) error {
+	var at [2]int
+	if err := json.Unmarshal(data, &at); err == nil {
+		*s = spotDef{At: at}
+		return nil
+	}
+	type plain spotDef
+	var p plain
+	if err := json.Unmarshal(data, &p); err != nil {
+		return fmt.Errorf("a cat spot should be [x, y] or {\"at\": [x, y], ...}")
+	}
+	*s = spotDef(p)
+	return nil
+}
 
 // room is a fully painted interior, ready to be lit.
 type room struct {
 	name     string
 	w, h     int
 	px       []pixel
+	layer    []int16 // which element painted each pixel (-1: none)
 	lights   []*light
 	daylight []float64
 	dayTint  rgb.Color
@@ -93,6 +144,7 @@ type room struct {
 
 type painter struct {
 	r      *room
+	elem   int // the element being painted now
 	colors map[string]rgb.Color
 	lib    *sprites.Library
 	lights map[string]int
@@ -133,6 +185,16 @@ func (p *painter) set(x, y int, c rgb.Color) {
 	if x >= 0 && y >= 0 && x < p.r.w && y < p.r.h {
 		i := y*p.r.w + x
 		p.r.px[i] = pixel{col: c, light: -1}
+		p.r.layer[i] = int16(p.elem)
+	}
+}
+
+// put places a finished pixel and remembers which element painted it.
+func (p *painter) put(x, y int, px pixel) {
+	if x >= 0 && y >= 0 && x < p.r.w && y < p.r.h {
+		i := y*p.r.w + x
+		p.r.px[i] = px
+		p.r.layer[i] = int16(p.elem)
 	}
 }
 
@@ -157,7 +219,7 @@ func loadRoom(fsys fs.FS, path string, lib *sprites.Library) (*room, error) {
 	if w <= 0 || h <= 0 || w > 400 || h > 400 {
 		return nil, fmt.Errorf("%s: size should be [width, height] in pixels", path)
 	}
-	r := &room{name: f.Name, w: w, h: h, px: make([]pixel, w*h), cup: f.Cup, spots: map[string]Spot{}}
+	r := &room{name: f.Name, w: w, h: h, px: make([]pixel, w*h), layer: make([]int16, w*h), cup: f.Cup, spots: map[string]Spot{}}
 	p := &painter{r: r, colors: map[string]rgb.Color{}, lib: lib, lights: map[string]int{}, where: path}
 	for name, hex := range f.Colors {
 		c, err := rgb.Hex(hex)
@@ -168,6 +230,7 @@ func loadRoom(fsys fs.FS, path string, lib *sprites.Library) (*room, error) {
 	}
 	for i := range r.px {
 		r.px[i].light = -1
+		r.layer[i] = -1
 	}
 
 	// Lights first, so lamp sprites can refer to them by name.
@@ -200,10 +263,12 @@ func loadRoom(fsys fs.FS, path string, lib *sprites.Library) (*room, error) {
 		r.lights = append(r.lights, l)
 	}
 
+	ids := map[string]int{}
 	for i, raw := range f.Elements {
 		var head struct {
 			Type string `json:"type"`
 			Note string `json:"note"`
+			ID   string `json:"id"`
 		}
 		if err := json.Unmarshal(raw, &head); err != nil {
 			return nil, fmt.Errorf("%s element %d: %v", path, i+1, err)
@@ -212,6 +277,13 @@ func loadRoom(fsys fs.FS, path string, lib *sprites.Library) (*room, error) {
 		if head.Note != "" {
 			p.where = fmt.Sprintf("%s element %d (%s: %s)", path, i+1, head.Type, head.Note)
 		}
+		if head.ID != "" {
+			if _, dup := ids[head.ID]; dup {
+				return nil, fmt.Errorf("%s: another element already has the id %q", p.where, head.ID)
+			}
+			ids[head.ID] = i
+		}
+		p.elem = i
 		paint, ok := painters[head.Type]
 		if !ok {
 			return nil, fmt.Errorf("%s: unknown element type %q", p.where, head.Type)
@@ -242,8 +314,20 @@ func loadRoom(fsys fs.FS, path string, lib *sprites.Library) (*room, error) {
 		}
 	}
 
-	for name, at := range f.Spots {
-		r.spots[name] = Spot{X: at[0], Y: at[1]}
+	for name, sd := range f.Spots {
+		where := fmt.Sprintf("%s cat_spots.%s", path, name)
+		sp := Spot{Name: name, X: sd.At[0], Y: sd.At[1], Behind: -1, Flip: sd.Flip, Poses: sd.Poses, Near: sd.Near, Place: sd.Place}
+		if sp.X < 0 || sp.Y < 0 || sp.X >= w || sp.Y >= h {
+			return nil, fmt.Errorf("%s: %d,%d is outside the room", where, sp.X, sp.Y)
+		}
+		if sd.Behind != "" {
+			i, ok := ids[sd.Behind]
+			if !ok {
+				return nil, fmt.Errorf("%s: \"behind\" names %q, but no element has that id", where, sd.Behind)
+			}
+			sp.Behind = i
+		}
+		r.spots[name] = sp
 	}
 	if f.Cup.Sprite != "" {
 		if _, ok := lib.Get(f.Cup.Sprite); !ok {

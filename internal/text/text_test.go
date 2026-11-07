@@ -27,8 +27,8 @@ func TestMissingTextIsReported(t *testing.T) {
 }
 
 func TestFill(t *testing.T) {
-	got := Fill("at least {need} (now {have})", map[string]string{"need": "80×32", "have": "70×20"})
-	if got != "at least 80×32 (now 70×20)" {
+	got := Fill("at least {need} (now {have})", map[string]string{"need": "104×42", "have": "70×20"})
+	if got != "at least 104×42 (now 70×20)" {
 		t.Fatal(got)
 	}
 }

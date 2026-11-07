@@ -9,3 +9,10 @@
 .vscode/
 .idea/
 *.swp
+
+# Milestone zips, if you save them in this folder
+*.zip
+
+# Leftovers from Go tests
+*.test
+*.out

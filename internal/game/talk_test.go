@@ -33,14 +33,14 @@ func items(g *Game) []menuAction { return g.pause.items }
 func TestPauseMenuOrder(t *testing.T) {
 	g := newGame(t, Config{})
 	g.Key(KeyBack)
-	if got := items(g); len(got) != 2 || got[0] != actLeave || got[1] != actStay {
-		t.Errorf("on the title card the menu is Leave, Stay; got %v", got)
+	if got := items(g); len(got) != 1 || got[0] != actLeave {
+		t.Errorf("on the title card the menu is just Leave; got %v", got)
 	}
 	g.Key(KeyBack)
 
 	g, _ = inside(t, Config{})
 	g.Key(KeyBack)
-	want := []menuAction{actLeave, actStay, actOrder}
+	want := []menuAction{actOrder, actLook, actLeave}
 	got := items(g)
 	if len(got) != len(want) {
 		t.Fatalf("café menu: got %v, want %v", got, want)
@@ -51,7 +51,10 @@ func TestPauseMenuOrder(t *testing.T) {
 		}
 	}
 	s := screen(g)
-	for _, w := range []string{"Leave the café", "Stay a little longer", "Order a drink"} {
+	if strings.Contains(s, "Stay a little longer") {
+		t.Error("there's no Stay item any more: Esc closes the menu")
+	}
+	for _, w := range []string{"Leave the café", "Order a drink", "Look around"} {
 		if !strings.Contains(s, w) {
 			t.Errorf("pause menu should show %q", w)
 		}
@@ -80,14 +83,26 @@ func TestTheCafeSaysHello(t *testing.T) {
 		t.Fatal("the hello should end with a choice")
 	}
 	s := screen(g)
-	if !strings.Contains(s, "Order a drink") || !strings.Contains(s, "Just sit for a while") {
+	if !strings.Contains(s, "Order a drink") || !strings.Contains(s, "Not yet") {
 		t.Errorf("choices missing from the screen:\n%s", s)
 	}
 
-	// Ignored, it passes gently and nothing is ordered.
-	run(g, now, 60)
+	// Ignored, it passes gently after 90 seconds and nothing is ordered.
+	now = run(g, now, 60)
+	if g.box == nil {
+		t.Fatal("a narrator question should wait 90 seconds, not 40")
+	}
+	run(g, now, 40)
 	if g.box != nil || g.menu != nil || g.order != nil {
 		t.Error("an ignored offer should pass, ordering nothing")
+	}
+}
+
+// answerCats reads on through a cat's moment (they wait for you) and
+// takes its first choice.
+func answerCats(g *Game) {
+	if g.box != nil && g.box.kind == talkMoment && !g.box.Answered() {
+		g.Key(KeyConfirm)
 	}
 }
 
@@ -153,9 +168,7 @@ func TestJustSitting(t *testing.T) {
 func TestDrinksMenuFromThePauseMenu(t *testing.T) {
 	g, _ := inside(t, Config{})
 	g.Key(KeyBack)
-	g.Key(KeyDown)
-	g.Key(KeyDown) // Order a drink
-	g.Key(KeyConfirm)
+	g.Key(KeyConfirm) // Order a drink is first
 	if g.menu == nil || g.pause != nil {
 		t.Fatal("Order a drink should open the drinks menu")
 	}
@@ -177,8 +190,6 @@ func TestEveningDrinks(t *testing.T) {
 		start := time.Date(2026, 11, 7, hh, mm, 0, 0, time.Local)
 		g, _ := inside(t, Config{Start: start})
 		g.Key(KeyBack)
-		g.Key(KeyDown)
-		g.Key(KeyDown)
 		g.Key(KeyConfirm)
 		var seen []string
 		for i := 0; i < 10; i++ {
@@ -257,8 +268,6 @@ func TestANewDrinkReplacesTheOld(t *testing.T) {
 	g.Key(KeyConfirm) // café crème
 	now = run(g, now, 60)
 	g.Key(KeyBack)
-	g.Key(KeyDown)
-	g.Key(KeyDown)
 	g.Key(KeyConfirm)
 	if g.drinks.Drinks[g.menu.sel].ID != "cafe_creme" {
 		t.Error("the menu opens on the drink you're having")
@@ -291,27 +300,22 @@ func TestTalkPausesUnderMenus(t *testing.T) {
 }
 
 func TestArrowsInsideTheCafe(t *testing.T) {
+	// Outside Look around, ← → do nothing at all.
 	g, _ := inside(t, Config{})
-	if g.Attention() != AttendWindow {
-		t.Error("you start looking at the window")
+	before := screen(g)
+	for _, k := range []Key{KeyRight, KeyRight, KeyLeft, KeyRight} {
+		g.Key(k)
 	}
-	g.Key(KeyRight)
-	g.Key(KeyRight)
-	g.Key(KeyRight)
-	if g.Attention() != AttendTable {
-		t.Error("→ moves attention right, stopping at the table")
+	if g.box != nil || g.pause != nil || g.menu != nil || g.look != nil {
+		t.Error("← → don't open anything in the café")
 	}
-	g.Key(KeyLeft)
-	if g.Attention() != AttendCats {
-		t.Error("← moves it back")
-	}
-	if g.box != nil || g.pause != nil || g.menu != nil {
-		t.Error("← → don't open anything")
+	if screen(g) != before {
+		t.Error("← → shouldn't change anything on screen")
 	}
 }
 
 func TestBoxesFitTheFrame(t *testing.T) {
-	for _, size := range [][2]int{{80, 32}, {120, 45}} {
+	for _, size := range [][2]int{{104, 42}, {140, 50}} {
 		g, now := inside(t, Config{})
 		g.Resize(size[0], size[1])
 		now = answerHello(t, g, now, 0)
@@ -339,12 +343,14 @@ func TestAllWordsFit(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	long := map[string]string{"drink": "tisane verveine"} // the longest name
+	long := map[string]string{"drink": "tisane verveine", "suggestion": "cup of Earl Grey", "favourite": "cup of Earl Grey"} // the longest
 	for _, id := range lib.IDs() {
 		c, _ := lib.Get(id)
 		for pi, p := range c.Pages {
 			for _, v := range p {
-				v = strings.ReplaceAll(v, "{drink}", long["drink"])
+				for k, w := range long {
+					v = strings.ReplaceAll(v, "{"+k+"}", w)
+				}
 				if n := len(dialogue.Wrap(v, talkTextW)); n > talkLines {
 					t.Errorf("%s page %d is %d lines (most is %d): %q", id, pi+1, n, talkLines, v)
 				}
@@ -368,4 +374,117 @@ func TestAllWordsFit(t *testing.T) {
 	g.Key(KeyConfirm)
 	g.openDrinks(false)
 	checkSize(t, g.View(), FrameW, FrameH)
+}
+
+// emptyCup orders a café crème with --fast and waits until the café says
+// something about the empty cup; it returns that conversation's name.
+func emptyCup(t *testing.T, seed uint64, start time.Time) (*Game, time.Time) {
+	t.Helper()
+	g, now := inside(t, Config{Fast: true, Seed: seed, Start: start})
+	now = answerHello(t, g, now, 0)
+	g.Key(KeyConfirm) // the first drink being served
+	for i := 0; i < 400; i++ {
+		now = run(g, now, 0.5)
+		answerCats(g)
+		if g.box != nil && g.box.kind == talkOffer {
+			return g, now
+		}
+	}
+	t.Fatal("no offer after the cup was empty")
+	return nil, now
+}
+
+func TestOffersVaryAndSuggest(t *testing.T) {
+	seen := map[string]bool{}
+	for seed := uint64(1); seed <= 40; seed++ {
+		g, now := emptyCup(t, seed, time.Time{})
+		seen[g.lastOffer] = true
+		if g.lastOffer == "cup_empty_suggest" {
+			if g.suggestion == nil || g.suggestion.ID == "cafe_creme" {
+				t.Fatalf("a suggestion should be another drink, got %+v", g.suggestion)
+			}
+			if !strings.Contains(screen(g)+strings.Join(g.box.PageLines(), " "), g.suggestion.Word()) {
+				run(g, now, 3)
+				if !strings.Contains(screen(g), g.suggestion.Word()) {
+					t.Errorf("the suggestion should name the %s:\n%s", g.suggestion.Word(), screen(g))
+				}
+			}
+		}
+	}
+	for _, id := range []string{"cup_empty", "cup_empty_suggest", "cup_empty_quiet"} {
+		if !seen[id] {
+			t.Errorf("over many cups, %s should come up sometimes (saw %v)", id, seen)
+		}
+	}
+}
+
+func TestSuggestionCanBeOrdered(t *testing.T) {
+	for seed := uint64(1); seed <= 60; seed++ {
+		g, now := emptyCup(t, seed, time.Time{})
+		if g.lastOffer != "cup_empty_suggest" {
+			continue
+		}
+		want := g.suggestion.ID
+		for k := 0; k < 4 && !g.box.ShowingChoices(); k++ {
+			g.Key(KeyConfirm)
+			now = run(g, now, 1)
+		}
+		g.Key(KeyConfirm) // "A ..., please"
+		if g.menu != nil || g.order.drink.ID != want {
+			t.Fatalf("choosing the suggestion should serve the %s, got %s", want, g.order.drink.ID)
+		}
+		return
+	}
+	t.Fatal("never saw a suggestion")
+}
+
+func TestOffersDontRepeatBackToBack(t *testing.T) {
+	g, now := emptyCup(t, 3, time.Time{})
+	first := g.lastOffer
+	g.Key(KeyBack)
+	g.Key(KeyConfirm) // Order a drink
+	g.Key(KeyConfirm) // whatever is selected
+	for i := 0; i < 400; i++ {
+		now = run(g, now, 0.5)
+		answerCats(g)
+		if g.box != nil && g.box.kind == talkOffer {
+			break
+		}
+	}
+	if g.lastOffer == first {
+		t.Errorf("the same offer twice in a row: %s", first)
+	}
+}
+
+func TestDrinkWords(t *testing.T) {
+	g := newGame(t, Config{})
+	want := map[string]string{"cafe_creme": "café crème", "earl_grey": "cup of Earl Grey", "tisane_verveine": "tisane verveine"}
+	for id, w := range want {
+		d, _ := g.drinks.Get(id)
+		if d.Word() != w {
+			t.Errorf("%s mid-sentence should be %q, got %q", id, w, d.Word())
+		}
+	}
+}
+
+// The dialogue box sits low on the left; the cup and the cats' usual spots
+// (all but the floor by the radiator, which a tall box may brush) must stay
+// in view beside it.
+func TestCupAndSpotsClearOfTheBox(t *testing.T) {
+	g := newGame(t, Config{})
+	boxRight := talkLeft + talkTextW + 4 // first column after the box
+	stand := g.scene.CupStand()
+	if stand[0] < boxRight {
+		t.Errorf("the cup stands at x=%d, under the dialogue box (which ends at %d)", stand[0], boxRight)
+	}
+	for _, name := range []string{"sill", "shelf_top", "sideboard", "cushion", "table"} {
+		sp, ok := g.scene.Spots()[name]
+		if !ok {
+			t.Errorf("cat spot %q is missing", name)
+			continue
+		}
+		if sp.X < boxRight+6 && sp.Y/2 >= FrameH-12 {
+			t.Errorf("cat spot %q at %d,%d would be hidden by the dialogue box", name, sp.X, sp.Y)
+		}
+	}
 }

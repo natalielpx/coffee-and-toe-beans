@@ -1,0 +1,867 @@
+{
+  "_about": [
+    "Mimi's moments and observations. The format is explained at the top of brie.json.",
+    "Mimi is shy: she never comes close to a stranger by herself. A calm choice always helps her trust you;",
+    "a sudden one never does, and she leaves. Looking at her quietly (Look around) helps too."
+  ],
+  "cat": "mimi",
+  "moments": {
+    "mimi_watch": {
+      "max_tier": "curious",
+      "pages": ["Mimi is watching you from across the room. Her blue eyes don't blink."],
+      "choices": [
+        {"text": "Stay very still", "bond": 3, "manner": "calm"},
+        {"text": "Call her name", "bond": -2, "manner": "sudden"},
+        {"text": "Look away", "bond": 2, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "mimi_shelf": {
+      "max_tier": "familiar",
+      "spots": ["shelf_top"],
+      "pages": ["High on the bookcase, Mimi tucks her paws under her chest.", "Up there, nobody can bother her."],
+      "choices": [
+        {"text": "Leave her be", "bond": 2, "manner": "calm"},
+        {"text": "Stand up to see her better", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_closer": {
+      "tier": "curious",
+      "comes_to": "cushion",
+      "pages": ["Mimi has come a little closer. She pretends she hasn't."],
+      "choices": [
+        {"text": "Keep still", "bond": 3, "manner": "calm"},
+        {"text": "Reach out a hand", "bond": -2, "manner": "sudden"},
+        {"text": "Pretend you haven't noticed either", "bond": 3, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "mimi_blink": {
+      "tier": "curious",
+      "pages": ["Mimi looks at you and slowly closes her eyes."],
+      "choices": [
+        {"text": "Blink back, slowly", "bond": 3, "manner": "calm"},
+        {"text": "Lean towards her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_night": {
+      "tier": "curious",
+      "when": ["night", "late night"],
+      "spots": ["sill"],
+      "pages": ["Mimi sits by the window and watches the city lights with you."],
+      "choices": [
+        {"text": "Watch the lights with her", "bond": 3, "manner": "calm"},
+        {"text": "Point out the Eiffel Tower", "bond": -1, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_sniff": {
+      "tier": "familiar",
+      "comes_to": "floor",
+      "pages": ["Mimi comes over and sniffs the tip of your shoe.", "Then she sits down nearby, very straight."],
+      "choices": [
+        {"text": "Hold out your fingers, slowly", "bond": 3, "manner": "calm"},
+        {"text": "Try to pick her up", "bond": -3, "manner": "sudden"},
+        {"text": "Stay as you are", "bond": 2, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "mimi_table": {
+      "tier": "friend",
+      "comes_to": "table",
+      "pages": ["Mimi climbs onto your table without a sound and curls up by your cup."],
+      "choices": [
+        {"text": "Stroke her, very gently", "bond": 3, "manner": "calm"},
+        {"text": "Let her sleep", "bond": 3, "manner": "calm"},
+        {"text": "Move your cup", "bond": -1, "manner": "sudden"}
+      ],
+      "ignore": 2,
+      "then": "sleep"
+    },
+    "mimi_lap": {
+      "tier": "your_cat",
+      "pages": ["Mimi steps onto your lap, turns around twice and falls asleep.", "Nobody moves for a long while."],
+      "then": "away",
+      "choices": [
+        {"text": "Stay very still", "bond": 2, "manner": "calm"},
+        {"text": "Stroke her, very gently", "bond": 2, "manner": "calm"},
+        {"text": "Pick up your book, slowly", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 1
+    },
+    "mimi_s_eyes": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "spots": ["shelf_top"],
+      "pages": ["Two blue eyes are watching you from the top of the bookcase. When you look up, they disappear."],
+      "choices": [
+        {"text": "Look down at your book", "bond": 2, "manner": "calm"},
+        {"text": "Pretend you saw nothing", "bond": 2, "manner": "calm"},
+        {"text": "Stand up to see her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_s_tailtip": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "spots": ["sideboard"],
+      "pages": ["The tip of a dark tail hangs over the edge of the sideboard. It swishes, once."],
+      "choices": [
+        {"text": "Smile to yourself", "bond": 1, "manner": "calm"},
+        {"text": "Watch it, quietly", "bond": 1, "manner": "calm"},
+        {"text": "Call her name", "bond": -2, "manner": "sudden"},
+        {"text": "Go over and look", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_s_hands": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "drink": "any",
+      "pages": ["Mimi watches your hands as you lift your cup. When you put it down, she relaxes a little."],
+      "choices": [
+        {"text": "Put it down very slowly", "bond": 2, "manner": "calm"},
+        {"text": "Keep your hands still", "bond": 1, "manner": "calm"},
+        {"text": "Clink it on the saucer", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_s_lamplight": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "when": ["late night", "night"],
+      "pages": ["In the darkest corner of the room, two blue eyes catch the lamplight."],
+      "choices": [
+        {"text": "Turn your chair a little away", "bond": 2, "manner": "calm"},
+        {"text": "Turn the lamp down", "bond": 2, "manner": "calm"},
+        {"text": "Blink slowly", "bond": 2, "manner": "calm"},
+        {"text": "Say \"hello, Mimi\", softly", "bond": 1, "manner": "calm"},
+        {"text": "Wave", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_s_clatter": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": [
+        "A cup clatters somewhere in the café. Mimi is gone before it stops ringing.",
+        "A minute later she's back, pretending it didn't happen."
+      ],
+      "choices": [
+        {"text": "Pretend nothing happened either", "bond": 2, "manner": "calm"},
+        {"text": "Ask if she's all right, softly", "bond": 1, "manner": "calm"},
+        {"text": "Laugh out loud", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_s_pages": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Mimi is watching the pages of your book. Each time one turns, her ears twitch."],
+      "choices": [
+        {"text": "Turn the pages more slowly", "bond": 2, "manner": "calm"},
+        {"text": "Stop turning for a bit", "bond": 1, "manner": "calm"},
+        {"text": "Read on as usual", "bond": 1, "manner": "calm"},
+        {"text": "Flip through fast", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_s_smaller": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "pages": ["When the rain gets louder, Mimi tucks herself into a smaller shape."],
+      "choices": [
+        {"text": "Stay quiet", "bond": 2, "manner": "calm"},
+        {"text": "Hum softly", "bond": 1, "manner": "calm"},
+        {"text": "Drum your fingers along with the rain", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_s_hiding": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "spots": ["sideboard"],
+      "pages": [
+        "Mimi is sitting behind the lamp on the sideboard, where she thinks nobody can see her.",
+        "Most of her is showing."
+      ],
+      "choices": [
+        {"text": "Keep your eyes on your book", "bond": 2, "manner": "calm"},
+        {"text": "Smile, without looking over", "bond": 2, "manner": "calm"},
+        {"text": "Look at her, just once", "bond": 1, "manner": "calm"},
+        {"text": "Whisper that you can see her", "bond": -2, "manner": "sudden"},
+        {"text": "Switch the lamp off", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_s_breakfast": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "when": ["dawn", "morning"],
+      "pages": ["Mimi is having breakfast somewhere you can't see. You can hear her crunching, very politely."],
+      "choices": [
+        {"text": "Let her eat in peace", "bond": 2, "manner": "calm"},
+        {"text": "Sip your drink just as politely", "bond": 1, "manner": "calm"},
+        {"text": "Ask what she's having, softly", "bond": 1, "manner": "calm"},
+        {"text": "Lean over to look", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_s_statue": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": [
+        "Mimi has been sitting perfectly still for a long time, watching you. You're not sure she's breathing."
+      ],
+      "choices": [
+        {"text": "Sit just as still", "bond": 3, "manner": "calm"},
+        {"text": "Breathe out slowly", "bond": 2, "manner": "calm"},
+        {"text": "Blink, slowly", "bond": 1, "manner": "calm"},
+        {"text": "Clear your throat", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_nearbed": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "comes_to": "cushion",
+      "pages": ["Mimi settles in the cat bed, the one nearest you, and turns her back to you. It's a start."],
+      "choices": [
+        {"text": "Leave her be", "bond": 2, "manner": "calm"},
+        {"text": "Say \"good girl\", softly", "bond": 1, "manner": "calm"},
+        {"text": "Lean over to look", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_letter": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Mimi sniffs the air in your direction, carefully, like someone reading a letter."],
+      "choices": [
+        {"text": "Keep still and let her", "bond": 2, "manner": "calm"},
+        {"text": "Breathe very slowly", "bond": 2, "manner": "calm"},
+        {"text": "Sniff the air back", "bond": 1, "manner": "calm"},
+        {"text": "Smile", "bond": 1, "manner": "calm"},
+        {"text": "Hold out your hand", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_farend": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "when": ["evening", "night"],
+      "spots": ["sill"],
+      "pages": [
+        "Mimi sits at the far end of the sill, watching the lit windows across the street.",
+        "Now and then she glances at you."
+      ],
+      "choices": [
+        {"text": "Glance back, then away", "bond": 2, "manner": "calm"},
+        {"text": "Look at the windows too", "bond": 2, "manner": "calm"},
+        {"text": "Move to her end of the window", "bond": -2, "manner": "sudden"},
+        {"text": "Point at a lit window", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_brave": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "comes_to": "floor",
+      "pages": ["Mimi pats your fallen bookmark, then pulls her paw back, startled by her own bravery."],
+      "choices": [
+        {"text": "Don't move", "bond": 2, "manner": "calm"},
+        {"text": "Nudge it a little closer to her", "bond": 2, "manner": "calm"},
+        {"text": "Pick it up", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_yawn": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Mimi yawns, a tiny pink yawn, and then looks embarrassed about it."],
+      "choices": [
+        {"text": "Yawn too, slowly", "bond": 2, "manner": "calm"},
+        {"text": "Smile into your cup", "bond": 1, "manner": "calm"},
+        {"text": "Look away politely", "bond": 1, "manner": "calm"},
+        {"text": "Say \"aww\"", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_c_flake": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "weather": ["snow"],
+      "pages": ["Mimi watches the snow. Her eyes follow one flake all the way down, then the next."],
+      "choices": [
+        {"text": "Watch the snow with her", "bond": 2, "manner": "calm"},
+        {"text": "Tell her softly that it's snow", "bond": 1, "manner": "calm"},
+        {"text": "Tap the window", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_steps": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "comes_to": "floor",
+      "pages": ["Each time you turn a page, Mimi comes one step closer. You're on page twelve."],
+      "choices": [
+        {"text": "Turn another page", "bond": 2, "manner": "calm"},
+        {"text": "Stay on this page a while", "bond": 1, "manner": "calm"},
+        {"text": "Look up at her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_c_question": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Mimi's tail curls up at the tip, like a question mark."],
+      "choices": [
+        {"text": "Blink slowly at her", "bond": 2, "manner": "calm"},
+        {"text": "Answer with a small nod", "bond": 1, "manner": "calm"},
+        {"text": "Curl your finger the same way", "bond": 1, "manner": "calm"},
+        {"text": "Just watch", "bond": 1, "manner": "calm"},
+        {"text": "Reach for the tail", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 4
+    },
+    "mimi_c_faintpurr": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Somewhere near you, very faintly, something purrs. Mimi stops the moment you look up."],
+      "choices": [
+        {"text": "Look down again", "bond": 2, "manner": "calm"},
+        {"text": "Keep reading as if you didn't hear", "bond": 2, "manner": "calm"},
+        {"text": "Smile without looking", "bond": 1, "manner": "calm"},
+        {"text": "Say \"was that you?\"", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_c_neck": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "drink": "any",
+      "pages": [
+        "Mimi is curious about your cup. She stretches her neck as far as it will go, but she won't come any closer."
+      ],
+      "choices": [
+        {"text": "Slide the cup a little her way", "bond": 2, "manner": "calm"},
+        {"text": "Tell her softly what's in it", "bond": 1, "manner": "calm"},
+        {"text": "Stay still", "bond": 1, "manner": "calm"},
+        {"text": "Hold it out for her to sniff", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_f_brush": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "comes_to": "floor",
+      "pages": ["Mimi brushes past your ankle, very lightly, as if by accident."],
+      "choices": [
+        {"text": "Stay perfectly still", "bond": 2, "manner": "calm"},
+        {"text": "Say her name, very softly", "bond": 1, "manner": "calm"},
+        {"text": "Reach down to stroke her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_f_twoblinks": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Mimi blinks at you twice. The second blink is slower."],
+      "choices": [
+        {"text": "Blink back twice, slowly", "bond": 3, "manner": "calm"},
+        {"text": "Smile", "bond": 1, "manner": "calm"},
+        {"text": "Wink", "bond": 0}
+      ],
+      "ignore": 1
+    },
+    "mimi_f_neat": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "spots": ["cushion"],
+      "pages": ["Mimi sits in the cat bed facing you, paws together, very neat. She looks almost brave."],
+      "choices": [
+        {"text": "Blink slowly", "bond": 2, "manner": "calm"},
+        {"text": "Sit up neatly too", "bond": 2, "manner": "calm"},
+        {"text": "Tell her she looks very brave", "bond": 1, "manner": "calm"},
+        {"text": "Lean closer to see her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_f_ear": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "poses": ["loaf"],
+      "pages": ["Mimi's ear turns towards you whenever you move, even though she's pretending to sleep."],
+      "choices": [
+        {"text": "Move very little", "bond": 2, "manner": "calm"},
+        {"text": "Pretend to sleep too", "bond": 2, "manner": "calm"},
+        {"text": "Hum, softly", "bond": 1, "manner": "calm"},
+        {"text": "Whisper goodnight", "bond": 1, "manner": "calm"},
+        {"text": "Tap the table to test it", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_f_rain": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": ["Mimi sits on the sill and watches the rain. She lets you watch it with her, from your chair."],
+      "choices": [
+        {"text": "Watch the rain with her", "bond": 2, "manner": "calm"},
+        {"text": "Tell her it will stop soon", "bond": 1, "manner": "calm"},
+        {"text": "Lean towards the window", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_f_palm": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "comes_to": "floor",
+      "pages": ["Mimi sniffs the air near your hand. She's thinking about it."],
+      "choices": [
+        {"text": "Turn your hand palm up, slowly", "bond": 3, "manner": "calm"},
+        {"text": "Leave your hand where it is", "bond": 2, "manner": "calm"},
+        {"text": "Reach for her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_f_shadow": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "when": ["evening"],
+      "pages": ["Mimi is watching the shadow of your cup on the table as the candle flickers. It seems to soothe her."],
+      "choices": [
+        {"text": "Watch the shadow with her", "bond": 2, "manner": "calm"},
+        {"text": "Move the cup, very slowly", "bond": 2, "manner": "calm"},
+        {"text": "Keep still for her", "bond": 1, "manner": "calm"},
+        {"text": "Wave your hand through it", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_f_dream": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "poses": ["sleep"],
+      "pages": ["Mimi is asleep nearby. Her paws twitch, and she makes a tiny sound."],
+      "choices": [
+        {"text": "Let her dream", "bond": 2, "manner": "calm"},
+        {"text": "Whisper that she's safe", "bond": 2, "manner": "calm"},
+        {"text": "Turn your page more quietly", "bond": 1, "manner": "calm"},
+        {"text": "Take a photo", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_f_collar": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Mimi's blue collar has slipped round. She scratches at it, looks at you, then scratches again."],
+      "choices": [
+        {"text": "Offer to fix it, slowly", "bond": 2, "manner": "calm"},
+        {"text": "Hold out a hand and wait", "bond": 2, "manner": "calm"},
+        {"text": "Tell her it's fine", "bond": 1, "manner": "calm"},
+        {"text": "Watch, quietly", "bond": 1, "manner": "calm"},
+        {"text": "Reach over and fix it", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 4
+    },
+    "mimi_f_humming": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["You've been humming without noticing. Mimi has noticed. She's listening."],
+      "choices": [
+        {"text": "Keep humming, softly", "bond": 2, "manner": "calm"},
+        {"text": "Hum her a different tune", "bond": 1, "manner": "calm"},
+        {"text": "Stop, slowly", "bond": 1, "manner": "calm"},
+        {"text": "Hum louder", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_fr_reading": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "comes_to": "table",
+      "pages": ["Mimi climbs onto your table, sits by your book and watches you read, very quietly."],
+      "choices": [
+        {"text": "Read on, quietly", "bond": 2, "manner": "calm"},
+        {"text": "Stroke her, very gently", "bond": 2, "manner": "calm"},
+        {"text": "Read a line aloud, softly", "bond": 1, "manner": "calm"},
+        {"text": "Close the book with a snap", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_fr_lean": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Mimi sits beside your chair and leans, just slightly, against your leg."],
+      "choices": [
+        {"text": "Keep very still", "bond": 3, "manner": "calm"},
+        {"text": "Rest your hand on her back", "bond": 2, "manner": "calm"},
+        {"text": "Shift your leg", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_fr_question": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Mimi makes a small sound at you. Not quite a meow. More of a question."],
+      "choices": [
+        {"text": "Answer softly", "bond": 2, "manner": "calm"},
+        {"text": "Blink slowly", "bond": 2, "manner": "calm"},
+        {"text": "Ask her what she means", "bond": 1, "manner": "calm"},
+        {"text": "Tilt your head", "bond": 1, "manner": "calm"},
+        {"text": "Meow back, loudly", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_fr_dark": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "when": ["night"],
+      "pages": ["Mimi sits in the lamplight near you. At night her blue eyes look almost violet."],
+      "choices": [
+        {"text": "Tell her she's beautiful, softly", "bond": 2, "manner": "calm"},
+        {"text": "Watch the lamplight with her", "bond": 2, "manner": "calm"},
+        {"text": "Turn the lamp up", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "mimi_fr_deciding": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "comes_to": "floor",
+      "pages": ["Mimi puts one paw on the edge of your chair, then the other. She's deciding."],
+      "choices": [
+        {"text": "Make room for her", "bond": 3, "manner": "calm"},
+        {"text": "Whisper that it's all right", "bond": 2, "manner": "calm"},
+        {"text": "Stay as you are", "bond": 2, "manner": "calm"},
+        {"text": "Lift her up", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_fr_rail": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "weather": ["snow"],
+      "spots": ["sill"],
+      "pages": ["Mimi watches the snow settle on the balcony rail, then looks at you, to check you've seen it too."],
+      "choices": [
+        {"text": "Nod, you've seen it", "bond": 2, "manner": "calm"},
+        {"text": "Say \"it's lovely\", softly", "bond": 2, "manner": "calm"},
+        {"text": "Tell her about snow", "bond": 1, "manner": "calm"},
+        {"text": "Open the window to show her", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_fr_rim": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "drink": "any",
+      "comes_to": "table",
+      "pages": ["Mimi sniffs the rim of your cup, wrinkles her nose and looks at you, disappointed in your choice."],
+      "choices": [
+        {"text": "Promise to order better next time", "bond": 2, "manner": "calm"},
+        {"text": "Laugh softly", "bond": 1, "manner": "calm"},
+        {"text": "Offer her a sniff of your sleeve instead", "bond": 1, "manner": "calm"},
+        {"text": "Drink it anyway", "bond": 1, "manner": "calm"},
+        {"text": "Take the cup away quickly", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 4
+    },
+    "mimi_fr_purr": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Mimi purrs when you look at her. This time she doesn't stop."],
+      "choices": [
+        {"text": "Keep looking, softly", "bond": 3, "manner": "calm"},
+        {"text": "Say her name", "bond": 2, "manner": "calm"},
+        {"text": "Clap", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_fr_shelves": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Mimi comes down from the top of the bookcase one shelf at a time, and settles near you."],
+      "choices": [
+        {"text": "Make room by your feet", "bond": 2, "manner": "calm"},
+        {"text": "Say \"well done\", softly", "bond": 2, "manner": "calm"},
+        {"text": "Watch her come down", "bond": 1, "manner": "calm"},
+        {"text": "Clap when she gets there", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_fr_ears": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "poses": ["sleep"],
+      "pages": ["Mimi falls asleep near you with her head tucked in. Only her chocolate ears show."],
+      "choices": [
+        {"text": "Let her sleep", "bond": 2, "manner": "calm"},
+        {"text": "Lay your scarf near her", "bond": 2, "manner": "calm"},
+        {"text": "Read more quietly", "bond": 1, "manner": "calm"},
+        {"text": "Stroke her ears", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_knead": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Mimi kneads your lap for a long time before she lies down. She's being very thorough."],
+      "choices": [
+        {"text": "Wait patiently", "bond": 2, "then": "away", "manner": "calm"},
+        {"text": "Stroke her as she settles", "bond": 2, "then": "away", "manner": "calm"},
+        {"text": "Tell her she's very thorough", "bond": 1, "then": "away", "manner": "calm"},
+        {"text": "Stand up to stretch", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_hand": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["When you move your hand, Mimi follows it with her eyes.", "Then she settles her chin on it."],
+      "choices": [
+        {"text": "Leave your hand there", "bond": 2, "manner": "calm"},
+        {"text": "Scratch her cheek", "bond": 2, "manner": "calm"},
+        {"text": "Pull your hand away", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_roll": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Mimi rolls onto her back beside you, just for a moment. Then she rolls back, embarrassed."],
+      "choices": [
+        {"text": "Pretend you didn't see", "bond": 2, "manner": "calm"},
+        {"text": "Tell her softly that it's all right", "bond": 2, "manner": "calm"},
+        {"text": "Smile at her", "bond": 1, "manner": "calm"},
+        {"text": "Rub her tummy", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_between": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "comes_to": "table",
+      "pages": ["Mimi curls up on your table between your cup and your book, as if the space were made for her."],
+      "choices": [
+        {"text": "Let her sleep there", "bond": 2, "then": "sleep", "manner": "calm"},
+        {"text": "Stroke her ears", "bond": 2, "then": "sleep", "manner": "calm"},
+        {"text": "Move your cup to give her room", "bond": 1, "then": "sleep", "manner": "calm"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_dark": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "when": ["late night"],
+      "pages": ["It's late and the café is quiet. Mimi sits with you, both of you looking at the dark window."],
+      "choices": [
+        {"text": "Stay a while longer", "bond": 2, "manner": "calm"},
+        {"text": "Tell her about your day", "bond": 2, "manner": "calm"},
+        {"text": "Look for stars with her", "bond": 2, "manner": "calm"},
+        {"text": "Whisper goodnight", "bond": 1, "manner": "calm"},
+        {"text": "Tap on the glass", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_trot": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "comes_to": "floor",
+      "pages": ["Mimi chirps when you look at her, a small happy sound, and trots over."],
+      "choices": [
+        {"text": "Chirp back softly", "bond": 2, "manner": "calm"},
+        {"text": "Hold out your hand", "bond": 2, "manner": "calm"},
+        {"text": "Scoop her up", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_rain": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "pages": ["Mimi doesn't mind the rain any more, as long as you're here. She sits by your feet and listens."],
+      "choices": [
+        {"text": "Listen with her", "bond": 2, "manner": "calm"},
+        {"text": "Stroke her back", "bond": 2, "manner": "calm"},
+        {"text": "Say it's cosy", "bond": 1, "manner": "calm"},
+        {"text": "Stamp your feet to warm up", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_headbump": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Mimi bumps her head against your hand, very gently, then does it again."],
+      "choices": [
+        {"text": "Bump back, very gently", "bond": 3, "manner": "calm"},
+        {"text": "Scratch behind her ears", "bond": 2, "manner": "calm"},
+        {"text": "Let her keep going", "bond": 2, "manner": "calm"},
+        {"text": "Laugh softly", "bond": 1, "manner": "calm"},
+        {"text": "Pull your hand away", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "mimi_y_early": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "when": ["dawn", "morning"],
+      "pages": ["Early in the day the café is quiet, and Mimi is braver. She's sitting right next to your chair."],
+      "choices": [
+        {"text": "Say good morning, softly", "bond": 2, "manner": "calm"},
+        {"text": "Offer your hand", "bond": 2, "manner": "calm"},
+        {"text": "Share the quiet", "bond": 1, "manner": "calm"},
+        {"text": "Clap your hands", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    },
+    "mimi_y_foot": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "poses": ["sleep"],
+      "pages": ["Mimi is asleep against your foot. You've been sitting very still for quite a while now."],
+      "choices": [
+        {"text": "Keep sitting still", "bond": 3, "manner": "calm"},
+        {"text": "Wiggle your toes, a tiny bit", "bond": 1, "manner": "calm"},
+        {"text": "Get up to stretch", "bond": -2, "manner": "sudden"}
+      ],
+      "ignore": 1
+    }
+  },
+  "observations": [
+    {
+      "text": ["Mimi is curled up, her head tucked in.", "Mimi is asleep. Only her ears show."],
+      "poses": ["sleep"]
+    },
+    {"text": "Mimi watches you, then looks away.", "poses": ["sit", "loaf"]},
+    {"text": "The tip of Mimi's tail moves, just a little.", "poses": ["sit", "loaf", "sleep"]},
+    {"text": "Mimi is so quiet you almost forgot she was there.", "poses": ["loaf", "sit"]},
+    {
+      "text": "Mimi's blue eyes catch the lamplight.",
+      "poses": ["sit", "loaf"],
+      "when": ["evening", "night", "late night"]
+    }
+  ],
+  "look": {
+    "looks": {
+      "stranger": "A small Siamese with chocolate ears and a blue collar. Her blue eyes are already on you.",
+      "curious": "Mimi, the shy one. She watches you, and looks away when you look back.",
+      "familiar": "Mimi. Up close, her blue eyes have little flecks of grey.",
+      "friend": "Mimi, quiet as ever. She stays now when you look at her.",
+      "your_cat": "Mimi, who trusts you. That doesn't happen often."
+    },
+    "doing": {
+      "sit": "She sits {where}, very still.",
+      "stand": "She stands {where}, ready to slip away.",
+      "loaf": "She is lying {where}, paws tucked under.",
+      "sleep": "She is asleep {where}, head tucked in. Only her ears show."
+    },
+    "rest": "Mimi would like some quiet now.",
+    "actions": [
+      {
+        "text": "Blink slowly at her",
+        "tier": "curious",
+        "reply": ["Mimi blinks back, very slowly."],
+        "bond": 3,
+        "manner": "calm"
+      },
+      {
+        "text": "Reach out towards her",
+        "tier": "curious",
+        "reply": ["Mimi flinches and slips away."],
+        "bond": -2,
+        "manner": "sudden",
+        "then": "leave"
+      },
+      {
+        "text": "Watch her sleep",
+        "tier": "curious",
+        "poses": ["sleep"],
+        "reply": ["Mimi's ear twitches, then goes still again."],
+        "bond": 1,
+        "manner": "calm"
+      },
+      {
+        "text": "Hold out your fingers, very slowly",
+        "tier": "familiar",
+        "reply": ["Mimi stretches her neck and sniffs them. Just once."],
+        "bond": 3,
+        "manner": "calm"
+      },
+      {
+        "text": "Call her name",
+        "tier": "familiar",
+        "reply": ["Mimi's ears go flat. She leaves without a sound."],
+        "bond": -2,
+        "manner": "sudden",
+        "then": "leave"
+      },
+      {
+        "text": "Stroke her, very gently",
+        "tier": "friend",
+        "reply": ["Mimi lets you. Her eyes close halfway."],
+        "bond": 3,
+        "manner": "calm"
+      },
+      {
+        "text": "Make room for her on your table",
+        "tier": "friend",
+        "comes_to": "table",
+        "reply": ["Mimi climbs onto your table without a sound and curls up near your book."],
+        "bond": 3,
+        "manner": "calm",
+        "then": "sleep"
+      },
+      {
+        "text": "Let her sleep on your lap",
+        "tier": "your_cat",
+        "reply": ["Mimi steps onto your lap, turns around twice and falls asleep.", "Nobody moves for a long while."],
+        "bond": 2,
+        "manner": "calm",
+        "then": "away"
+      }
+    ]
+  },
+  "away": [
+    {"bond": "new", "gone": "short", "text": "There's no sign of Mimi. She's probably somewhere high up."},
+    {"bond": "new", "gone": "short", "text": "Mimi watches you come in, from as far away as she can."},
+    {"bond": "new", "gone": "long", "text": "Mimi watches you from the top of the bookcase, ready to leave."},
+    {"bond": "new", "gone": "long", "text": "A dark tail disappears behind the books. Mimi saw you first."},
+    {"bond": "knows", "gone": "short", "text": "Mimi looks up when you come in, and doesn't run away."},
+    {
+      "bond": "knows",
+      "gone": "short",
+      "text": "Mimi is in the cat bed. She opens one blue eye, then closes it again."
+    },
+    {"bond": "knows", "gone": "long", "text": "Mimi comes out from behind the books when she hears you."},
+    {
+      "bond": "knows",
+      "gone": "long",
+      "text": "Mimi blinks at you slowly from across the room. She remembers you."
+    },
+    {
+      "bond": "yours",
+      "gone": "short",
+      "text": "Mimi is curled up on your chair. She moves over, just enough."
+    },
+    {
+      "bond": "yours",
+      "gone": "short",
+      "text": "Mimi doesn't come over, but she watches you sit down. She looks pleased."
+    },
+    {
+      "bond": "yours",
+      "gone": "long",
+      "text": "Mimi comes down from the bookcase the moment you sit, and settles near your feet."
+    },
+    {
+      "bond": "yours",
+      "gone": "long",
+      "text": "Mimi was by the door when you came in. She pretends she just happened to be there."
+    }
+  ]
+}

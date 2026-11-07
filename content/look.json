@@ -1,0 +1,51 @@
+{
+  "_about": [
+    "What you see in Look around (Esc menu): ← → move between the window, each cat in the room and your table.",
+    "names: the panel's title for the window and your table (cats show their own name).",
+    "spots: each cat spot in words, for {where} in the cats' look lines (content/moments).",
+    "window, table: lines describing them; the game picks one that fits. Conditions (all optional):",
+    "  weather (clear, cloudy, drizzle, rain, heavy_rain, fog, snow), when (late night, dawn, morning, afternoon, evening, night),",
+    "  cup (table only: none, warm, cooling, low, empty; {drink} is your drink). Lines with conditions are picked more often;",
+    "  each needs at least one line with none. Keep each line to about two lines of the box (90 letters)."
+  ],
+  "names": {"window": "The window", "table": "Your table"},
+  "spots": {
+    "sill": "on the windowsill",
+    "shelf_top": "on top of the bookcase",
+    "sideboard": "on the sideboard",
+    "cushion": "in the cat bed",
+    "table": "on your table",
+    "floor": "on the floor"
+  },
+  "window": [
+    {"text": "Rain runs down the glass. The rooftops are dark and shiny.", "weather": ["rain"]},
+    {"text": "The rain is loud on the glass. Nobody is out on the balconies.", "weather": ["heavy_rain"]},
+    {"text": "A soft drizzle. The zinc roofs have gone grey.", "weather": ["drizzle"]},
+    {"text": "Fog has swallowed the far rooftops. Only the nearest chimneys show.", "weather": ["fog"]},
+    {"text": "Snow is settling on the rooftops and on the balcony rail.", "weather": ["snow"]},
+    {"text": "Low clouds over Paris. The light is soft and even.", "weather": ["cloudy"]},
+    {
+      "text": "The sun is on the zinc roofs. Somewhere, a window is open.",
+      "weather": ["clear"],
+      "when": ["morning", "afternoon"]
+    },
+    {"text": "The sky over the rooftops is getting lighter.", "when": ["dawn"]},
+    {
+      "text": "The Eiffel Tower is lit, and windows glow across the street.",
+      "weather": ["clear", "cloudy"],
+      "when": ["evening", "night"]
+    },
+    {"text": "Lit windows across the street go dark, one by one.", "when": ["night"]},
+    {"text": "The city is asleep. A single window is still lit.", "when": ["late night"]},
+    {"text": "The rooftops of Paris, chimney pots and all."}
+  ],
+  "table": [
+    {"text": "Your book is open on the marble. No cup yet.", "cup": "none"},
+    {"text": "Your {drink} is still warm. Steam curls up from it.", "cup": "warm"},
+    {"text": "Your {drink} is cooling down nicely.", "cup": "cooling"},
+    {"text": "There's a little {drink} left at the bottom.", "cup": "low"},
+    {"text": "Your cup is empty. It left a faint ring on the marble.", "cup": "empty"},
+    {"text": "The candle flickers on the marble.", "when": ["evening", "night", "late night"]},
+    {"text": "The marble is cool under your hands. Your book is open."}
+  ]
+}

@@ -159,7 +159,8 @@ func (g *Game) drawPause(c *canvas.Canvas, ox, oy int) {
 	}
 	w := inner + 6
 	h := top + len(m.items) + 1
-	p := panel{c: c, x: ox + (FrameW-w)/2, y: oy + FrameH - h - 3, w: w, h: h, alpha: 1}
+	// In the middle of the café, clear of the dialogue box low on the left.
+	p := panel{c: c, x: ox + (FrameW-w)/2, y: oy + (FrameH-h)/2, w: w, h: h, alpha: 1}
 	p.draw()
 	if title != "" {
 		p.write(3, 1, title, boxInk)

@@ -1,0 +1,136 @@
+{
+  "_about": [
+    "Small talk: a line now and then about the café, the street, Paris and Nala's touches (how often: content/pacing.json).",
+    "when and weather are optional, as in welcome.json; about is only a note for you (Nala, café, street, Paris).",
+    "A line isn't used again until most of the others have been. Keep each to about 3 lines of 46 letters."
+  ],
+  "lines": [
+    {
+      "text": "Nala's handwriting is still on the chalkboard. Someone has drawn a little paw next to the prices.",
+      "about": "Nala"
+    },
+    {
+      "text": "The books on the bottom shelf are Nala's. Each book was picked out with thought.",
+      "about": "Nala"
+    },
+    {
+      "text": "The cushions in the cat bed were Nala's choice. Of course, the cats have already approved of them.",
+      "about": "Nala"
+    },
+    {
+      "text": "There's a note tucked into the menu: \"Please don't feed the cats. They will lie to you.\"",
+      "about": "Nala"
+    },
+    {"text": "None of the cups match. Nala likes it that way.", "about": "Nala"},
+    {"text": "The chalkboard says \"The cats are not on the menu.\" Underlined twice.", "about": "Nala"},
+    {"text": "Someone has left a bookmark in one of Nala's books, halfway through.", "about": "Nala"},
+    {
+      "text": "The ivy on the bookcase is doing well. Someone waters it, though you never see who.",
+      "about": "Nala"
+    },
+    {"text": "The radiator ticks quietly as it warms up.", "about": "café"},
+    {"text": "There's a dent in the cushion of the cat bed, exactly cat-sized.", "about": "café"},
+    {"text": "Your book now has a bookmark in it. You don't remember putting it there.", "about": "café"},
+    {
+      "text": "The lamp on the sideboard has a slightly crooked shade. Nobody has ever straightened it.",
+      "about": "café"
+    },
+    {
+      "text": "The marble of your table has a small chip in one corner. It's probably been there for years.",
+      "about": "café"
+    },
+    {"text": "There are a few cream-coloured hairs on the chair across from you.", "about": "café"},
+    {"text": "Somewhere behind you, a cup is set down on a saucer.", "about": "café"},
+    {
+      "text": "The candle on your table burns very slowly.",
+      "about": "café",
+      "when": ["evening", "night", "late night"]
+    },
+    {
+      "text": "Down in the street, someone is pulling up the shutters of a bakery.",
+      "about": "street",
+      "when": ["dawn", "morning"]
+    },
+    {"text": "The first lights come on in the bakery down the street.", "about": "street", "when": ["dawn"]},
+    {"text": "A delivery van stops below, then goes again.", "about": "street", "when": ["morning"]},
+    {
+      "text": "Somewhere below, a scooter buzzes past and fades away.",
+      "about": "street",
+      "when": ["morning", "afternoon"]
+    },
+    {
+      "text": "It's the slow part of the afternoon. Nobody is in a hurry.",
+      "about": "street",
+      "when": ["afternoon"]
+    },
+    {
+      "text": "Someone across the street is watering the plants on their balcony.",
+      "about": "street",
+      "when": ["morning", "afternoon", "evening"],
+      "weather": ["clear", "cloudy"]
+    },
+    {"text": "The windows across the street light up, one by one.", "about": "street", "when": ["evening"]},
+    {"text": "A late bus goes by in the street below, almost empty.", "about": "street", "when": ["night"]},
+    {
+      "text": "Even the pigeons are asleep. Paris is very quiet at this hour.",
+      "about": "Paris",
+      "when": ["late night"]
+    },
+    {
+      "text": "A pigeon lands on the balcony rail, looks in, and leaves.",
+      "about": "street",
+      "when": ["dawn", "morning", "afternoon"],
+      "weather": ["clear", "cloudy", "drizzle"]
+    },
+    {
+      "text": "Paris has a lot of chimney pots. You try to count them, and give up.",
+      "about": "Paris",
+      "when": ["dawn", "morning", "afternoon", "evening"]
+    },
+    {
+      "text": "If you wait for the hour, the Eiffel Tower sparkles.",
+      "about": "Paris",
+      "when": ["evening", "night"],
+      "weather": ["clear", "cloudy"]
+    },
+    {
+      "text": "On days like this, the whole city seems to have its windows open.",
+      "about": "Paris",
+      "when": ["morning", "afternoon"],
+      "weather": ["clear"]
+    },
+    {
+      "text": "Grey sky, grey roofs. The lamps inside look warmer for it.",
+      "about": "Paris",
+      "weather": ["cloudy"]
+    },
+    {
+      "text": "Umbrellas go by in the street below. Mostly black, one yellow.",
+      "about": "street",
+      "when": ["morning", "afternoon", "evening"],
+      "weather": ["rain", "drizzle"]
+    },
+    {
+      "text": "Rain drums on the gutter outside the window.",
+      "about": "café",
+      "weather": ["rain", "heavy_rain"]
+    },
+    {
+      "text": "Nobody is out in this. Except the pigeons, who look annoyed.",
+      "about": "street",
+      "when": ["dawn", "morning", "afternoon", "evening"],
+      "weather": ["heavy_rain"]
+    },
+    {
+      "text": "It's the kind of drizzle Paris is known for: not quite rain, never quite dry.",
+      "about": "Paris",
+      "weather": ["drizzle"]
+    },
+    {"text": "In the fog, the street below sounds closer than it is.", "about": "street", "weather": ["fog"]},
+    {
+      "text": "Snow muffles the street. Even the scooters sound polite.",
+      "about": "street",
+      "weather": ["snow"]
+    }
+  ]
+}

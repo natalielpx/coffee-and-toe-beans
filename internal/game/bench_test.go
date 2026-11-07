@@ -25,6 +25,6 @@ func benchFrame(b *testing.B, w, h int, mode canvas.Mode) {
 	}
 }
 
-func BenchmarkFrame80x32(b *testing.B)      { benchFrame(b, 80, 32, canvas.TrueColor) }
-func BenchmarkFrame80x32in256(b *testing.B) { benchFrame(b, 80, 32, canvas.Color256) }
-func BenchmarkFrame200x60(b *testing.B)     { benchFrame(b, 200, 60, canvas.TrueColor) }
+func BenchmarkFrame104x42(b *testing.B)      { benchFrame(b, 104, 42, canvas.TrueColor) }
+func BenchmarkFrame104x42in256(b *testing.B) { benchFrame(b, 104, 42, canvas.Color256) }
+func BenchmarkFrame200x60(b *testing.B)      { benchFrame(b, 200, 60, canvas.TrueColor) }

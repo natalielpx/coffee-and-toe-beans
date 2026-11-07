@@ -16,6 +16,7 @@ import (
 	"coffee-and-toe-beans/internal/dialogue"
 	"coffee-and-toe-beans/internal/drinks"
 	"coffee-and-toe-beans/internal/rgb"
+	"coffee-and-toe-beans/internal/save"
 	"coffee-and-toe-beans/internal/scene"
 	"coffee-and-toe-beans/internal/sprites"
 	"coffee-and-toe-beans/internal/text"
@@ -23,11 +24,14 @@ import (
 	"coffee-and-toe-beans/internal/weather"
 )
 
-// The café is drawn at this size, in terminal cells.
+// The café is drawn at this size, in terminal cells (104 x 84 pixels).
 const (
-	FrameW = 80
-	FrameH = 32
+	FrameW = 104
+	FrameH = 42
 )
+
+// titleRow is the row of the title card's words, a little above the middle.
+const titleRow = FrameH*7/16 + 1
 
 // Key is a player input, already translated from the terminal's key codes.
 type Key int
@@ -53,7 +57,20 @@ type Config struct {
 	Weather   string      // keep this weather (for previews); "" for ambient
 	ColorMode canvas.Mode // true color or 256 colors
 	Reduced   bool        // reduced motion
+	Quiet     bool        // quiet mode: moments and small talk half as often
 	Seed      uint64      // for the little random choices (0: from the clock)
+	// Save is what the café remembers from earlier visits (nil: a first
+	// visit with nothing remembered).
+	Save *save.Data
+	// Store is called to save (every minute or so, and when you leave);
+	// nil means nothing is saved (previews and tests).
+	Store func(*save.Data) error
+	// Away pretends your last visit was this long ago (for testing the
+	// away notes); 0 uses the save's real last visit.
+	Away time.Duration
+	// Bonds sets how well cats know you at the start, by cat id (0..100),
+	// on top of the save (previews and tests).
+	Bonds map[string]float64
 }
 
 type phase int
@@ -79,47 +96,43 @@ var (
 	titleScale = 0.42 // how dim the café is behind the title card
 )
 
-// Attention is what you're looking at: ← → move it. In this milestone it
-// changes nothing on screen yet; the cats and the narrator will use it.
-type Attention int
-
-// The places your attention can rest, from left to right.
-const (
-	AttendWindow Attention = iota
-	AttendCats
-	AttendTable
-	attentionCount
-)
-
 // Game is one session at the café.
 type Game struct {
-	cfg    Config
-	ui     *text.UI
-	lib    *sprites.Library
-	sched  *timeofday.Schedule
-	wcfg   *weather.Config
-	wstate *weather.State
-	scene  *scene.Scene
-	clock  Clock
-	talk   *dialogue.Library
-	drinks *drinks.Menu
-	rng    *rand.Rand
+	cfg       Config
+	ui        *text.UI
+	lib       *sprites.Library
+	sched     *timeofday.Schedule
+	wcfg      *weather.Config
+	wstate    *weather.State
+	scene     *scene.Scene
+	clock     Clock
+	talk      *dialogue.Library
+	drinks    *drinks.Menu
+	cat       catPart
+	mem       memory
+	lookWords lookFile
+	rng       *rand.Rand
 
 	lastReal time.Time
 	anim     float64 // seconds since start, for gentle pulses
 	phase    phase
 	progress float64 // 0..1 through a fade
 
-	pause     *pauseMenu
-	menu      *drinksMenu
-	box       *talkBox   // the dialogue box on screen
-	queue     []*talkBox // conversations waiting their turn
-	attention Attention
+	pause *pauseMenu
+	menu  *drinksMenu
+	box   *talkBox   // the dialogue box on screen
+	queue []*talkBox // conversations waiting their turn
+	look  *lookMode  // Look around (from the Esc menu), or nil
 
 	inCafe  float64   // real seconds since stepping inside
 	greeted bool      // the "arrive" conversation has been offered
 	order   *cup      // the cup on your table (nil: none yet)
 	offerAt time.Time // café time to offer another drink (zero: none due)
+
+	suggestion *drinks.Drink // the drink suggested when the cup is empty
+	lastOffer  string        // the last cup_empty conversation, not to repeat
+
+	pinned []scene.CatDraw // cats placed by hand (for previews), or nil
 
 	w, h  int
 	frame *canvas.Canvas
@@ -150,10 +163,11 @@ func New(cfg Config, fsys fs.FS, realNow time.Time) (*Game, error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, id := range []string{convArrive, convCupEmpty} {
-		if _, ok := talk.Get(id); !ok {
-			return nil, fmt.Errorf("content/dialogue: the conversation %q is missing", id)
-		}
+	if _, ok := talk.Get(convArrive); !ok {
+		return nil, fmt.Errorf("content/dialogue: the conversation %q is missing", convArrive)
+	}
+	if len(talk.WithPrefix(convCupEmpty)) == 0 {
+		return nil, fmt.Errorf("content/dialogue: there should be at least one conversation called %q (or starting with it)", convCupEmpty)
 	}
 	menu, err := drinks.Load(fsys, "drinks.json")
 	if err != nil {
@@ -185,6 +199,15 @@ func New(cfg Config, fsys fs.FS, realNow time.Time) (*Game, error) {
 		scene: sc, clock: clock, talk: talk, drinks: menu,
 		rng:      rand.New(rand.NewPCG(seed, seed>>17|1)),
 		lastReal: realNow, w: FrameW, h: FrameH,
+	}
+	if err := g.loadCats(fsys); err != nil {
+		return nil, err
+	}
+	if err := g.loadLook(fsys); err != nil {
+		return nil, err
+	}
+	if err := g.loadMemory(fsys, realNow); err != nil {
+		return nil, err
 	}
 	g.Tick(realNow)
 	return g, nil
@@ -225,9 +248,6 @@ func (g *Game) Done() bool { return g.phase == phaseGone }
 // Goodbye is the line printed after the game closes.
 func (g *Game) Goodbye() string { return g.ui.Goodbye }
 
-// Attention is what the player is looking at.
-func (g *Game) Attention() Attention { return g.attention }
-
 // Resize tells the game the terminal's size in cells.
 func (g *Game) Resize(w, h int) {
 	if w < 0 {
@@ -252,6 +272,7 @@ func (g *Game) Tick(realNow time.Time) {
 	now := g.clock.Now(realNow)
 	g.wstate.Advance(now)
 	g.updateCup(now)
+	g.updateCats(dt)
 	g.scene.Update(dt, scene.Inputs{
 		Now:       now,
 		Light:     g.sched.At(now),
@@ -267,7 +288,11 @@ func (g *Game) Tick(realNow time.Time) {
 		}
 	case phaseCafe:
 		g.inCafe += dt
+		g.autosave(dt)
 		g.updateTalk(dt, now)
+		if g.look != nil {
+			g.updateLook(dt)
+		}
 	case phaseLeaving:
 		g.progress += dt / g.fadeTime(leaveSeconds)
 		if g.progress >= 1 {
@@ -286,6 +311,9 @@ func (g *Game) fadeTime(normal float64) float64 {
 // Key handles one key press.
 func (g *Game) Key(k Key) {
 	if k == KeyQuit {
+		if g.phase != phaseGone {
+			g.leave()
+		}
 		g.phase, g.progress = phaseGone, 1
 		return
 	}
@@ -295,6 +323,10 @@ func (g *Game) Key(k Key) {
 	}
 	if g.menu != nil {
 		g.drinksKey(k)
+		return
+	}
+	if g.look != nil {
+		g.lookKey(k)
 		return
 	}
 	switch g.phase {
@@ -327,16 +359,6 @@ func (g *Game) cafeKey(k Key) {
 	case KeyBack:
 		g.openPause()
 		return
-	case KeyLeft:
-		if g.attention > 0 {
-			g.attention--
-		}
-		return
-	case KeyRight:
-		if g.attention < attentionCount-1 {
-			g.attention++
-		}
-		return
 	}
 	b := g.box
 	if b == nil || b.Answered() {
@@ -358,9 +380,9 @@ func (g *Game) cafeKey(k Key) {
 type menuAction int
 
 const (
-	actLeave menuAction = iota
-	actStay
-	actOrder
+	actOrder menuAction = iota
+	actLook
+	actLeave
 )
 
 type pauseMenu struct {
@@ -369,11 +391,12 @@ type pauseMenu struct {
 }
 
 func (g *Game) openPause() {
-	// "Leave the café" comes first, as Nala asked; Esc then Enter leaves.
-	// Settings join the menu in milestone 5.
-	p := &pauseMenu{items: []menuAction{actLeave, actStay}}
+	// Order a drink first, Leave the café last (Nala's choice after the M2
+	// review). Esc closes the menu, so no "stay" item is needed. On the
+	// title card there's nothing to order yet. Settings join in milestone 5.
+	p := &pauseMenu{items: []menuAction{actLeave}}
 	if g.phase == phaseCafe {
-		p.items = append(p.items, actOrder)
+		p.items = []menuAction{actOrder, actLook, actLeave}
 	}
 	g.pause = p
 	g.holdTalk(true)
@@ -388,8 +411,8 @@ func (g *Game) label(a menuAction) string {
 	switch a {
 	case actLeave:
 		return g.ui.MenuLeave
-	case actStay:
-		return g.ui.MenuStay
+	case actLook:
+		return g.ui.MenuLook
 	}
 	return g.ui.MenuOrder
 }
@@ -411,12 +434,14 @@ func (g *Game) pauseKey(k Key) {
 		switch p.items[p.sel] {
 		case actLeave:
 			g.closePause()
+			g.leave()
 			g.phase, g.progress = phaseLeaving, 0
-		case actStay:
-			g.closePause()
 		case actOrder:
 			g.pause = nil
 			g.openDrinks(true)
+		case actLook:
+			g.pause = nil
+			g.openLook()
 		}
 	}
 }
@@ -445,6 +470,7 @@ func (g *Game) View() string {
 		return c.String(g.cfg.ColorMode)
 	}
 	ox, oy := (g.w-FrameW)/2, (g.h-FrameH)/2
+	_ = g.scene.SetCats(g.catsToDraw())
 	g.scene.Draw(c, ox, oy*2)
 
 	switch g.phase {
@@ -456,7 +482,9 @@ func (g *Game) View() string {
 		g.dim(c, ox, oy, 1-t)
 		g.drawTitle(c, ox, oy, math.Max(0, 1-g.progress*2.2))
 	case phaseCafe:
-		if g.box != nil {
+		if g.look != nil {
+			g.drawLook(c, ox, oy)
+		} else if g.box != nil {
 			g.drawTalk(c, ox, oy, g.box)
 		}
 	case phaseLeaving, phaseGone:
@@ -483,7 +511,7 @@ func (g *Game) dim(c *canvas.Canvas, ox, oy int, amount float64) {
 		return
 	}
 	for y := 0; y < FrameH*2; y++ {
-		band := math.Exp(-math.Pow((float64(y)-30)/13, 2)) // centered on the title
+		band := math.Exp(-math.Pow((float64(y)-float64(titleRow*2+1))/16, 2)) // centered on the title
 		f := titleScale * (1 - 0.35*band)
 		f = 1 - (1-f)*amount
 		for x := 0; x < FrameW; x++ {
@@ -548,19 +576,19 @@ func (g *Game) drawTitle(c *canvas.Canvas, ox, oy int, alpha float64) {
 		return
 	}
 	title := spaced(g.ui.Title)
-	rule := strings.Repeat("─", 17) + "  ·  " + strings.Repeat("─", 17)
-	writeText(c, ox+centered(rule), oy+12, rule, softInk, alpha*0.8)
-	writeStyled(c, ox+centered(title), oy+14, title, titleInk, alpha, true)
-	writeText(c, ox+centered(rule), oy+16, rule, softInk, alpha*0.8)
+	rule := strings.Repeat("─", 21) + "  ·  " + strings.Repeat("─", 21)
+	writeText(c, ox+centered(rule), oy+titleRow-2, rule, softInk, alpha*0.8)
+	writeStyled(c, ox+centered(title), oy+titleRow, title, titleInk, alpha, true)
+	writeText(c, ox+centered(rule), oy+titleRow+2, rule, softInk, alpha*0.8)
 	if g.ui.Subtitle != "" {
-		writeText(c, ox+centered(g.ui.Subtitle), oy+17, g.ui.Subtitle, softInk, alpha)
+		writeText(c, ox+centered(g.ui.Subtitle), oy+titleRow+3, g.ui.Subtitle, softInk, alpha)
 	}
 
 	pulse := 1.0
 	if !g.cfg.Reduced {
 		pulse = 0.6 + 0.4*(0.5+0.5*math.Sin(g.anim*2*math.Pi/3.6))
 	}
-	writeText(c, ox+centered(g.ui.Prompt), oy+19, g.ui.Prompt, softInk, alpha*pulse)
+	writeText(c, ox+centered(g.ui.Prompt), oy+titleRow+5, g.ui.Prompt, softInk, alpha*pulse)
 	if g.ui.Controls != "" {
 		writeText(c, ox+centered(g.ui.Controls), oy+FrameH-2, g.ui.Controls, dimInk, alpha)
 	}

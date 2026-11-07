@@ -1,0 +1,286 @@
+# Hunter: a playful orange tabby with a teal bandana (it matches the
+# curtains). Chases steam, strings and raindrops.
+# Drawn from Nala's reference (hunter_sitting.png, PixelLab, edited by Nala).
+# See README.md in this folder for the format. The poses and which frame is
+# which are listed in content/cats/hunter.json.
+
+palette hunter
+  B #e8a3a0  toe bean (pink)
+  a #7a4c30  ear, deep shade
+  b #d28755  fur
+  c #e2ab77  fur, light
+  d #a0704d  soft edge
+  e #aa5d38  stripe
+  f #da9662  fur, warm
+  g #bd6c42  fur, shade
+  h #e6b586  fur, highlight
+  i #955a37  stripe, dark
+  j #6c3d24  shadow
+  k #a7805d  soft edge, light
+  l #4c2612  eye (left)
+  m #d7a26d  fur, muzzle shade
+  n #341305  eye (right)
+  o #b39b82  soft edge, grey
+  p #beac94  soft edge, pale
+  q #f3e1c7  white fur
+  r #f9ecd1  white fur, bright
+  s #d9b99a  muzzle shade
+  t #c1b7a3  tail tip edge
+  u #ead2b4  white, shade
+  v #7f492b  stripe, darkest
+  w #24615e  bandana, dark
+  x #3f8f8a  bandana
+  y #7fc1bb  bandana, light
+  z #a79079  soft edge, cool
+  A #fcf5ea  white paws
+
+sprite hunter_sit
+  use hunter
+grid
+...a.............
+..ab.............
+..bcaaaddd.......
+.dcefgbhhd.......
+.ffbbffgg........
+ifjffiffd........
+kblfmnmgd.....op.
+kcqmrsmcd...gorrt
+.oqrqruk....khvrp
+..wxyxxxw...kcvo.
+.oxyxxxwgfd..kfk.
+.zsxyxwfgffd..dfd
+.ziqxwefffegd.ded
+..zivgvfvvffd.dfd
+..zfvfvvfffefdfd.
+..zqjgijfffffdd..
+.dAqqAzuAufffd...
+....oz.zkkkkd....
+end
+
+sprite hunter_stand
+  use hunter
+grid
+...a...........pt.
+..ab..........prro
+..bcaaaddd....orvk
+.dcefgbhhd.....kfd
+.ffbbffgg......dfd
+ifjffiffd......dfd
+kblfmnmgd.....dfd.
+kcqmrsmcdzkkkdgfd.
+.oqrqrukhchcffgd..
+..wxyxxxwfffvffd..
+.oxyxxxwgfffefffd.
+.zsxyxwfgffffffgd.
+.ziqxwefgeeeeffed.
+..cf.ge...ge.cf...
+..cf.ge...ge.fd...
+..AA.uu...uu.AA...
+end
+
+sprite hunter_loaf
+  use hunter
+grid
+...a..............
+..ab..............
+..bcaaaddd........
+.dcefgbhhdzkkkkk..
+.ffbbffggdhcffffd.
+ifjffiffdfvffvffgd
+kblfmnmgdffvffvffd
+kcqmrsmcdfffffffgd
+.oqrqrukgffvfffgfd
+..wxyxxxwfffgfffgd
+.zAAqAzdgeeeeggrrd
+..oooo.kddddddkpt.
+end
+
+sprite hunter_sleep
+  use hunter
+grid
+...a.....................
+..ab.....................
+..bcaaaddd...............
+.dcefgbhhdkkkkkkkkk......
+.ffbbffggchffvffvffhk....
+iffffhffdffvffvffvfffdkk.
+kvvfvvmgdffffffffffffgfvrt
+kcqmrsmcdguuuuuuuuuufgdkk.
+.oqrqrukuuuuuuuuuuuuuuuuAA
+BAuuuuuuuk.......kkkkkkkk.
+end
+
+sprite hunter_sit_blink
+  use hunter
+grid
+...a.............
+..ab.............
+..bcaaaddd.......
+.dcefgbhhd.......
+.ffbbffgg........
+ifjffiffd........
+kbefmemgd.....op.
+kcqmrsmcd...gorrt
+.oqrqruk....khvrp
+..wxyxxxw...kcvo.
+.oxyxxxwgfd..kfk.
+.zsxyxwfgffd..dfd
+.ziqxwefffegd.ded
+..zivgvfvvffd.dfd
+..zfvfvvfffefdfd.
+..zqjgijfffffdd..
+.dAqqAzuAufffd...
+....oz.zkkkkd....
+end
+
+sprite hunter_sit_ear
+  use hunter
+grid
+..a..............
+.ab..............
+..bcaaaddd.......
+.dcefgbhhd.......
+.ffbbffgg........
+ifjffiffd........
+kblfmnmgd.....op.
+kcqmrsmcd...gorrt
+.oqrqruk....khvrp
+..wxyxxxw...kcvo.
+.oxyxxxwgfd..kfk.
+.zsxyxwfgffd..dfd
+.ziqxwefffegd.ded
+..zivgvfvvffd.dfd
+..zfvfvvfffefdfd.
+..zqjgijfffffdd..
+.dAqqAzuAufffd...
+....oz.zkkkkd....
+end
+
+sprite hunter_sit_tail
+  use hunter
+grid
+...a.............
+..ab.............
+..bcaaaddd.......
+.dcefgbhhd.......
+.ffbbffgg........
+ifjffiffd........
+kblfmnmgd....op..
+kcqmrsmcd..gorrt.
+.oqrqruk...khvrp.
+..wxyxxxw...kcvo.
+.oxyxxxwgfd..kfk.
+.zsxyxwfgffd..dfd
+.ziqxwefffegd.ded
+..zivgvfvvffd.dfd
+..zfvfvvfffefdfd.
+..zqjgijfffffdd..
+.dAqqAzuAufffd...
+....oz.zkkkkd....
+end
+
+sprite hunter_stand_blink
+  use hunter
+grid
+...a...........pt.
+..ab..........prro
+..bcaaaddd....orvk
+.dcefgbhhd.....kfd
+.ffbbffgg......dfd
+ifjffiffd......dfd
+kbefmemgd.....dfd.
+kcqmrsmcdzkkkdgfd.
+.oqrqrukhchcffgd..
+..wxyxxxwfffvffd..
+.oxyxxxwgfffefffd.
+.zsxyxwfgffffffgd.
+.ziqxwefgeeeeffed.
+..cf.ge...ge.cf...
+..cf.ge...ge.fd...
+..AA.uu...uu.AA...
+end
+
+sprite hunter_stand_tail
+  use hunter
+grid
+...a..........pt..
+..ab.........prro.
+..bcaaaddd...orvk.
+.dcefgbhhd.....kfd
+.ffbbffgg......dfd
+ifjffiffd......dfd
+kblfmnmgd.....dfd.
+kcqmrsmcdzkkkdgfd.
+.oqrqrukhchcffgd..
+..wxyxxxwfffvffd..
+.oxyxxxwgfffefffd.
+.zsxyxwfgffffffgd.
+.ziqxwefgeeeeffed.
+..cf.ge...ge.cf...
+..cf.ge...ge.fd...
+..AA.uu...uu.AA...
+end
+
+sprite hunter_loaf_blink
+  use hunter
+grid
+...a..............
+..ab..............
+..bcaaaddd........
+.dcefgbhhdzkkkkk..
+.ffbbffggdhcffffd.
+ifjffiffdfvffvffgd
+kbefmemgdffvffvffd
+kcqmrsmcdfffffffgd
+.oqrqrukgffvfffgfd
+..wxyxxxwfffgfffgd
+.zAAqAzdgeeeeggrrd
+..oooo.kddddddkpt.
+end
+
+sprite hunter_loaf_ear
+  use hunter
+grid
+..a...............
+.ab...............
+..bcaaaddd........
+.dcefgbhhdzkkkkk..
+.ffbbffggdhcffffd.
+ifjffiffdfvffvffgd
+kblfmnmgdffvffvffd
+kcqmrsmcdfffffffgd
+.oqrqrukgffvfffgfd
+..wxyxxxwfffgfffgd
+.zAAqAzdgeeeeggrrd
+..oooo.kddddddkpt.
+end
+
+sprite hunter_sleep_breathe
+  use hunter
+grid
+...a......................
+..ab......................
+..bcaaaddd................
+.dcefgbhhd................
+.ffbbffggckkkkkkkkk.......
+iffffhffdfhffvffvffhk.....
+kvvfvvmgdffvffvffvfffdkk..
+kcqmrsmcdgfffffffffffgfvrt
+.oqrqrukuuuuuuuuuuuuuuuuAA
+BAuuuuuuuk.......kkkkkkkk.
+end
+
+sprite hunter_sleep_ear
+  use hunter
+grid
+..a.......................
+.ab.......................
+..bcaaaddd................
+.dcefgbhhdkkkkkkkkk.......
+.ffbbffggchffvffvffhk.....
+iffffhffdffvffvffvfffdkk..
+kvvfvvmgdffffffffffffgfvrt
+kcqmrsmcdguuuuuuuuuufgdkk.
+.oqrqrukuuuuuuuuuuuuuuuuAA
+BAuuuuuuuk.......kkkkkkkk.
+end

@@ -1,7 +1,7 @@
 {
   "_about": [
     "The café's menu, in the order it's shown.",
-    "name and tagline appear on the menu; served is what the narrator says when the drink arrives (one is picked at random).",
+    "name and tagline appear on the menu; short (optional) is how the drink is called mid-sentence, e.g. 'cup of Earl Grey' (otherwise the name, with a small first letter); served is what the narrator says when the drink arrives (one is picked at random).",
     "icon is the little picture on the menu, from content/sprites/drinks.txt. cup is one of the 'cups' below.",
     "color is the drink itself; top is its surface: crema, foam, a sheen. Both are #rrggbb.",
     "from and until (24-hour clock, café time) limit when a drink is served; leave both out to serve it all day. until may be after midnight.",
@@ -24,9 +24,9 @@
       "color": "#9a6b45",
       "top": "#d8b48a",
       "served": [
-        "A café crème arrives, its crema still trembling.",
-        "Your café crème is set down with a small, polite clink.",
-        "A café crème, in the cup with the green band. It smells like a good morning, whatever the hour."
+        "Your café crème arrives.",
+        "A café crème, still too hot to drink.",
+        "Your café crème is set down in front of you."
       ]
     },
     {
@@ -38,8 +38,8 @@
       "color": "#5a3422",
       "top": "#7a4a30",
       "served": [
-        "A chocolat chaud, so thick the spoon considers standing up on its own.",
-        "The big ochre mug arrives, heavy and warm. Chocolat chaud, the old-fashioned kind."
+        "Your chocolat chaud arrives, thick and dark.",
+        "A chocolat chaud, in the big ochre mug."
       ]
     },
     {
@@ -51,21 +51,22 @@
       "color": "#b98a5e",
       "top": "#efe0c8",
       "served": [
-        "A chai latte arrives in a tall glass. Cardamom drifts up to meet you.",
-        "Chai latte, with a soft cap of foam and a whisper of cinnamon."
+        "Your chai latte arrives in a tall glass.",
+        "A chai latte, smelling of cardamom and cinnamon."
       ]
     },
     {
       "id": "earl_grey",
       "name": "Thé Earl Grey",
+      "short": "cup of Earl Grey",
       "tagline": "bergamot, in a fine porcelain cup",
       "icon": "icon_earlgrey",
       "cup": "teacup",
       "color": "#9a5f2e",
       "top": "#b8773e",
       "served": [
-        "Earl Grey, in the cup with the tiny painted roses. The bergamot gets there first.",
-        "A pot of Earl Grey has been steeping somewhere. Your cup arrives just right."
+        "Your Earl Grey arrives in the cup with the painted roses.",
+        "A cup of Earl Grey. You can smell the bergamot from here."
       ]
     },
     {
@@ -77,8 +78,8 @@
       "color": "#9fbf6e",
       "top": "#cfe0a8",
       "served": [
-        "A matcha latte, pale green and whisked smooth, in a wide bowl you hold with both hands.",
-        "Matcha latte. The foam is so fine it looks like moss after rain."
+        "Your matcha latte arrives in a wide bowl.",
+        "A matcha latte, pale green and frothy."
       ]
     },
     {
@@ -92,8 +93,8 @@
       "from": "17:00",
       "until": "02:00",
       "served": [
-        "Vin chaud, in a little glass mug. Orange peel and cinnamon, and the evening settles in.",
-        "A vin chaud arrives, a slice of orange riding on the rim."
+        "Your vin chaud arrives, with a slice of orange on the rim.",
+        "A vin chaud, warm and spiced."
       ]
     },
     {
@@ -107,18 +108,18 @@
       "from": "21:00",
       "until": "06:00",
       "served": [
-        "A tisane verveine, the color of late sunlight. Something to rest on.",
-        "Lemon verbena, steeped and gentle, in a glass cup. The night gets a little softer."
+        "Your tisane verveine arrives in a glass cup.",
+        "A tisane verveine, light and lemony."
       ]
     }
   ],
   "cups": {
-    "bistro":     {"sprite": "cup_bistro",     "steam": [6, 1]},
-    "teacup":     {"sprite": "cup_teacup",     "steam": [7, 1]},
-    "mug":        {"sprite": "cup_mug",        "steam": [5, 1]},
-    "bowl":       {"sprite": "cup_bowl",       "steam": [7, 1]},
-    "tall_glass": {"sprite": "cup_tall_glass", "steam": [4, 0]},
-    "glass_mug":  {"sprite": "cup_glass_mug",  "steam": [5, 2]},
-    "glass_cup":  {"sprite": "cup_glass_cup",  "steam": [5, 0]}
+    "bistro":     {"sprite": "cup_bistro",     "steam": [8, 1]},
+    "teacup":     {"sprite": "cup_teacup",     "steam": [9, 1]},
+    "mug":        {"sprite": "cup_mug",        "steam": [6, 1]},
+    "bowl":       {"sprite": "cup_bowl",       "steam": [9, 1]},
+    "tall_glass": {"sprite": "cup_tall_glass", "steam": [5, 0]},
+    "glass_mug":  {"sprite": "cup_glass_mug",  "steam": [6, 3]},
+    "glass_cup":  {"sprite": "cup_glass_cup",  "steam": [6, 0]}
   }
 }

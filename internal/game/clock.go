@@ -2,6 +2,7 @@ package game
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -84,4 +85,22 @@ func DetectColorMode(getenv func(string) string) canvas.Mode {
 		return canvas.TrueColor
 	}
 	return canvas.Color256
+}
+
+// ParseAway reads a length of time like 45m, 3h, 2d or 1w.
+func ParseAway(s string) (time.Duration, error) {
+	s = strings.TrimSpace(strings.ToLower(s))
+	if s == "" {
+		return 0, fmt.Errorf("give a length of time, like 3h or 2d")
+	}
+	unit := map[byte]time.Duration{'m': time.Minute, 'h': time.Hour, 'd': 24 * time.Hour, 'w': 7 * 24 * time.Hour}
+	u, ok := unit[s[len(s)-1]]
+	if !ok {
+		return 0, fmt.Errorf("%q should end in m, h, d or w (minutes, hours, days, weeks), like 3h or 2d", s)
+	}
+	n, err := strconv.ParseFloat(s[:len(s)-1], 64)
+	if err != nil || n <= 0 {
+		return 0, fmt.Errorf("%q should be a number followed by m, h, d or w, like 3h or 2d", s)
+	}
+	return time.Duration(n * float64(u)), nil
 }

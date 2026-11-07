@@ -141,8 +141,8 @@ func (c *Conversation) check() error {
 			}
 		}
 	}
-	if n := len(c.Choices); n == 1 || n > 4 {
-		return fmt.Errorf("has %d choices; use 2 to 4 (or none)", n)
+	if n := len(c.Choices); n == 1 || n > 5 {
+		return fmt.Errorf("has %d choices; use 2 to 5 (or none)", n)
 	}
 	for i, ch := range c.Choices {
 		if strings.TrimSpace(ch.Text) == "" {
@@ -179,6 +179,36 @@ func (l *Library) IDs() []string {
 	return out
 }
 
+// WithPrefix lists the conversations whose names start with prefix, sorted:
+// "cup_empty" finds cup_empty, cup_empty_quiet, and so on.
+func (l *Library) WithPrefix(prefix string) []string {
+	var out []string
+	for _, id := range l.IDs() {
+		if strings.HasPrefix(id, prefix) {
+			out = append(out, id)
+		}
+	}
+	return out
+}
+
+// Uses says whether any page or choice mentions {name}.
+func (c *Conversation) Uses(name string) bool {
+	tag := "{" + name + "}"
+	for _, p := range c.Pages {
+		for _, v := range p {
+			if strings.Contains(v, tag) {
+				return true
+			}
+		}
+	}
+	for _, ch := range c.Choices {
+		if strings.Contains(ch.Text, tag) {
+			return true
+		}
+	}
+	return false
+}
+
 // Open starts a conversation with placeholders like {drink} filled in.
 func (c *Conversation) Open(vals map[string]string, rng *rand.Rand, opts Options) *Box {
 	lines := c.Lines(rng)
@@ -197,4 +227,20 @@ func fill(s string, vals map[string]string) string {
 		s = strings.ReplaceAll(s, "{"+k+"}", v)
 	}
 	return s
+}
+
+// ParseConversation reads one conversation written in the usual format
+// (speaker, pages, choices, ignore). Other content, like the cats'
+// moments, wraps conversations in fields of its own and uses this to read
+// the conversation part.
+func ParseConversation(id, file string, raw []byte) (*Conversation, error) {
+	c := &Conversation{}
+	if err := json.Unmarshal(raw, c); err != nil {
+		return nil, fmt.Errorf("%s: %q: %v", file, id, err)
+	}
+	c.ID, c.File = id, file
+	if err := c.check(); err != nil {
+		return nil, fmt.Errorf("%s: %q: %v", file, id, err)
+	}
+	return c, nil
 }

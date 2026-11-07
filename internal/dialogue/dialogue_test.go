@@ -243,7 +243,7 @@ func TestParseErrors(t *testing.T) {
 	cases := map[string]string{
 		`{"conversations": {"a": {"pages": []}}}`:                                                            "at least one page",
 		`{"conversations": {"a": {"pages": [""]}}}`:                                                          "empty text",
-		`{"conversations": {"a": {"pages": ["x"], "choices": [{"text": "only"}], "ignore": 1}}}`:             "2 to 4",
+		`{"conversations": {"a": {"pages": ["x"], "choices": [{"text": "only"}], "ignore": 1}}}`:             "2 to 5",
 		`{"conversations": {"a": {"pages": ["x"], "choices": [{"text": "a"}, {"text": "b"}]}}}`:              "needs \"ignore\"",
 		`{"conversations": {"a": {"pages": ["x"], "choices": [{"text": "a"}, {"text": "b"}], "ignore": 3}}}`: "only 2 choices",
 		`{"conversations": {"a": {"pages": [42]}}}`:                                                          "text in quotes",
@@ -253,5 +253,40 @@ func TestParseErrors(t *testing.T) {
 		if err == nil || !strings.Contains(err.Error(), want) {
 			t.Errorf("%s: got %v, want an error mentioning %q", src, err, want)
 		}
+	}
+}
+
+func TestShuffleKeepsTheWrittenOrderInResults(t *testing.T) {
+	choices := []Choice{{Text: "a"}, {Text: "b", Do: "order"}, {Text: "c"}, {Text: "d"}}
+	seen := map[string]bool{}
+	for seed := uint64(1); seed <= 30; seed++ {
+		o := DefaultOptions()
+		o.Wait = true
+		b := Start("", []string{"Hm?"}, choices, 2, o) // ignore: "c"
+		b.Shuffle(rand.New(rand.NewPCG(seed, 1)))
+		var order string
+		for _, ch := range b.Choices() {
+			order += ch.Text
+		}
+		seen[order] = true
+		// Choosing "b" (wherever it is shown) reports choice 1 with its action.
+		b.Confirm()
+		for b.Choices()[b.Selected()].Text != "b" {
+			b.Down()
+		}
+		b.Confirm()
+		if r, _ := b.Done(); r.Choice != 1 || r.Do != "order" {
+			t.Fatalf("seed %d: chose b, got %+v", seed, r)
+		}
+		// Abandoned, it still takes "c", the written ignore choice.
+		b2 := Start("", []string{"Hm?"}, choices, 2, o)
+		b2.Shuffle(rand.New(rand.NewPCG(seed, 2)))
+		b2.Abandon()
+		if r, _ := b2.Done(); r.Choice != 2 || !r.Ignored {
+			t.Fatalf("seed %d: the quiet answer should stay c, got %+v", seed, r)
+		}
+	}
+	if len(seen) < 5 {
+		t.Errorf("only %d different orders in 30 shuffles", len(seen))
 	}
 }

@@ -351,9 +351,7 @@ func paintWindow(p *painter, raw json.RawMessage) error {
 	for y := y0; y < y0+h; y++ {
 		for x := x0; x < x0+w; x++ {
 			if x >= gx && x < gx+gw && y >= gy && y < gy+gh {
-				if x >= 0 && y >= 0 && x < p.r.w && y < p.r.h {
-					p.r.px[y*p.r.w+x] = pixel{glass: true, light: -1}
-				}
+				p.put(x, y, pixel{glass: true, light: -1})
 				continue
 			}
 			c := frame
@@ -607,7 +605,7 @@ func paintSprite(p *painter, raw json.RawMessage) error {
 				}
 				np.light = int8(lightIdx)
 			}
-			p.r.px[ty*p.r.w+tx] = np
+			p.put(tx, ty, np)
 		}
 	}
 	return nil

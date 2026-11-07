@@ -1,0 +1,22 @@
+{
+  "_about": [
+    "How often things happen. Minutes are café minutes [shortest, longest]; the game picks a time in between at random.",
+    "moment_minutes: a cat coming to you with a moment (always with choices; it waits for your answer). Most choices are in Look around (Esc menu).",
+    "retry_minutes: when no moment fits right now (no cat in the room, say), look again this much later.",
+    "small_talk_minutes: the narrator's small talk (content/narrator/small_talk.json).",
+    "quiet_after_minutes: small talk waits at least this long after anything else has been said.",
+    "question_seconds: real seconds a narrator question (\"Something to drink?\") waits before taking its quiet answer. Cat moments always wait.",
+    "cup_kept_minutes: come back within this many minutes and your drink is still on the table.",
+    "favourite_after_orders: a drink becomes your favourite once you've ordered it this many times (and more than any other).",
+    "autosave_seconds: how often the café saves while you're inside (it also saves when you leave).",
+    "Quiet mode (milestone 5) makes the moments and the small talk half as frequent."
+  ],
+  "moment_minutes": [10, 20],
+  "retry_minutes": 1,
+  "small_talk_minutes": [8, 15],
+  "quiet_after_minutes": 1,
+  "question_seconds": 90,
+  "cup_kept_minutes": 30,
+  "favourite_after_orders": 3,
+  "autosave_seconds": 60
+}

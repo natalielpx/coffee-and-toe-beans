@@ -1,0 +1,891 @@
+{
+  "_about": ["Hunter's moments and observations. The format is explained at the top of brie.json."],
+  "cat": "hunter",
+  "moments": {
+    "hunter_steam": {
+      "drink": "any",
+      "pages": ["Hunter has seen the steam rising from your cup.", "He crouches. His tail swishes."],
+      "choices": [
+        {"text": "Blow on the steam for him", "bond": 2},
+        {"text": "Move the cup away", "bond": 0},
+        {"text": "Watch what he does", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_raindrop": {
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": ["Hunter paws at a raindrop on the window. It slides away.", "He tries the next one."],
+      "choices": [
+        {"text": "Tap the glass for him", "bond": 2},
+        {"text": "Cheer him on", "bond": 1},
+        {"text": "Let him try", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_dash": {
+      "when": ["evening"],
+      "poses": ["stand", "sit"],
+      "pages": ["Hunter races across the room for no reason at all.", "Then he sits down, as if nothing happened."],
+      "choices": [
+        {"text": "Laugh", "bond": 2},
+        {"text": "Clap for him", "bond": 1},
+        {"text": "Pretend you didn't see", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_thread": {
+      "tier": "curious",
+      "pages": ["Hunter has spotted a loose thread on your sleeve. He is very interested in it."],
+      "choices": [
+        {"text": "Wiggle it for him", "bond": 3},
+        {"text": "Tuck it away", "bond": 0},
+        {"text": "Laugh", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "hunter_bandana": {
+      "tier": "curious",
+      "pages": ["Hunter's bandana has slipped to one side. He doesn't seem to mind."],
+      "choices": [
+        {"text": "Straighten it for him", "bond": 2},
+        {"text": "Leave it, it suits him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 2
+    },
+    "hunter_toy": {
+      "tier": "familiar",
+      "comes_to": "floor",
+      "pages": ["Hunter trots over with a little felt mouse and drops it at your feet.", "He waits."],
+      "choices": [
+        {"text": "Throw it for him", "bond": 3},
+        {"text": "Say thank you", "bond": 2, "manner": "calm"},
+        {"text": "Pick it up and look at it", "bond": 1}
+      ],
+      "ignore": 2
+    },
+    "hunter_table": {
+      "tier": "friend",
+      "comes_to": "table",
+      "pages": [
+        "Hunter hops onto your table, sniffs your cup and flops down beside it.",
+        "One paw lands on your book."
+      ],
+      "choices": [{"text": "Scratch behind his ears", "bond": 3}, {"text": "Let him stay", "bond": 2, "manner": "calm"}],
+      "ignore": 2,
+      "then": "loaf"
+    },
+    "hunter_yourcat": {
+      "tier": "your_cat",
+      "pages": ["Hunter brings you a toy, then falls asleep before you can throw it."],
+      "then": "sleep",
+      "choices": [
+        {"text": "Tuck the toy in beside him", "bond": 2, "manner": "calm"},
+        {"text": "Keep it for later", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 1
+    },
+    "hunter_s_miss": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Hunter tries to jump onto the sideboard, misses, and sits down to wash a paw as if nothing happened."],
+      "choices": [
+        {"text": "Pretend you didn't see", "bond": 2, "manner": "calm"},
+        {"text": "Clap anyway", "bond": 1},
+        {"text": "Laugh", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "hunter_s_lace": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "comes_to": "floor",
+      "pages": ["Hunter has spotted your shoelace. He crouches low, tail swishing, and creeps closer."],
+      "choices": [
+        {"text": "Wiggle your foot", "bond": 2},
+        {"text": "Keep still and see", "bond": 1, "manner": "calm"},
+        {"text": "Tuck your feet under the chair", "bond": 0}
+      ],
+      "ignore": 2
+    },
+    "hunter_s_steam": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "drink": "any",
+      "pages": ["Hunter sits on the floor and watches the steam from your cup, his head tilting left, then right."],
+      "choices": [
+        {"text": "Blow the steam his way", "bond": 2},
+        {"text": "Tilt your head too", "bond": 1},
+        {"text": "Watch him watch it", "bond": 1, "manner": "calm"},
+        {"text": "Drink it before he gets ideas", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "hunter_s_nothing": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Hunter is chasing something round the room. You can't see what it is. Possibly nothing."],
+      "choices": [
+        {"text": "Point to where it went", "bond": 2},
+        {"text": "Cheer him on", "bond": 1},
+        {"text": "Look for it too", "bond": 1, "manner": "calm"},
+        {"text": "Follow it with your eyes", "bond": 1},
+        {"text": "Tell him there's nothing there", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "hunter_s_bag": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Hunter sniffs your bag very thoroughly, then sneezes."],
+      "choices": [
+        {"text": "Let him look inside", "bond": 2},
+        {"text": "Say \"bless you\"", "bond": 1},
+        {"text": "Let him finish", "bond": 1, "manner": "calm"},
+        {"text": "Move the bag", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "hunter_s_fog": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "weather": ["fog"],
+      "spots": ["sill"],
+      "pages": ["Hunter stares into the fog outside, ears forward, as if something might come out of it."],
+      "choices": [
+        {"text": "Make a spooky noise", "bond": 2},
+        {"text": "Tell him it's only fog", "bond": 1},
+        {"text": "Stare into the fog too", "bond": 1, "manner": "calm"},
+        {"text": "Tap the glass", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "hunter_s_trouble": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "when": ["evening"],
+      "pages": ["Hunter's pupils are huge. He is in the mood for trouble."],
+      "choices": [
+        {"text": "Find him something to chase", "bond": 2},
+        {"text": "Hide your bookmark", "bond": 1},
+        {"text": "Wish him luck", "bond": 1},
+        {"text": "Look away and hope for the best", "bond": 1, "manner": "calm"},
+        {"text": "Stay very still", "bond": 0}
+      ],
+      "ignore": 4
+    },
+    "hunter_s_bandana": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Hunter scratches at his bandana with a back paw and gets it stuck over one ear."],
+      "choices": [
+        {"text": "Offer to help", "bond": 2},
+        {"text": "Straighten it for him", "bond": 2},
+        {"text": "Tell him it's a good look", "bond": 1},
+        {"text": "Laugh", "bond": 1},
+        {"text": "Wait to see if he gets out", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "hunter_s_paperbag": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "pages": ["Hunter has found an empty paper bag and climbed inside. Only his tail sticks out."],
+      "choices": [
+        {"text": "Rustle the bag", "bond": 2},
+        {"text": "Say \"where's Hunter?\"", "bond": 2},
+        {"text": "Leave him to his bag", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_s_waiting": {
+      "tier": "stranger",
+      "max_tier": "stranger",
+      "spots": ["floor"],
+      "pages": [
+        "Hunter sits in the middle of the floor and stares at you.",
+        "He's waiting for you to do something interesting."
+      ],
+      "choices": [
+        {"text": "Wiggle your fingers", "bond": 2},
+        {"text": "Drop your napkin", "bond": 2},
+        {"text": "Make a funny face", "bond": 1},
+        {"text": "Do nothing interesting", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_c_pen": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Hunter has stolen your pen. He's batting it under the radiator."],
+      "choices": [
+        {"text": "Try to get it back", "bond": 2},
+        {"text": "Offer him your bookmark instead", "bond": 2},
+        {"text": "Let him have it", "bond": 1, "manner": "calm"},
+        {"text": "Write with your finger instead", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "hunter_c_ambush": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "when": ["evening"],
+      "pages": ["Hunter crouches behind the leg of a chair, ready to pounce on your foot."],
+      "choices": [
+        {"text": "Move your foot slowly, like prey", "bond": 3},
+        {"text": "Pretend you didn't see", "bond": 2, "manner": "calm"},
+        {"text": "Pounce first", "bond": 1},
+        {"text": "Tuck your feet up", "bond": 0},
+        {"text": "Stamp your foot", "bond": -1, "manner": "sudden"}
+      ],
+      "ignore": 2
+    },
+    "hunter_c_swat": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "drink": "any",
+      "pages": ["Hunter stands on his back legs and swats at the steam above your cup. He misses every time."],
+      "choices": [
+        {"text": "Blow more steam for him", "bond": 2},
+        {"text": "Hold the cup lower", "bond": 1},
+        {"text": "Cheer him on", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_c_drop": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": [
+        "A big raindrop runs down the window. Hunter follows it all the way down.",
+        "Then he looks at you, as if it were your fault it got away."
+      ],
+      "choices": [
+        {"text": "Point out another one", "bond": 2},
+        {"text": "Tap the glass where it went", "bond": 1},
+        {"text": "Apologise", "bond": 1, "manner": "calm"},
+        {"text": "Shrug", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "hunter_c_bookmark": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Hunter has his eye on the bookmark sticking out of your book."],
+      "choices": [
+        {"text": "Wiggle it for him", "bond": 3},
+        {"text": "Pull it out slowly", "bond": 2},
+        {"text": "Let him have a go", "bond": 2},
+        {"text": "Read on, carefully", "bond": 1, "manner": "calm"},
+        {"text": "Close the book on it", "bond": 0}
+      ],
+      "ignore": 4
+    },
+    "hunter_c_ear": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Hunter's floppy ear has flopped the other way. He hasn't noticed."],
+      "choices": [
+        {"text": "Fix it for him, gently", "bond": 2},
+        {"text": "Tell him", "bond": 1},
+        {"text": "Keep it to yourself", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_c_sock": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "comes_to": "floor",
+      "pages": ["Hunter brings you a sock. Nobody knows whose it is."],
+      "choices": [
+        {"text": "Throw it for him", "bond": 3},
+        {"text": "Thank him", "bond": 2},
+        {"text": "Put it on the chair, just in case", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_c_sleepy": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "when": ["morning"],
+      "pages": [
+        "Hunter is still half asleep. He walks into the leg of a table, blinks at it, and lies down right there."
+      ],
+      "choices": [
+        {"text": "Say good morning", "bond": 2, "then": "loaf", "manner": "calm"},
+        {"text": "Laugh softly", "bond": 1, "then": "loaf"},
+        {"text": "Ask the table if it's all right", "bond": 1, "then": "loaf"}
+      ],
+      "ignore": 1
+    },
+    "hunter_c_flakes": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "weather": ["snow"],
+      "spots": ["sill"],
+      "pages": ["Hunter is on the sill, batting at snowflakes through the glass. He hasn't caught one yet."],
+      "choices": [
+        {"text": "Tap at one too", "bond": 2},
+        {"text": "Tell him he nearly had that one", "bond": 2, "manner": "calm"},
+        {"text": "Count his misses", "bond": 1},
+        {"text": "Breathe on the glass to mist it", "bond": 1}
+      ],
+      "ignore": 2
+    },
+    "hunter_c_spin": {
+      "tier": "curious",
+      "max_tier": "curious",
+      "pages": ["Hunter notices his own tail and spins round to catch it. Twice."],
+      "choices": [
+        {"text": "Cheer when he catches it", "bond": 2},
+        {"text": "Tell him it went that way", "bond": 1},
+        {"text": "Count the spins", "bond": 1},
+        {"text": "Hold still so you don't distract him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_f_paperball": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "comes_to": "floor",
+      "pages": ["Hunter drops a scrunched-up paper ball by your chair and backs away, waiting."],
+      "choices": [
+        {"text": "Throw it far", "bond": 3},
+        {"text": "Throw it badly", "bond": 2},
+        {"text": "Hand it back to him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_f_slip": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Hunter tries to climb onto your lap, slips off, and pretends he was only stretching."],
+      "choices": [
+        {"text": "Help him up", "bond": 2},
+        {"text": "Pat your lap", "bond": 2},
+        {"text": "Laugh", "bond": 1},
+        {"text": "Pretend you believe him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_f_chirpsteam": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "drink": "any",
+      "pages": ["Hunter sits by your chair and chirps at the steam rising from your cup, as if it were a bird."],
+      "choices": [
+        {"text": "Chirp back", "bond": 2},
+        {"text": "Waft the steam towards him", "bond": 2},
+        {"text": "Lower the cup so he can see", "bond": 1},
+        {"text": "Explain it's only steam", "bond": 1, "manner": "calm"},
+        {"text": "Blow on your drink to cool it", "bond": 0}
+      ],
+      "ignore": 4
+    },
+    "hunter_f_untied": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Hunter's bandana has come off. He's sitting on it, waiting for you to put it back."],
+      "choices": [
+        {"text": "Tie it back on", "bond": 3},
+        {"text": "Tie it the other way round", "bond": 2},
+        {"text": "Wait until he's ready", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_f_shadow": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "when": ["evening"],
+      "pages": ["Hunter is stalking the shadow of your hand on the floor."],
+      "choices": [
+        {"text": "Make a bird with your hand", "bond": 3},
+        {"text": "Move it slowly", "bond": 2},
+        {"text": "Make it jump", "bond": 2},
+        {"text": "Keep your hand still", "bond": 1, "manner": "calm"},
+        {"text": "Put your hand away", "bond": 0}
+      ],
+      "ignore": 4
+    },
+    "hunter_f_upsidedown": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "spots": ["floor"],
+      "pages": ["Hunter rolls onto his back in the middle of the floor and looks at you upside down."],
+      "choices": [
+        {"text": "Rub his belly, carefully", "bond": 2},
+        {"text": "Tell him it's a trap", "bond": 1},
+        {"text": "Admire him from here", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_f_ceiling": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "pages": [
+        "Hunter keeps looking up at the ceiling. He's trying to find where the sound of the rain is coming from."
+      ],
+      "choices": [
+        {"text": "Tell him it's on the roof", "bond": 2},
+        {"text": "Tap the table like rain", "bond": 2},
+        {"text": "Look up too", "bond": 1, "manner": "calm"},
+        {"text": "Laugh", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "hunter_f_curtain": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "spots": ["sill"],
+      "pages": ["Hunter is climbing the curtain, very slowly, hoping nobody notices."],
+      "choices": [
+        {"text": "Ask him what's up there", "bond": 2},
+        {"text": "Lift him down", "bond": 1},
+        {"text": "Pretend you haven't noticed", "bond": 1, "manner": "calm"},
+        {"text": "Say \"Hunter!\"", "bond": -1, "manner": "sudden"}
+      ],
+      "ignore": 3
+    },
+    "hunter_f_midgame": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "poses": ["sleep"],
+      "pages": ["Hunter has fallen asleep in the middle of a game, one paw still on his toy."],
+      "choices": [
+        {"text": "Let him sleep", "bond": 2, "manner": "calm"},
+        {"text": "Move the toy closer to him", "bond": 2},
+        {"text": "Whisper \"good game\"", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "hunter_f_follow": {
+      "tier": "familiar",
+      "max_tier": "familiar",
+      "pages": ["Hunter chirps at you from across the room, runs off, then comes back to see if you're following."],
+      "choices": [
+        {"text": "Pretend to chase him", "bond": 3},
+        {"text": "Chirp back", "bond": 2},
+        {"text": "Wave him over", "bond": 1},
+        {"text": "Follow him with your eyes", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_fr_spoon": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "drink": "any",
+      "comes_to": "table",
+      "pages": ["Hunter sits on your table and pushes your spoon towards the edge, slowly, watching your face."],
+      "choices": [
+        {"text": "Let it fall", "bond": 3},
+        {"text": "Catch it before it falls", "bond": 2},
+        {"text": "Say \"don't you dare\"", "bond": 1},
+        {"text": "Move it back", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_fr_curtain": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "spots": ["sill"],
+      "pages": ["Hunter hides behind the curtain. His tail is sticking out."],
+      "choices": [
+        {"text": "Say \"where's Hunter?\"", "bond": 3},
+        {"text": "Tug the tail, gently", "bond": 2},
+        {"text": "Let him think he's hidden", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_fr_shove": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": ["Hunter jumps onto the chair next to you and pushes his head into your shoulder, hard."],
+      "choices": [
+        {"text": "Scratch behind his ears", "bond": 2},
+        {"text": "Push back, gently", "bond": 2},
+        {"text": "Tell him he's very strong", "bond": 1},
+        {"text": "Let him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_fr_sneeze": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "drink": "any",
+      "comes_to": "table",
+      "pages": ["Hunter sticks his nose right into the steam above your cup, then sneezes."],
+      "choices": [
+        {"text": "Say \"bless you\"", "bond": 2},
+        {"text": "Laugh", "bond": 2},
+        {"text": "Wipe his nose", "bond": 1},
+        {"text": "Blow the steam away for him", "bond": 1},
+        {"text": "Move the cup back a bit", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "hunter_fr_laps": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "when": ["evening"],
+      "comes_to": "table",
+      "pages": ["Hunter does three laps of the café, then lands on your table, out of breath and very pleased."],
+      "choices": [
+        {"text": "Clap for him", "bond": 2},
+        {"text": "Ask if he won", "bond": 2},
+        {"text": "Time the next lap", "bond": 1},
+        {"text": "Steady your cup", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_fr_leaf": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "comes_to": "table",
+      "pages": ["Hunter brings you a dried ivy leaf and drops it on your book."],
+      "choices": [
+        {"text": "Thank him properly", "bond": 3},
+        {"text": "Keep it as a bookmark", "bond": 2},
+        {"text": "Put it back on the ivy", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_fr_pigeon": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "spots": ["sill"],
+      "pages": ["Hunter is on the sill, chattering at a pigeon sheltering on the balcony rail."],
+      "choices": [
+        {"text": "Chatter too", "bond": 2},
+        {"text": "Tell him he'd never catch it", "bond": 1},
+        {"text": "Watch the pigeon with him", "bond": 1, "manner": "calm"},
+        {"text": "Tap the glass to send it off", "bond": 0}
+      ],
+      "ignore": 3
+    },
+    "hunter_fr_check": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "pages": [
+        "Hunter lands on your lap, turns round once and gets straight back down. Just checking it's still there."
+      ],
+      "choices": [
+        {"text": "Pat your lap for next time", "bond": 2},
+        {"text": "Laugh", "bond": 1},
+        {"text": "Brush off the fur", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_fr_tired": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "when": ["night"],
+      "pages": ["Hunter is finally tired. He sits beside you and leans on your leg, eyes half closed."],
+      "choices": [
+        {"text": "Stroke his back", "bond": 2},
+        {"text": "Hum him something slow", "bond": 2},
+        {"text": "Stay still so he can rest", "bond": 2, "then": "loaf", "manner": "calm"},
+        {"text": "Tell him he did well today", "bond": 1},
+        {"text": "Ask what he chased today", "bond": 1}
+      ],
+      "ignore": 3
+    },
+    "hunter_fr_onbook": {
+      "tier": "friend",
+      "max_tier": "friend",
+      "comes_to": "table",
+      "pages": ["Hunter sits on your book. Not near it. On it."],
+      "choices": [
+        {"text": "Give him the book, it's his now", "bond": 2},
+        {"text": "Tickle his paws", "bond": 2},
+        {"text": "Slide it out slowly", "bond": 1},
+        {"text": "Read around him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_y_foot": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Hunter trots over with his tail straight up and sits on your foot."],
+      "choices": [
+        {"text": "Scratch his chin", "bond": 2},
+        {"text": "Wiggle your foot", "bond": 2},
+        {"text": "Ask how his day was", "bond": 1},
+        {"text": "Leave your foot where it is", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_y_pile": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "comes_to": "floor",
+      "pages": ["Hunter has brought all his toys over, one by one. There's a small pile at your feet."],
+      "choices": [
+        {"text": "Play with every one", "bond": 3},
+        {"text": "Pick a favourite", "bond": 2},
+        {"text": "Admire the pile", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 3
+    },
+    "hunter_y_scarf": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Hunter climbs up onto your shoulder and settles there like a scarf."],
+      "choices": [
+        {"text": "Read your book aloud to him", "bond": 2},
+        {"text": "Lean your head on him", "bond": 2},
+        {"text": "Tell him he's heavy", "bond": 1},
+        {"text": "Ask him not to fall asleep there", "bond": 1},
+        {"text": "Hold very still", "bond": 2, "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "hunter_y_steam": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "drink": "any",
+      "pages": [
+        "Hunter watches the steam rise from your cup. He doesn't pounce any more.",
+        "He just watches it with you."
+      ],
+      "choices": [
+        {"text": "Watch it together", "bond": 2, "manner": "calm"},
+        {"text": "Blow a little for him", "bond": 2},
+        {"text": "Tell him he's grown up", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "hunter_y_inhand": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "when": ["evening"],
+      "pages": ["Hunter brings you the felt mouse and drops it in your hand this time, not on the floor."],
+      "choices": [
+        {"text": "Throw it", "bond": 3},
+        {"text": "Make it dance", "bond": 2},
+        {"text": "Hide it in your pocket", "bond": 2},
+        {"text": "Tell him you're honoured", "bond": 2},
+        {"text": "Give it back to him", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 5
+    },
+    "hunter_y_sprawl": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "comes_to": "table",
+      "pages": ["Hunter stretches out on your table, takes up all of it, and falls asleep."],
+      "choices": [
+        {"text": "Stroke his white paws", "bond": 2, "then": "sleep"},
+        {"text": "Let him have the table", "bond": 2, "then": "sleep"},
+        {"text": "Rest your book on him, lightly", "bond": 1, "then": "sleep"},
+        {"text": "Move your cup out of the way", "bond": 1, "then": "sleep", "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_y_raindrops": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "weather": ["drizzle", "rain", "heavy_rain"],
+      "pages": ["Hunter used to chase the raindrops. Now he sits with you and watches them, one paw on your arm."],
+      "choices": [
+        {"text": "Watch them with him", "bond": 2, "manner": "calm"},
+        {"text": "Point out a fast one", "bond": 2},
+        {"text": "Hold his paw", "bond": 2}
+      ],
+      "ignore": 1
+    },
+    "hunter_y_crooked": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": ["Hunter's bandana is crooked again. He leans towards you so you can fix it."],
+      "choices": [
+        {"text": "Fix it and scratch his ears", "bond": 3},
+        {"text": "Fix it, carefully", "bond": 2},
+        {"text": "Make it extra crooked", "bond": 1},
+        {"text": "Tell him it looks fine as it is", "bond": 1, "manner": "calm"}
+      ],
+      "ignore": 4
+    },
+    "hunter_y_slowblink": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "pages": [
+        "Hunter chirps at you from across the room. When you look up, he blinks slowly, very proud of himself."
+      ],
+      "choices": [
+        {"text": "Blink back slowly", "bond": 2, "manner": "calm"},
+        {"text": "Chirp back", "bond": 2},
+        {"text": "Call him over", "bond": 2},
+        {"text": "Wave", "bond": 1}
+      ],
+      "ignore": 1
+    },
+    "hunter_y_winning": {
+      "tier": "your_cat",
+      "max_tier": "your_cat",
+      "when": ["late night"],
+      "poses": ["sleep"],
+      "pages": ["Hunter is asleep, paws twitching. Every so often his tail thumps, as if he's winning something."],
+      "choices": [
+        {"text": "Let him dream", "bond": 2, "manner": "calm"},
+        {"text": "Whisper \"go on, Hunter\"", "bond": 2},
+        {"text": "Tuck his tail in", "bond": 1}
+      ],
+      "ignore": 1
+    }
+  },
+  "observations": [
+    {
+      "text": "Hunter's tail twitches. He is watching something only he can see.",
+      "poses": ["sit", "stand", "loaf"]
+    },
+    {
+      "text": ["Hunter sneezes, then looks offended.", "Hunter's ears turn towards the window."],
+      "poses": ["sit", "loaf"]
+    },
+    {
+      "text": "Hunter is chasing his own tail. He caught it.",
+      "poses": ["stand", "sit"],
+      "when": ["evening", "afternoon"]
+    },
+    {
+      "text": [
+        "Hunter is asleep, stretched out as long as he can go.",
+        "Hunter twitches in his sleep. Dreaming of mice, maybe."
+      ],
+      "poses": ["sleep"]
+    },
+    {
+      "text": "Hunter is watching the rain, very seriously.",
+      "spots": ["sill"],
+      "weather": ["drizzle", "rain", "heavy_rain"]
+    },
+    {"text": "Hunter is looking at your cup.", "poses": ["sit", "stand"]}
+  ],
+  "look": {
+    "looks": {
+      "stranger": "An orange tabby with a teal bandana and white paws. One ear stands up, the other doesn't.",
+      "curious": "Hunter, orange and stripy. His eyes follow everything that moves, including you.",
+      "familiar": "Hunter. His bandana is always a little crooked, and his white paws are never quite clean.",
+      "friend": "Hunter, your friend. He looks at you as if you might be hiding a toy.",
+      "your_cat": "Hunter, who brings you things. Some of them are even toys."
+    },
+    "doing": {
+      "sit": "He sits {where}, tail twitching.",
+      "stand": "He stands {where}, ready to pounce on something.",
+      "loaf": "He is lying {where}, but his ears are still busy.",
+      "sleep": "He is asleep {where}, stretched out as long as he can go."
+    },
+    "rest": "Hunter has lost interest for now.",
+    "actions": [
+      {
+        "text": "Wiggle your fingers",
+        "tier": "curious",
+        "reply": [
+          "Hunter's eyes go wide. He crouches, wiggles, and pounces at your hand.",
+          "He misses on purpose. Probably."
+        ],
+        "bond": 2
+      },
+      {
+        "text": "Tap the floor with your foot",
+        "tier": "curious",
+        "reply": ["Hunter's ears snap towards the sound. He stares at your foot, very suspicious."],
+        "bond": 1
+      },
+      {
+        "text": "Let him sleep",
+        "tier": "curious",
+        "poses": ["sleep"],
+        "reply": ["Hunter's paw twitches. He is chasing something in his dream."],
+        "bond": 1,
+        "manner": "calm"
+      },
+      {
+        "text": "Dangle your scarf for him",
+        "tier": "familiar",
+        "reply": ["Hunter bats at the scarf, misses, bats again, and catches it.", "He looks very proud of himself."],
+        "bond": 3
+      },
+      {
+        "text": "Stroke his head",
+        "tier": "familiar",
+        "reply": ["Hunter pushes his head into your hand, hard."],
+        "bond": 2
+      },
+      {
+        "text": "Scratch behind his ears",
+        "tier": "friend",
+        "reply": ["Hunter leans so far into it that he nearly falls over."],
+        "bond": 3
+      },
+      {
+        "text": "Call him over to your table",
+        "tier": "friend",
+        "drink": "any",
+        "comes_to": "table",
+        "reply": ["Hunter is there in two jumps. He sniffs your cup and flops down beside it."],
+        "bond": 2,
+        "then": "loaf"
+      },
+      {
+        "text": "Rub his belly",
+        "tier": "your_cat",
+        "reply": ["Hunter rolls over, grabs your hand with all four paws and purrs.", "It's a trap, but a nice one."],
+        "bond": 2
+      }
+    ]
+  },
+  "away": [
+    {"bond": "new", "gone": "short", "text": "Hunter dashes past your legs, on his way somewhere important."},
+    {
+      "bond": "new",
+      "gone": "short",
+      "text": "Hunter is chasing something under the tables. He doesn't look up."
+    },
+    {
+      "bond": "new",
+      "gone": "long",
+      "text": "Hunter sniffs your shoes as you come in. He's not sure about you yet."
+    },
+    {
+      "bond": "new",
+      "gone": "long",
+      "text": "A felt mouse has turned up under your table. Hunter's, probably."
+    },
+    {"bond": "knows", "gone": "short", "text": "Hunter looks up from the floor, ears forward. Oh, it's you."},
+    {
+      "bond": "knows",
+      "gone": "short",
+      "text": "Hunter trots over, sniffs your shoe and trots off again. Welcome back, from him."
+    },
+    {
+      "bond": "knows",
+      "gone": "long",
+      "text": "Hunter runs over the moment you sit down, as if you'd been gone a year."
+    },
+    {
+      "bond": "knows",
+      "gone": "long",
+      "text": "There's a felt mouse on your chair. Hunter left it for you, maybe."
+    },
+    {"bond": "yours", "gone": "short", "text": "Hunter is waiting under your table with a toy in his mouth."},
+    {
+      "bond": "yours",
+      "gone": "short",
+      "text": "Hunter jumps onto the chair across from you, as if he'd saved it."
+    },
+    {
+      "bond": "yours",
+      "gone": "long",
+      "text": "Hunter has gathered all his toys under your table. He sits on them, very proud."
+    },
+    {
+      "bond": "yours",
+      "gone": "long",
+      "text": "Hunter rushes over and flops down at your feet, belly up. He missed you."
+    }
+  ]
+}

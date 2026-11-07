@@ -13,6 +13,8 @@ import (
 	"math"
 	"strings"
 	"time"
+	"unicode"
+	"unicode/utf8"
 
 	"coffee-and-toe-beans/internal/noise"
 	"coffee-and-toe-beans/internal/rgb"
@@ -23,6 +25,7 @@ import (
 type Drink struct {
 	ID      string   `json:"id"`
 	Name    string   `json:"name"`
+	Short   string   `json:"short"` // in sentences, e.g. "Earl Grey"; default: the name
 	Tagline string   `json:"tagline"`
 	Icon    string   `json:"icon"`
 	Cup     string   `json:"cup"`
@@ -34,6 +37,19 @@ type Drink struct {
 
 	color, top  rgb.Color
 	from, until float64 // minutes of the day; both -1 when always served
+}
+
+// Word is how the drink is named mid-sentence: its "short" name, or else
+// its name with a small first letter ("café crème").
+func (d *Drink) Word() string {
+	if d.Short != "" {
+		return d.Short
+	}
+	r, n := utf8.DecodeRuneInString(d.Name)
+	if r == utf8.RuneError {
+		return d.Name
+	}
+	return string(unicode.ToLower(r)) + d.Name[n:]
 }
 
 // Liquid is the drink's color in the cup, and the color of its top (crema,
@@ -169,11 +185,20 @@ type Order struct {
 	Drink string
 	At    time.Time // café time it arrived
 	Seed  uint64    // makes each cup's sips a little different
+	// Paused is time the cup sat untouched while you were away: it went on
+	// cooling, but nobody drank from it.
+	Paused time.Duration
 }
 
 // minutes since the order arrived.
 func since(o Order, now time.Time) float64 {
 	return math.Max(0, now.Sub(o.At).Minutes())
+}
+
+// drunk is the sipping clock: minutes since the order arrived, not
+// counting the time it sat untouched.
+func drunk(o Order, now time.Time) float64 {
+	return math.Max(0, now.Sub(o.At).Minutes()-o.Paused.Minutes())
 }
 
 // Level is how full the cup is: 1 full, 0 empty. It goes down in sips.
@@ -183,7 +208,7 @@ func (m *Menu) Level(o Order, now time.Time) float64 {
 
 // SipsTaken counts the sips so far.
 func (m *Menu) SipsTaken(o Order, now time.Time) int {
-	t := since(o, now)
+	t := drunk(o, now)
 	n := 0
 	for i := 0; i < m.Pace.Sips; i++ {
 		if t >= m.sipTime(o, i) {
@@ -226,10 +251,10 @@ func (m *Menu) Heat(o Order, now time.Time) float64 {
 
 // Empty is true once the last sip is gone.
 func (m *Menu) Empty(o Order, now time.Time) bool {
-	return since(o, now) >= m.Pace.Finish
+	return drunk(o, now) >= m.Pace.Finish
 }
 
 // EmptySince is when the cup became empty.
 func (m *Menu) EmptySince(o Order) time.Time {
-	return o.At.Add(time.Duration(m.Pace.Finish * float64(time.Minute)))
+	return o.At.Add(o.Paused + time.Duration(m.Pace.Finish*float64(time.Minute)))
 }

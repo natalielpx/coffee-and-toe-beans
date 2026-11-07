@@ -104,12 +104,17 @@ func avgLuma(c *canvas.Canvas, x0, y0, x1, y1 int) float64 {
 func TestFrenchInteriorLoads(t *testing.T) {
 	w := realWorld(t, Options{})
 	pw, ph := w.scene.Size()
-	if pw != 80 || ph != 64 {
-		t.Fatalf("the French interior should be 80x64 pixels, got %dx%d", pw, ph)
+	if pw != 104 || ph != 84 {
+		t.Fatalf("the French interior should be 104x84 pixels, got %dx%d", pw, ph)
 	}
-	for _, spot := range []string{"sill", "shelf_top", "cushion", "table"} {
-		if _, ok := w.scene.Spots()[spot]; !ok {
+	for _, spot := range []string{"sill", "shelf_top", "sideboard", "cushion", "table", "floor"} {
+		sp, ok := w.scene.Spots()[spot]
+		if !ok {
 			t.Errorf("cat spot %q is missing", spot)
+			continue
+		}
+		if sp.X < 0 || sp.Y < 0 || sp.X >= pw || sp.Y >= ph {
+			t.Errorf("cat spot %q at %d,%d is outside the room", spot, sp.X, sp.Y)
 		}
 	}
 	if len(w.scene.room.panes) != 6 {
@@ -138,17 +143,28 @@ func TestNightIsDarkerAndLampsGlow(t *testing.T) {
 	w := realWorld(t, Options{})
 	day := w.render(t, at(13, 0), "clear", 1)
 	night := w.render(t, at(1, 0), "clear", 1)
-	if d, n := avgLuma(day, 0, 0, 80, 64), avgLuma(night, 0, 0, 80, 64); n > d*0.8 {
+	pw, ph := w.scene.Size()
+	if d, n := avgLuma(day, 0, 0, pw, ph), avgLuma(night, 0, 0, pw, ph); n > d*0.8 {
 		t.Errorf("1am (%.2f) should be clearly darker than 1pm (%.2f)", n, d)
 	}
 	// At night the wall by the left lamp is warmer and brighter than the far
-	// corner of the room; at midday the lampshade isn't glowing.
-	nearLamp := night.At(16, 19) // the wall just below the left lamp
-	farWall := night.At(40, 46)
+	// end of the wainscot; at midday the lampshade isn't glowing.
+	var lamp *light
+	for _, l := range w.scene.room.lights {
+		if l.name == "sconce_left" {
+			lamp = l
+		}
+	}
+	if lamp == nil {
+		t.Fatal("the French interior has no sconce_left")
+	}
+	lx, ly := int(lamp.x), int(lamp.y)
+	nearLamp := night.At(lx, ly+10) // the wall just below the left lamp
+	farWall := night.At(72, 62)     // the right wainscot panel, far from every lamp
 	if nearLamp.Luma() <= farWall.Luma() || nearLamp.R-nearLamp.B < 0.15 {
 		t.Errorf("lamp light missing at night: near %v, far %v", nearLamp, farWall)
 	}
-	shadeDay, shadeNight := day.At(17, 12), night.At(17, 12)
+	shadeDay, shadeNight := day.At(lx, ly), night.At(lx, ly) // the lampshade itself
 	if !(shadeNight.R > 0.85 && shadeNight.R-shadeNight.B > shadeDay.R-shadeDay.B) {
 		t.Errorf("lampshade should glow warm at night: day %v night %v", shadeDay, shadeNight)
 	}

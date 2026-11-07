@@ -1,0 +1,282 @@
+# Mimi: a shy Siamese with blue eyes, chocolate points and a blue collar
+# with a little gold pendant.
+# Drawn from Nala's reference (mimi_sitting.png, PixelLab, edited by Nala).
+# See README.md in this folder for the format. The poses and which frame is
+# which are listed in content/cats/mimi.json.
+
+palette mimi
+  A #e8a3a0  toe bean (pink)
+  a #533a2b  points (ears, face, legs, tail)
+  b #5e4533  points, light
+  c #9e907b  soft edge
+  d #b1a793  soft edge, light
+  e #b39b82  soft edge, warm
+  f #f8ecd1  cream, highlight
+  g #f2e1c7  cream
+  h #bea485  cream, shade
+  i #432c1d  points, dark
+  j #362215  points, darkest
+  k #82aac3  eyes, blue
+  l #907d69  soft edge, dark
+  m #ccb495  cream, mid shade
+  n #271911  shadow
+  o #ead3b4  cream, warm
+  p #6f5340  points, edge
+  q #7e6149  points, edge light
+  r #456f93  collar, dark
+  s #6f9cc0  collar
+  t #9cc4dc  collar, light
+  u #e2b450  gold pendant
+  v #8a6e55  points, soft
+  w #9f8368  cream, deep shade
+  x #d0c0a6  cream, cool shade
+  y #847563  soft edge, deep
+  z #7c6b5a  soft edge, darkest
+
+sprite mimi_sit
+  use mimi
+grid
+aa......aa.......
+aba....aba.......
+abacdddaba.......
+aaefgffbba.......
+chgiaaffec.......
+cfjbbaiggc.......
+cakbbikjge.......
+lmanbbaloe..aa...
+.pqaaagfe...aba..
+..rstsstsrb.abbb.
+.dgffufffghb.bbb.
+.cggfffffffbm.bbb
+.chgggmgffffe.bbb
+..pvgglfwfffd.bib
+..ppnhbbffffxlybb
+..bpnvibggfhejya.
+.bbinbbajwhhczy..
+..bbbb.pllyyz....
+end
+
+sprite mimi_stand
+  use mimi
+grid
+aa......aa.......
+aba....aba...pab.
+abacdddaba...abba
+aaefgffbba.....bb
+chgiaaffec.....bb
+cfjbbaiggc....abb
+cakbbikjge...abb.
+lmanbbaloedddbba.
+.pqaaagfefoomhb..
+..rstsstsrffmhc..
+.dgffufffgffmhc..
+.cggffffffffmhwc.
+..cgfggmmmmmhhwl.
+..qb.ai...ai.qb..
+..qb.ai...ai.qb..
+..pa.ij...ij.pa..
+end
+
+sprite mimi_loaf
+  use mimi
+grid
+aa......aa........
+aba....aba........
+abacdddaba........
+aaefgffbbadddddd..
+chgiaaffecffffffoe
+cfjbbaiggcgfffffmd
+cakbbikjgegggfffmh
+lmanbbaloeggggfmhc
+.pqaaagfegggggmmhc
+..rstsstsrbbbbbbbz
+.cbbbbb.cabbbbbbz.
+end
+
+sprite mimi_sleep
+  use mimi
+grid
+.......ddddd.....
+.....dfffffffoe..
+...dgffffffffmhd.
+..dgffffffffwmhhd
+.cxhhgffffffwmhhc
+cxhhmhggfffgwmhhc
+cbahmbaxggggmmhhc
+cvabcvabpbbbbbbbz
+.cia.ciaqvbbbbbz.
+..zyy.yyyyyyyyy..
+end
+
+sprite mimi_sit_blink
+  use mimi
+grid
+aa......aa.......
+aba....aba.......
+abacdddaba.......
+aaefgffbba.......
+chgiaaffec.......
+cfpbbapggc.......
+cabbbibjge.......
+lmanbbaloe..aa...
+.pqaaagfe...aba..
+..rstsstsrb.abbb.
+.dgffufffghb.bbb.
+.cggfffffffbm.bbb
+.chgggmgffffe.bbb
+..pvgglfwfffd.bib
+..ppnhbbffffxlybb
+..bpnvibggfhejya.
+.bbinbbajwhhczy..
+..bbbb.pllyyz....
+end
+
+sprite mimi_sit_ear
+  use mimi
+grid
+aa...............
+aba....abaa......
+abacdddaba.......
+aaefgffbba.......
+chgiaaffec.......
+cfjbbaiggc.......
+cakbbikjge.......
+lmanbbaloe..aa...
+.pqaaagfe...aba..
+..rstsstsrb.abbb.
+.dgffufffghb.bbb.
+.cggfffffffbm.bbb
+.chgggmgffffe.bbb
+..pvgglfwfffd.bib
+..ppnhbbffffxlybb
+..bpnvibggfhejya.
+.bbinbbajwhhczy..
+..bbbb.pllyyz....
+end
+
+sprite mimi_sit_tail
+  use mimi
+grid
+aa......aa.......
+aba....aba.......
+abacdddaba.......
+aaefgffbba.......
+chgiaaffec.......
+cfjbbaiggc.......
+cakbbikjge.......
+lmanbbaloe...aa..
+.pqaaagfe....aba.
+..rstsstsrb..abbb
+.dgffufffghb.bbb.
+.cggfffffffbm.bbb
+.chgggmgffffe.bbb
+..pvgglfwfffd.bib
+..ppnhbbffffxlybb
+..bpnvibggfhejya.
+.bbinbbajwhhczy..
+..bbbb.pllyyz....
+end
+
+sprite mimi_stand_blink
+  use mimi
+grid
+aa......aa.......
+aba....aba...pab.
+abacdddaba...abba
+aaefgffbba.....bb
+chgiaaffec.....bb
+cfpbbapggc....abb
+cabbbibjge...abb.
+lmanbbaloedddbba.
+.pqaaagfefoomhb..
+..rstsstsrffmhc..
+.dgffufffgffmhc..
+.cggffffffffmhwc.
+..cgfggmmmmmhhwl.
+..qb.ai...ai.qb..
+..qb.ai...ai.qb..
+..pa.ij...ij.pa..
+end
+
+sprite mimi_stand_tail
+  use mimi
+grid
+aa......aa.......
+aba....aba..pab..
+abacdddaba..abba.
+aaefgffbba.....bb
+chgiaaffec.....bb
+cfjbbaiggc....abb
+cakbbikjge...abb.
+lmanbbaloedddbba.
+.pqaaagfefoomhb..
+..rstsstsrffmhc..
+.dgffufffgffmhc..
+.cggffffffffmhwc.
+..cgfggmmmmmhhwl.
+..qb.ai...ai.qb..
+..qb.ai...ai.qb..
+..pa.ij...ij.pa..
+end
+
+sprite mimi_loaf_blink
+  use mimi
+grid
+aa......aa........
+aba....aba........
+abacdddaba........
+aaefgffbbadddddd..
+chgiaaffecffffffoe
+cfpbbapggcgfffffmd
+cabbbibjgegggfffmh
+lmanbbaloeggggfmhc
+.pqaaagfegggggmmhc
+..rstsstsrbbbbbbbz
+.cbbbbb.cabbbbbbz.
+end
+
+sprite mimi_loaf_ear
+  use mimi
+grid
+aa................
+aba....abaa.......
+abacdddaba........
+aaefgffbbadddddd..
+chgiaaffecffffffoe
+cfjbbaiggcgfffffmd
+cakbbikjgegggfffmh
+lmanbbaloeggggfmhc
+.pqaaagfegggggmmhc
+..rstsstsrbbbbbbbz
+.cbbbbb.cabbbbbbz.
+end
+
+sprite mimi_sleep_breathe
+  use mimi
+grid
+.......dd........
+.....dfffddd.....
+...dgffffffffoe..
+..dgfffffffffmhd.
+.cxhhgffffffwmhhd
+cxhhmhggffffwmhhc
+cbahmbaxgffgwmhhc
+cvabcvabpbbbbbbbz
+.cia.ciaqvbbbbbz.
+..zyy.yyyyyyyyy..
+end
+
+sprite mimi_sleep_ear
+  use mimi
+grid
+.......ddddd.....
+.....dfffffffoe..
+...dgffffffffmhd.
+..dgffffffffwmhhd
+.cxhhgffffffwmhhc
+cxhhmhggfffgwmhhc
+cbahmbaxggggmmhhc
+cvabcvabpbbbbbbbz
+.ica.ciaqvbbbbbz.
+..zyy.yyyyyyyyy..
+end

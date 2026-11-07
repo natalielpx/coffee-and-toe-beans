@@ -6,12 +6,16 @@
 // chosen); the game draws it. Conversations are written in content/dialogue
 // as JSON, so they can be read and changed without touching any code.
 //
-// Nothing here ever waits for the player forever: a page that is left alone
-// moves on by itself after a while, and choices that are left alone resolve
-// gently with the conversation's "ignore" choice.
+// The narrator's boxes never wait for the player forever: a page that is
+// left alone moves on by itself after a while, and choices that are left
+// alone resolve gently with the conversation's "ignore" choice. A box made
+// with Options.Wait (the cats' moments) waits for the player instead, and
+// only takes its "ignore" choice when it is closed with Abandon (leaving
+// the café with it still open).
 package dialogue
 
 import (
+	"math/rand/v2"
 	"strings"
 
 	"coffee-and-toe-beans/internal/canvas"
@@ -41,6 +45,7 @@ type Options struct {
 	PerRune  float64 // extra linger per letter, so long pages stay longer
 	Patience float64 // seconds choices wait before the "ignore" choice
 	Fade     float64 // seconds to fade in and out
+	Wait     bool    // wait for the player on every page (Linger and Patience unused)
 }
 
 // DefaultOptions fit the café's dialogue box.
@@ -51,7 +56,7 @@ func DefaultOptions() Options {
 		Speed:    34,
 		Linger:   7,
 		PerRune:  0.05,
-		Patience: 40,
+		Patience: 90,
 		Fade:     0.35,
 	}
 }
@@ -82,6 +87,7 @@ type Box struct {
 	ignore  int
 	result  Result
 	paused  bool
+	orig    []int // after Shuffle: the written place of each choice shown
 }
 
 // Start opens a conversation. pages are the texts to show (placeholders
@@ -178,6 +184,9 @@ func (b *Box) Update(dt float64) {
 		b.typeOn(dt)
 	case waiting:
 		b.idle += dt
+		if b.opts.Wait {
+			break
+		}
 		if len(b.choices) > 0 && b.onLastPage() {
 			if b.idle >= b.opts.Patience {
 				b.choose(b.ignore, true)
@@ -247,8 +256,40 @@ func (b *Box) advance(ignored bool) {
 }
 
 func (b *Box) choose(i int, ignored bool) {
-	b.result = Result{Choice: i, Do: b.choices[i].Do, Ignored: ignored}
+	written := i
+	if b.orig != nil {
+		written = b.orig[i]
+	}
+	b.result = Result{Choice: written, Do: b.choices[i].Do, Ignored: ignored}
 	b.state = closing
+}
+
+// Shuffle shows the choices in a random order. Results still count
+// choices as they are written (Result.Choice is the written place), and
+// the "ignore" choice stays the same choice. Call it before the box is
+// shown.
+func (b *Box) Shuffle(rng *rand.Rand) {
+	n := len(b.choices)
+	if n < 2 || rng == nil {
+		return
+	}
+	perm := rng.Perm(n)
+	shown := make([]Choice, n)
+	ignore := 0
+	for i, w := range perm {
+		shown[i] = b.choices[w]
+		if w == b.origIgnore() {
+			ignore = i
+		}
+	}
+	b.choices, b.orig, b.ignore = shown, perm, ignore
+}
+
+func (b *Box) origIgnore() int {
+	if b.orig != nil {
+		return b.orig[b.ignore]
+	}
+	return b.ignore
 }
 
 // Confirm is Enter or Space: show the whole page at once, turn the page,
@@ -272,6 +313,38 @@ func (b *Box) Confirm() {
 		b.advance(false)
 	}
 }
+
+// Abandon ends the conversation at once, as if it had been left to pass:
+// with choices, the "ignore" choice is taken. Used when the player leaves
+// the café with a box still open. It does nothing to a finished box.
+func (b *Box) Abandon() {
+	if b.Answered() {
+		return
+	}
+	if len(b.choices) > 0 {
+		b.choose(b.ignore, true)
+	} else {
+		b.result = Result{Choice: -1, Ignored: true}
+	}
+	b.state = closed
+	b.fade = 0
+}
+
+// Pages are all the conversation's pages, each as one line of text (for
+// tests and previews).
+func (b *Box) Pages() []string {
+	var out []string
+	for _, p := range b.pages {
+		out = append(out, strings.Join(p, " "))
+	}
+	return out
+}
+
+// Page is the page shown now (0 for the first).
+func (b *Box) Page() int { return b.page }
+
+// Waits is true for a box that waits for the player (Options.Wait).
+func (b *Box) Waits() bool { return b.opts.Wait }
 
 // Up moves the selection up (it stops at the top; no wrapping around).
 func (b *Box) Up() {

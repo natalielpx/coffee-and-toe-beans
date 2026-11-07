@@ -368,14 +368,24 @@ type env struct {
 	reduced   bool
 }
 
+// refArea is the window size (in pixels of glass) that the amounts of rain
+// and snow were tuned for; bigger windows get more, so the weather looks
+// just as heavy whatever the window's size.
+const refArea = 30 * 34
+
+// density scales a number of raindrops or flakes to this window's size.
+func (v *view) density(n float64) int {
+	return int(math.Round(n * float64(v.w*v.h) / refArea))
+}
+
 // update moves the weather particles forward by dt seconds.
 func (v *view) update(dt float64, e env) {
 	v.drift += dt * (0.12 + 0.25*math.Abs(e.wind))
 
 	// Rain streaks.
-	want := int(math.Round(e.rain * 34))
+	want := v.density(e.rain * 34)
 	if e.reduced {
-		want = int(math.Round(e.rain * 12))
+		want = v.density(e.rain * 12)
 	}
 	for len(v.rain) < want {
 		d := v.newDrop(e, true)
@@ -395,9 +405,9 @@ func (v *view) update(dt float64, e env) {
 	}
 
 	// Snowflakes.
-	want = int(math.Round(e.snow * 46))
+	want = v.density(e.snow * 46)
 	if e.reduced {
-		want = int(math.Round(e.snow * 20))
+		want = v.density(e.snow * 20)
 	}
 	for len(v.flakes) < want {
 		v.flakes = append(v.flakes, flake{

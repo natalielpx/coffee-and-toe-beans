@@ -13,6 +13,7 @@ palette walnut
   S #3a2519  walnut, panel shadow
 
 # --- On top of the bookshelf -------------------------------------------
+# The pot sits on the bookcase; one long stem trails down its side.
 
 sprite ivy
   g #4f7a43  leaf
@@ -21,35 +22,47 @@ sprite ivy
   t #b5643f  terracotta pot
   T #cf7c52  pot rim
 grid
-..gG....
-.gGgG.g.
-gGglgGg.
-.gGgGglg
-..glGg..
-.TTTTT..
-..ttt...
-g.......
-g.......
-.g......
-.G......
-g.......
-.g......
+...gG......
+.gGgGgG.g..
+gGglgGgGgG.
+.gGgGglGgGl
+gGlGgGgGgg.
+.glGgGglg..
+g.gGgGgG...
+g.TTTTTTT..
+.g.ttttt...
+.g.ttttt...
+g...ttt....
+g..........
+.g.........
+.G.........
+.g.........
+g..........
+.l.........
+.g.........
+g..........
+.G.........
 end
 
 # --- Wall lamps ----------------------------------------------------------
+# A bell of pleated silk on a curved brass arm and a little wall plate.
 
 sprite sconce
   use brass
   s #f2e4c8 @lamp  lampshade
   S #d8c4a0 @lamp  lampshade, underside
 grid
-.s.
-sss
-sSs
-SSS
-.b.
-.B.
-bBb
+..s..
+.sss.
+.sSs.
+sSsSs
+SSSSS
+..B..
+.bBb.
+..b..
+..B..
+.bBb.
+..b..
 end
 
 sprite table_lamp
@@ -57,24 +70,28 @@ sprite table_lamp
   s #f0e0c0 @lamp  pleated shade
   S #d4bf98 @lamp  pleated shade, fold
 grid
-..sss..
-.sSsSs.
-sSsSsSs
-SSSSSSS
-...B...
-...b...
-...B...
-...b...
-..bBb..
-.bbbbb.
+...sss...
+..sSsSs..
+.sSsSsSs.
+sSsSsSsSs
+SSSSSSSSS
+....B....
+....b....
+....B....
+....b....
+....B....
+...bBb...
+..bbbbb..
+.bBBBBBb.
 end
 
 # --- Nala's chalkboard menu ----------------------------------------------
 # Her handwriting is still on it. At this size it's just squiggles, which is
-# rather the point.
+# rather the point. A little pink paw in the corner.
 
 sprite chalkboard
   W #6b4630  frame
+  V #82573c  frame, lit edge
   w #4a2f22  frame, lower ledge
   k #2b3330  slate
   K #323b37  slate, old smudge
@@ -83,19 +100,24 @@ sprite chalkboard
   p #d9a6a0  pink chalk
   y #dccf98  yellow chalk
 grid
-WWWWWWWWWWWWW
-WkkkkkkkkkkkW
-WkkyyKyykkkkW
-WkkkkkkkkkkkW
-WkccKcckkkCkW
-WkkkkkkkKkkkW
-WkcccKckkkCkW
-WkkkkkkkkkkkW
-WkcKccckkkCkW
-WkkkkkkkkkkkW
-WkpkpkkkCkCkW
-WkkpkkkkCCCkW
-wwwcwwwwwwwww
+VVVVVVVVVVVVVVVV
+VkkkkkkkkkkkkkkW
+VkkkyyKyyykkkkkW
+VkkkkkkkkkkkkkkW
+VkccKcckkkkkCCkW
+VkkkkkkkkKkkkkkW
+VkcccKcckkkkCCkW
+VkkkkkkkkkkkkkkW
+VkccKccckkkkCCkW
+VkkkkkkkkkkkkkkW
+VkcccckkkkkkCCkW
+VkkkkkkKkkkkkkkW
+VkccKcckkkkkCCkW
+VkkkkkkkkkkkkkkW
+VkpkpkkkkkkkkkkW
+VkkpkkkkkkCkCkkW
+VkkkkkkkkkkCkkkW
+wwwwcwwwwwwwwwww
 end
 
 # --- The sideboard, with a few things on it -------------------------------
@@ -103,18 +125,22 @@ end
 sprite sideboard
   use walnut brass
 grid
-LLLLLLLLLLLLLLLLLL
-MMMMMMMMMMMMMMMMMM
-DDDDDDDDDDDDDDDDDD
-DmmmmmmmDDmmmmmmmD
-DmLLLLLmDDmLLLLLmD
-DmLmmmSmDDmLmmmSmD
-DmLmmmSbDDbLmmmSmD
-DmLmmmSmDDmLmmmSmD
-DmSSSSSmDDmSSSSSmD
-DmmmmmmmDDmmmmmmmD
-DDDDDDDDDDDDDDDDDD
-.D..............D.
+LLLLLLLLLLLLLLLLLLLLLLLL
+MMMMMMMMMMMMMMMMMMMMMMMM
+DDDDDDDDDDDDDDDDDDDDDDDD
+DmmmmmmmmmmDDmmmmmmmmmmD
+DmmmmbBmmmmDDmmmmBbmmmmD
+DDDDDDDDDDDDDDDDDDDDDDDD
+DmLLLLLLLLmDDmLLLLLLLLmD
+DmLmmmmmmSmDDmLmmmmmmSmD
+DmLmmmmmmSbDDbLmmmmmmSmD
+DmLmmmmmmSBDDBLmmmmmmSmD
+DmLmmmmmmSmDDmLmmmmmmSmD
+DmSSSSSSSSmDDmSSSSSSSSmD
+DmmmmmmmmmmDDmmmmmmmmmmD
+DDDDDDDDDDDDDDDDDDDDDDDD
+.D....................D.
+.D....................D.
 end
 
 sprite book_stack
@@ -122,27 +148,33 @@ sprite book_stack
   g #4f6b4a  green cloth
   u #3b5878  blue cloth
   y #b8913a  mustard cloth
+  v #6b4060  plum cloth
+  p #e3d6ba  page edges
 grid
-.rrrr
-ggggg
-.uuuu
-yyyy.
+.rrrrrp
+gggggg.
+.uuuuup
+yyyyyyp
+pvvvvvv
 end
 
 # --- A cat bed on the floor -------------------------------------------------
 
 sprite cushion
+  H #c26a4c  velvet rim, catching the light
   R #a8553a  velvet rim
   r #7f3f2b  velvet rim, underside
   c #e6d4ba  fleece
   C #c9b393  fleece, in the hollow
 grid
-...RRRRRRRR...
-.RRccccccccRR.
-RRcCCCCCCCCcRR
-RRRccccccccRRR
-.rRRRRRRRRRRr.
-..rrrrrrrrrr..
+....HHHHHHHHHHHH....
+..HHccccccccccccHH..
+.HRcccCCCCCCCCcccRH.
+RRcCCCCCCCCCCCCCCcRR
+RRRccccccccccccccRRR
+.RRRRRRRRRRRRRRRRRR.
+.rrRRRRRRRRRRRRRRrr.
+...rrrrrrrrrrrrrr...
 end
 
 # --- The old cast-iron radiator under the window ---------------------------
@@ -152,12 +184,14 @@ sprite radiator
   A #cdc7b9  painted iron, lit ridge
   d #6d685e  shadow
 grid
-.a.a.a.a.a.a.a.a.a.a.a
-aAaAaAaAaAaAaAaAaAaAaA
-aAaAaAaAaAaAaAaAaAaAaA
-aAaAaAaAaAaAaAaAaAaAaA
-aAaAaAaAaAaAaAaAaAaAaA
-dddddddddddddddddddddd
+.Aa.Aa.Aa.Aa.Aa.Aa.Aa.Aa.Aa.
+dAadAadAadAadAadAadAadAadAad
+dAadAadAadAadAadAadAadAadAad
+dAadAadAadAadAadAadAadAadAad
+dAadAadAadAadAadAadAadAadAad
+dAadAadAadAadAadAadAadAadAad
+dddddddddddddddddddddddddddd
+.dd......................dd.
 end
 
 # --- On your table (cups are in drinks.txt) ----------------------------------------------------------
@@ -166,14 +200,17 @@ sprite candle
   f #fff0b8 @flame  flame tip
   F #ffb54a @flame  flame
   w #efe2c2  wax
+  W #fbf3dc  wax, melted pool
   g #c9c2ae @lamp  glass votive (glows amber when lit)
   G #8f8a7c @lamp  glass votive, base
 grid
-.f.
-.F.
-gwg
-gwg
-GGG
+..f..
+..F..
+.gWg.
+gwwwg
+gwwwg
+gwwwg
+GGGGG
 end
 
 sprite your_book
@@ -181,10 +218,12 @@ sprite your_book
   b #3c5a48  cover
   y #c9a24a  gilt title
   p #e8dcc2  pages
+  r #a8433a  ribbon bookmark
 grid
-BBBBBBBBB
-BbbyyybbB
-BbbbbbbbB
-ppppppppp
+BBBBBBBBBBBB
+BbbbyyyybbbB
+BbbbbbbbbbbB
+BbbbbbbbbbbB
+pppppppppppp
+.........r..
 end
-

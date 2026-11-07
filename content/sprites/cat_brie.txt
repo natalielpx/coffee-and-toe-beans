@@ -1,0 +1,278 @@
+# Brie: a fluffy cream Turkish Angora with odd eyes (one blue, one gold)
+# and a dark green collar. Elegant, a little haughty, fond of theatrical sighs.
+# Drawn from Nala's reference (brie_sitting.png, PixelLab, painted by Nala).
+# See README.md in this folder for the format. The poses and which frame is
+# which are listed in content/cats/brie.json.
+
+palette brie
+  w #e8a3a0  toe bean (pink)
+  a #fbebce  fur highlight
+  b #ebc8a4  fur
+  c #f7e0bb  fur light
+  d #b9967a  fur shadow
+  e #d3ae8d  fur mid
+  f #a07d67  fur dark shadow
+  g #fffcf8  white (whiskers, chest)
+  h #51615a  collar
+  i #926956  stripes
+  j #c6a588  fur shadow
+  k #6ab4e8  left eye, blue (light)
+  u #3a78b0  left eye, blue (dark)
+  l #e0a838  right eye, gold (light)
+  v #a86c1c  right eye, gold (dark)
+  m #ad9c88  soft edge
+  n #816656  stripes, dark
+  o #af896e  fur shadow
+  p #c3b6a0  soft edge, light
+  q #b5a692  soft edge
+  r #454846  collar, dark
+  s #deb795  fur mid
+  t #a7927c  soft edge, dark
+
+sprite brie_sit
+  use brie
+grid
+.dd....f.......
+.mbq..tj.......
+.qscqmbd.......
+.pccaabjt......
+abkaalfam......
+qcuaavcam......
+gaamccccgq.....
+.mfccccn.......
+mcfhhhgaq......
+ocanraacbd.....
+tbcaaabbbbd....
+.tsdaebbbbbt...
+.mbdfbeibbbstt.
+..tafbfbiibbecm
+..tafbfeaadobcq
+.paaaacaaabbbmq
+.pqqcmqaaacccm.
+.......pppqqq..
+end
+
+sprite brie_sit_blink
+  use brie
+grid
+.dd....f.......
+.mbq..tj.......
+.qscqmbd.......
+.pccaabjt......
+abcaacfam......
+qcfaafcam......
+gaamccccgq.....
+.mfccccn.......
+mcfhhhgaq......
+ocanraacbd.....
+tbcaaabbbbd....
+.tsdaebbbbbt...
+.mbdfbeibbbstt.
+..tafbfbiibbecm
+..tafbfeaadobcq
+.paaaacaaabbbmq
+.pqqcmqaaacccm.
+.......pppqqq..
+end
+
+sprite brie_sit_ear
+  use brie
+grid
+.......f.......
+dmbq..tj.......
+.qscqmbd.......
+.pccaabjt......
+abkaalfam......
+qcuaavcam......
+gaamccccgq.....
+.mfccccn.......
+mcfhhhgaq......
+ocanraacbd.....
+tbcaaabbbbd....
+.tsdaebbbbbt...
+.mbdfbeibbbstt.
+..tafbfbiibbecm
+..tafbfeaadobcq
+.paaaacaaabbbmq
+.pqqcmqaaacccm.
+.......pppqqq..
+end
+
+sprite brie_sit_tail
+  use brie
+grid
+.dd....f.......
+.mbq..tj.......
+.qscqmbd.......
+.pccaabjt......
+abkaalfam......
+qcuaavcam......
+gaamccccgq.....
+.mfccccn.......
+mcfhhhgaq......
+ocanraacbd..pq.
+tbcaaabbbbd.cbq
+.tsdaebbbbbtbbd
+.mbdfbeibbbsbbt
+..tafbfbiibbbd.
+..tafbfeaadob..
+.paaaacaaabbbm.
+.pqqcmqaaacccm.
+.......pppqqq..
+end
+
+sprite brie_stand
+  use brie
+grid
+.dd....f..pqp....
+.mbq..tj.pcaaq...
+.qscqmbd.qcabbq..
+.pccaabjt.pcabd..
+abkaalfam..jbbo..
+qcuaavcam.jbbd...
+gaamccccgqjbq....
+.mfccccnap.pbbp..
+mcfhhhgaacaacbbq.
+ocanraaccbbbbbbbq
+gbcaaaccbbbibbbd.
+.gcaaacbbibbbbdq.
+..qcpa.pbp.pbbq..
+..ca.dj...od.bd..
+..ca.dj...od.bd..
+..pa.jo...od.pa..
+end
+
+sprite brie_loaf
+  use brie
+grid
+.dd....f..........
+.mbq..tj..........
+.qscqmbd..........
+.pccaabjtp.pqp....
+abkaalfamcaacaaqp.
+qcuaavcamcccbbbbbq
+gaamccccgqbbbbbbbd
+.mfccccnabbbbbebbo
+mcfhhhgacbbbbibbbq
+gcaaaacsccccccbbbo
+.paaaapqepeepedop.
+end
+
+sprite brie_sleep
+  use brie
+grid
+..f...f...........
+.djd.djd..pqqqqp..
+.qcaacaq.pcaaacbq.
+ftaaaaaapcacbbbbbd
+fcfaaaaacbbbbbbbbd
+fcafftffcfbbbbbbbo
+facaaccaafcffbbbbo
+.fcaaaaaacaacfbbdo
+.ffcaacaacaaacfdo.
+...fffffffffffff..
+end
+
+sprite brie_stand_blink
+  use brie
+grid
+.dd....f..pqp....
+.mbq..tj.pcaaq...
+.qscqmbd.qcabbq..
+.pccaabjt.pcabd..
+abcaacfam..jbbo..
+qcfaafcam.jbbd...
+gaamccccgqjbq....
+.mfccccnap.pbbp..
+mcfhhhgaacaacbbq.
+ocanraaccbbbbbbbq
+gbcaaaccbbbibbbd.
+.gcaaacbbibbbbdq.
+..qcpa.pbp.pbbq..
+..ca.dj...od.bd..
+..ca.dj...od.bd..
+..pa.jo...od.pa..
+end
+
+sprite brie_stand_tail
+  use brie
+grid
+.dd....f...pqp...
+.mbq..tj..pcaaq..
+.qscqmbd..qcabbq.
+.pccaabjt.pcabd..
+abkaalfam..jbbo..
+qcuaavcam.jbbd...
+gaamccccgqjbq....
+.mfccccnap.pbbp..
+mcfhhhgaacaacbbq.
+ocanraaccbbbbbbbq
+gbcaaaccbbbibbbd.
+.gcaaacbbibbbbdq.
+..qcpa.pbp.pbbq..
+..ca.dj...od.bd..
+..ca.dj...od.bd..
+..pa.jo...od.pa..
+end
+
+sprite brie_loaf_blink
+  use brie
+grid
+.dd....f..........
+.mbq..tj..........
+.qscqmbd..........
+.pccaabjtp.pqp....
+abcaacfamcaacaaqp.
+qcfaafcamcccbbbbbq
+gaamccccgqbbbbbbbd
+.mfccccnabbbbbebbo
+mcfhhhgacbbbbibbbq
+gcaaaacsccccccbbbo
+.paaaapqepeepedop.
+end
+
+sprite brie_loaf_ear
+  use brie
+grid
+.......f..........
+dmbq..tj..........
+.qscqmbd..........
+.pccaabjtp.pqp....
+abkaalfamcaacaaqp.
+qcuaavcamcccbbbbbq
+gaamccccgqbbbbbbbd
+.mfccccnabbbbbebbo
+mcfhhhgacbbbbibbbq
+gcaaaacsccccccbbbo
+.paaaapqepeepedop.
+end
+
+sprite brie_sleep_breathe
+  use brie
+grid
+..f...f...........
+.djd.djd..........
+.qcaacaq..pqqqqp..
+ftaaaaaappcaaacbq.
+fcfaaaaaccacbbbbbd
+fcafftffcbbbbbbbbd
+facaaccaafcffbbbbo
+.fcaaaaaacaacfbbdo
+.ffcaacaacaaacfdo.
+...fffffffffffff..
+end
+
+sprite brie_sleep_ear
+  use brie
+grid
+......f...........
+.fjd.djd..pqqqqp..
+.qcaacaq.pcaaacbq.
+ftaaaaaapcacbbbbbd
+fcfaaaaacbbbbbbbbd
+fcafftffcfbbbbbbbo
+facaaccaafcffbbbbo
+.fcaaaaaacaacfbbdo
+.ffcaacaacaaacfdo.
+...fffffffffffff..
+end

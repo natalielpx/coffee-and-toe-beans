@@ -28,17 +28,20 @@ sprite cup_bistro
   use porcelain
   g #4d7a5e  green bistro band
 grid
-...ooooooo....
-..oWWWWWWWo...
-.oWdddddddWo..
-.owdddddddwo..
-.owWWWWWWWwohh
-.owwwwwwwvvo.h
-.oggggggggvo.h
-.owwwwwwwvvohh
-..owwwwwvvo...
-ossssssssssso.
-.oSSSSSSSSSo..
+....ooooooooo.....
+...oWWWWWWWWWo....
+..oWdddddddddWo...
+..owdddddddddwo...
+..owdddddddddwo...
+..owWWWWWWWWWwohh.
+..owwwwwwwwwvvo..h
+..ogggggggggggo..h
+..owwwwwwwwwvvo..h
+..owwwwwwwwwvvohh.
+...owwwwwwwwvo....
+....oowwwwwvoo....
+ossssssssssssssso.
+.oSSSSSSSSSSSSSo..
 end
 
 # Earl Grey: a wide, fine teacup with a band of tiny roses.
@@ -47,16 +50,18 @@ sprite cup_teacup
   r #c9868a  painted roses
   l #8fa37f  painted leaves
 grid
-..ooooooooooo...
-.oWWWWWWWWWWWo..
-.oWdddddddddWo..
-.owdddddddddwo..
-.owWWWWWWWWWwohh
-..orwlwrwlwro..h
-..owwwwwwwvvohh.
-...oowwwwvoo....
-ossssssssssssso.
-.oSSSSSSSSSSSo..
+..oooooooooooooo....
+.oWWWWWWWWWWWWWWo...
+.oWddddddddddddWo...
+.owddddddddddddwo...
+.owddddddddddddwo...
+.owWWWWWWWWWWWWwohh.
+..orwlwrwlwrwlro...h
+..owwwwwwwwwwvvo...h
+...owwwwwwwwwvvo.hh.
+....oowwwwwwvvoo....
+ossssssssssssssssso.
+.oSSSSSSSSSSSSSSSo..
 end
 
 # Chocolat chaud: a big stoneware mug with an ochre glaze.
@@ -67,16 +72,19 @@ sprite cup_mug
   z #a87a2f  glaze, shadow side
   d #8a6a45 @drink  inside of the mug
 grid
-.oooooooooo...
-oYYYYYYYYYYo..
-oYddddddddYo..
-oydddddddzyooo
-oyYYYYYYYYzo.o
-oyyyyyyyyzzo.o
-oyyyyyyyyzzo.o
-oyyyyyyyyzzooo
-oyyyyyyyzzzo..
-.oooooooooo...
+.oooooooooooo....
+oYYYYYYYYYYYYo...
+oYddddddddddYo...
+oyddddddddddzoooo
+oyddddddddddzo..o
+oyYYYYYYYYYYzo..o
+oyyyyyyyyyyzzo..o
+oyyyyyyyyyyzzo..o
+oyyyyyyyyyyzzo..o
+oyyyyyyyyyyzzoooo
+oyyyyyyyyyzzzo...
+oyyyyyyyyyzzzo...
+.oooooooooooo....
 end
 
 # Matcha latte: a French breakfast bowl, cream with a blue line.
@@ -84,34 +92,40 @@ sprite cup_bowl
   use porcelain
   b #5b7fa6  blue line
 grid
-..oooooooooo..
-.oWWWWWWWWWWo.
-oWddddddddddWo
-owddddddddddwo
-owWddddddddWwo
-owwWWWWWWWWwvo
-.obbbbbbbbbbo.
-..owwwwwwvvo..
-...oowwwvoo...
-....oooooo....
+...oooooooooooo...
+.ooWWWWWWWWWWWWoo.
+oWWddddddddddddWWo
+owddddddddddddddwo
+owddddddddddddddwo
+owWddddddddddddWwo
+owwWWWWWWWWWWWWwvo
+owwwwwwwwwwwwwwvvo
+.obbbbbbbbbbbbbbo.
+..owwwwwwwwwwvvo..
+...oowwwwwwwvoo...
+.....oooooooo.....
 end
 
 # Chai latte: a tall glass, so you can watch it go down.
 sprite cup_tall_glass
   use glass
 grid
-OGgggggO
-OGdddddO
-OGdddddO
-OGdddddO
-OGdddddO
-OGdddddO
-OGdddddO
-OGdddddO
-OGdddddO
-OGdddddO
-OgggggggO
-.OOOOOOO.
+OGgggggggO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OGdddddddO
+OgggggggggO
+.OOOOOOOOO.
 end
 
 # Vin chaud: a little glass mug, with a slice of orange on the rim.
@@ -120,17 +134,20 @@ sprite cup_glass_mug
   q #f0a040  orange slice
   Q #f7d070  orange slice, pith
 grid
-.qQq.....
-qQqQq....
-OGqqgggO.
-OGddddddOOO
-OGddddddO.O
-OGddddddO.O
-OGddddddO.O
-OGddddddOOO
-OGddddddO..
-OggggggggO.
-.OOOOOOOO..
+..qQq.........
+.qQqQq........
+qQqQqQq.......
+OGqqqgggggO...
+OGddddddddOOOO
+OGddddddddO..O
+OGddddddddO..O
+OGddddddddO..O
+OGddddddddO..O
+OGddddddddO..O
+OGddddddddOOOO
+OGddddddddO...
+OgggggggggO...
+.OOOOOOOOO....
 end
 
 # Tisane verveine: a glass teacup on a porcelain saucer.
@@ -140,13 +157,15 @@ sprite cup_glass_cup
   S #c8c1b4  saucer edge
   o #8a8174  saucer outline
 grid
-OGgggggggO...
-OGddddddddOOO
-OGddddddddO.O
-.OGddddddOOOO
-..OGddddO....
-osssssssssso.
-.oSSSSSSSSo..
+OGggggggggggO....
+OGddddddddddOOOO.
+OGddddddddddO..O.
+OGddddddddddO..O.
+.OGddddddddOOOOO.
+..OGddddddO......
+...OGddddO.......
+ossssssssssssso..
+.oSSSSSSSSSSSo...
 end
 
 # --- Menu icons (up to 8 x 5 pixels, drawn on the menu's dark card) -----------

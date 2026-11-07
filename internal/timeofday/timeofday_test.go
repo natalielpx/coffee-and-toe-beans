@@ -19,8 +19,15 @@ func load(t *testing.T) *Schedule {
 	return s
 }
 
+// Paris winter and summer time, fixed so the tests give the same answer on
+// any computer (GitHub's test machines run on UTC) and on any day of the year.
+var (
+	parisWinter = time.FixedZone("CET", 3600)
+	parisSummer = time.FixedZone("CEST", 7200)
+)
+
 func at(hh, mm int) time.Time {
-	return time.Date(2026, 11, 7, hh, mm, 0, 0, time.Local)
+	return time.Date(2026, 11, 7, hh, mm, 0, 0, parisWinter)
 }
 
 // look sums up how different two moments look: sky, rooftops and room.
@@ -100,17 +107,28 @@ func TestKeyframeIsExact(t *testing.T) {
 
 func TestPhases(t *testing.T) {
 	s := load(t)
-	cases := map[string]time.Time{
-		"late night": at(2, 18),
-		"dawn":       at(6, 0),
-		"morning":    at(9, 0),
-		"afternoon":  at(15, 0),
-		"evening":    at(19, 0),
-		"night":      at(23, 0),
+	// Around the spring equinox, Paris's real sunrise and sunset (about 06:59
+	// and 19:13) are close to the model day's, so the clock reads naturally.
+	spring := func(hh, mm int) time.Time { return time.Date(2026, 3, 21, hh, mm, 0, 0, parisWinter) }
+	cases := []struct {
+		at   time.Time
+		want string
+	}{
+		{spring(2, 18), "late night"},
+		{spring(6, 0), "dawn"},
+		{spring(9, 0), "morning"},
+		{spring(15, 0), "afternoon"},
+		{spring(19, 0), "evening"},
+		{spring(23, 0), "night"},
+		// The seasons move the hours: 18:30 is already evening in November
+		// (sunset about 17:20) but still afternoon in June (sunset about 21:58).
+		{time.Date(2026, 11, 7, 18, 30, 0, 0, parisWinter), "evening"},
+		{time.Date(2026, 6, 21, 18, 30, 0, 0, parisSummer), "afternoon"},
+		{time.Date(2026, 6, 21, 22, 0, 0, 0, parisSummer), "evening"},
 	}
-	for want, tm := range cases {
-		if got := s.Phase(tm); got != want {
-			t.Errorf("%s: got %q want %q", tm.Format("15:04"), got, want)
+	for _, c := range cases {
+		if got := s.Phase(c.at); got != c.want {
+			t.Errorf("%s: got %q want %q", c.at.Format("2 Jan 15:04"), got, c.want)
 		}
 	}
 }

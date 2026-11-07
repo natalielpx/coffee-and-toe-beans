@@ -1,7 +1,7 @@
 {
   "_about": [
     "How the café is lit through the day. Each keyframe is the look at one time;",
-    "everything in between is blended smoothly. Colors are #rrggbb.",
+    "everything in between is blended smoothly. Colours are #rrggbb.",
     "sky_top / sky_horizon: the sky at the top of the window and just above the roofs.",
     "outdoor_light: tints the rooftops (#ffffff = full daylight, darker = dimmer).",
     "room_light: tints the room before the lamps add their glow (#ffffff = full daylight).",

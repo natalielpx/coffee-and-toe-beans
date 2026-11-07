@@ -3,49 +3,63 @@
     "What the narrator says in the café, as small conversations.",
     "pages: shown one after another; the player presses Enter to turn the page (or it turns by itself after a while).",
     "A page can be one text in quotes, or a list of texts in [ ]: then one is picked at random each time.",
-    "choices: 2 to 4 answers. 'do' is what happens: \"order\" opens the drinks menu; leave it out for nothing.",
-    "ignore: which choice happens if the player doesn't answer (1 for the first). Nothing ever waits forever.",
-    "Things in {curly braces} are filled in by the game: {drink} is the drink in your cup.",
+    "choices: 2 to 5 answers. 'do' is what happens: \"order\" opens the drinks menu, \"order_suggestion\" serves the suggested drink; leave it out for nothing.",
+    "ignore: which choice happens if the player doesn't answer (1 for the first). A narrator question waits question_seconds (content/pacing.json).",
+    "Things in {curly braces} are filled in by the game: {drink} is the drink in your cup, {suggestion} is another drink served right now, {favourite} is the drink you order most.",
+    "arrive: the drink offer after the welcome (content/narrator/welcome.json) and any away note. arrive_favourite is used instead about half the time once you have a favourite that's being served.",
+    "cup_kept: said instead of the drink offer when you come back soon enough to find your drink still on the table.",
+    "When a cup is empty, the game picks one of the conversations whose name starts with cup_empty, never the same one twice in a row. Add more by giving them names like cup_empty_something.",
     "Keep each page short: about 3 lines of 46 letters at most."
   ],
   "conversations": {
     "arrive": {
+      "pages": [["Something to drink?", "Something warm to drink?"]],
+      "choices": [{"text": "Order a drink", "do": "order"}, {"text": "Not yet"}],
+      "ignore": 2
+    },
+    "arrive_favourite": {
       "pages": [
         [
-          "You settle at the little marble table by the window.",
-          "The table by the window is free. It usually is, as if it had been keeping itself for you.",
-          "You take the chair by the window. It creaks hello."
-        ],
-        [
-          "Something warm to drink?",
-          "Would you like something to drink?",
-          "Something for your hands to hold, perhaps?"
+          "Something to drink? Your usual {favourite}, maybe.",
+          "Something to drink? You usually have the {favourite}.",
+          "The {favourite} again?"
         ]
       ],
-      "choices": [
-        {"text": "Order a drink", "do": "order"},
-        {"text": "Just sit for a while"}
-      ],
+      "choices": [{"text": "Order a drink", "do": "order"}, {"text": "Not yet"}],
       "ignore": 2
+    },
+    "cup_kept": {
+      "pages": [
+        [
+          "Your {drink} is where you left it, a little cooler now.",
+          "Your {drink} is still on the table. It's had time to cool.",
+          "Your {drink} is still here. Nobody touched it. Well, almost nobody."
+        ]
+      ]
     },
     "cup_empty": {
       "pages": [
+        ["Your {drink} is finished.", "That's the last of your {drink}.", "Your cup is empty."],
+        ["Another?", "Something else?"]
+      ],
+      "choices": [{"text": "Order something", "do": "order"}, {"text": "Not now"}],
+      "ignore": 2
+    },
+    "cup_empty_suggest": {
+      "pages": [
         [
-          "The last of your {drink} is gone. The cup is still a little warm in your hands.",
-          "Your {drink} is finished. Only a faint ring at the bottom remembers it.",
-          "The {drink} is all gone. The cup waits on the table, patient and empty."
-        ],
-        [
-          "Another?",
-          "Something else, perhaps?",
-          "Would you like another?"
+          "Your {drink} is finished. The {suggestion} is good at this time of day.",
+          "Your cup is empty. Maybe a {suggestion} next?",
+          "That's the last of the {drink}. How about a {suggestion}?"
         ]
       ],
       "choices": [
-        {"text": "Order something", "do": "order"},
-        {"text": "Not just now"}
+        {"text": "A {suggestion}, please", "do": "order_suggestion"},
+        {"text": "Something else", "do": "order"},
+        {"text": "Not now"}
       ],
-      "ignore": 2
-    }
+      "ignore": 3
+    },
+    "cup_empty_quiet": {"pages": [["Your {drink} is finished.", "Your cup is empty now."]]}
   }
 }

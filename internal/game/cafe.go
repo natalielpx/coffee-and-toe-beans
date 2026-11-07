@@ -4,18 +4,17 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	"unicode"
-	"unicode/utf8"
 
+	"coffee-and-toe-beans/internal/cats"
 	"coffee-and-toe-beans/internal/dialogue"
 	"coffee-and-toe-beans/internal/drinks"
-	"coffee-and-toe-beans/internal/scene"
 )
 
 // Conversations the café needs (in content/dialogue).
 const (
 	convArrive   = "arrive"    // just after stepping inside
-	convCupEmpty = "cup_empty" // a while after the cup is finished
+	convCupEmpty = "cup_empty" // a while after the cup is finished; every
+	// conversation whose name starts with this is one way of saying it
 )
 
 // arriveDelay is how long the café lets you look around (real seconds)
@@ -32,8 +31,10 @@ const (
 type talkKind int
 
 const (
-	talkOffer  talkKind = iota // offers a drink; dropped once you order
-	talkServed                 // a drink arriving
+	talkOffer    talkKind = iota // offers a drink; dropped once you order
+	talkServed                   // a drink arriving
+	talkMoment                   // a moment with a cat (waits for you)
+	talkNarrator                 // the narrator: welcome, small talk
 )
 
 // talkBox is a conversation on screen (or waiting for its turn).
@@ -41,6 +42,9 @@ type talkBox struct {
 	*dialogue.Box
 	kind    talkKind
 	handled bool // its answer has been acted on
+
+	catOf  *cats.Cat    // for a moment: whose it is
+	moment *cats.Moment // ...and which
 }
 
 // cup is the drink on your table.
@@ -57,6 +61,17 @@ func (g *Game) talkOptions() dialogue.Options {
 	if g.cfg.Reduced {
 		o.Fade = 0.12
 	}
+	if q := g.mem.pace.QuestionSeconds; q > 0 {
+		o.Patience = q
+	}
+	return o
+}
+
+// momentOptions are for the cats' moments: they wait for you on every
+// page, and the cat stays put.
+func (g *Game) momentOptions() dialogue.Options {
+	o := g.talkOptions()
+	o.Wait = true
 	return o
 }
 
@@ -74,7 +89,7 @@ func (g *Game) open(id string, kind talkKind, vals map[string]string) {
 	g.say(kind, c.Open(vals, g.rng, g.talkOptions()))
 }
 
-func (g *Game) busy() bool { return g.pause != nil || g.menu != nil }
+func (g *Game) busy() bool { return g.pause != nil || g.menu != nil || g.look != nil }
 
 func (g *Game) nextTalk() {
 	if g.box != nil || g.busy() || g.phase != phaseCafe || len(g.queue) == 0 {
@@ -96,12 +111,12 @@ func (g *Game) updateTalk(dt float64, now time.Time) {
 	switch {
 	case !g.greeted && g.inCafe >= arriveDelay:
 		g.greeted = true
-		if g.order == nil { // nobody offers a drink to someone already holding one
-			g.open(convArrive, talkOffer, nil)
-		}
+		g.arrive(now)
 	case !g.offerAt.IsZero() && !now.Before(g.offerAt):
 		g.offerAt = time.Time{}
-		g.open(convCupEmpty, talkOffer, map[string]string{"drink": g.drinkWord()})
+		g.offerAnother(now)
+	case g.greeted && len(g.queue) == 0:
+		g.smallTalk(now)
 	}
 	g.nextTalk()
 }
@@ -113,19 +128,85 @@ func (g *Game) settle() {
 	if b == nil {
 		return
 	}
+	if b.Answered() && !b.handled && b.kind == talkMoment {
+		b.handled = true
+		if b.moment != nil {
+			g.endMoment(b)
+		}
+	}
 	if b.Answered() && !b.handled {
 		b.handled = true
 		r, _ := b.Done()
-		if r.Do == "order" {
+		switch r.Do {
+		case "order":
 			g.box = nil
+			g.hush(g.Now())
 			g.openDrinks(false)
+			return
+		case "order_suggestion":
+			g.box = nil
+			g.hush(g.Now())
+			if d := g.suggestion; d != nil && d.Available(g.Now()) {
+				g.serve(d)
+			} else {
+				g.openDrinks(false) // its hour just passed: choose another
+			}
 			return
 		}
 	}
 	if _, done := b.Done(); done {
 		g.box = nil
+		g.hush(g.Now())
 		g.nextTalk()
 	}
+}
+
+// offerAnother says something once the cup is empty, picked from the
+// cup_empty conversations: never the same one twice in a row, and only one
+// that suggests a drink if there's something else being served.
+func (g *Game) offerAnother(now time.Time) {
+	g.suggestion = g.suggest(now)
+	var pool []string
+	for _, id := range g.talk.WithPrefix(convCupEmpty) {
+		c, _ := g.talk.Get(id)
+		if c.Uses("suggestion") && g.suggestion == nil {
+			continue
+		}
+		pool = append(pool, id)
+	}
+	if len(pool) > 1 {
+		kept := pool[:0]
+		for _, id := range pool {
+			if id != g.lastOffer {
+				kept = append(kept, id)
+			}
+		}
+		pool = kept
+	}
+	if len(pool) == 0 {
+		return
+	}
+	id := pool[g.rng.IntN(len(pool))]
+	g.lastOffer = id
+	vals := map[string]string{"drink": g.drinkWord()}
+	if g.suggestion != nil {
+		vals["suggestion"] = g.suggestion.Word()
+	}
+	g.open(id, talkOffer, vals)
+}
+
+// suggest picks another drink being served right now (nil if none).
+func (g *Game) suggest(now time.Time) *drinks.Drink {
+	var pool []*drinks.Drink
+	for _, d := range g.drinks.Drinks {
+		if d.Available(now) && (g.order == nil || d.ID != g.order.order.Drink) {
+			pool = append(pool, d)
+		}
+	}
+	if len(pool) == 0 {
+		return nil
+	}
+	return pool[g.rng.IntN(len(pool))]
 }
 
 // drinkWord is the drink in your cup, as written mid-sentence: "café crème".
@@ -133,30 +214,15 @@ func (g *Game) drinkWord() string {
 	if g.order == nil {
 		return ""
 	}
-	d, ok := g.drinks.Get(g.order.order.Drink)
-	if !ok {
-		return ""
-	}
-	return lowerFirst(d.Name)
-}
-
-func lowerFirst(s string) string {
-	r, n := utf8.DecodeRuneInString(s)
-	if r == utf8.RuneError {
-		return s
-	}
-	return string(unicode.ToLower(r)) + s[n:]
+	return g.order.drink.Word()
 }
 
 // serve brings a drink to the table, replacing whatever was there.
 func (g *Game) serve(d *drinks.Drink) {
 	now := g.Now()
-	g.order = &cup{order: drinks.Order{Drink: d.ID, At: now, Seed: g.rng.Uint64()}, drink: d}
-	g.offerAt = time.Time{}
-	shape := g.drinks.Cups[d.Cup]
-	body, top := d.Liquid()
-	_ = g.scene.PutCup(&scene.Cup{Sprite: shape.Sprite, Steam: shape.Steam, Body: body, Top: top, Level: 1})
-	g.scene.SetSteam(1)
+	g.putCup(d, drinks.Order{Drink: d.ID, At: now, Seed: g.rng.Uint64()})
+	g.mem.kept = false
+	g.countOrder(d.ID)
 
 	// Any offer of a drink is now beside the point, and so is the line
 	// about a drink that has just been replaced.
@@ -210,13 +276,18 @@ func (g *Game) openDrinks(fromPause bool) {
 	g.holdTalk(true)
 }
 
-// lastDrink is where the menu opens: on the drink in your cup, if any.
+// lastDrink is where the menu opens: on the drink in your cup, or else
+// your favourite.
 func (g *Game) lastDrink() int {
+	id := ""
 	if g.order != nil {
-		for i, d := range g.drinks.Drinks {
-			if d.ID == g.order.order.Drink {
-				return i
-			}
+		id = g.order.order.Drink
+	} else if f := g.favourite(); f != nil {
+		id = f.ID
+	}
+	for i, d := range g.drinks.Drinks {
+		if d.ID == id {
+			return i
 		}
 	}
 	return 0

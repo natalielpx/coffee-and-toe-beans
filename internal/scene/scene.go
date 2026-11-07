@@ -60,6 +60,8 @@ type Scene struct {
 
 	drops     []droplet
 	sinceDrop float64
+
+	cats []catDraw // the cats in the room this frame
 }
 
 type puff struct{ x, y, age, life, phase, drift float64 }
@@ -156,6 +158,9 @@ func (s *Scene) SetLevel(level float64) {
 		s.liquid.level = rgb.Clamp01(level)
 	}
 }
+
+// CupStand is the pixel where cups stand on the table (their bottom-left).
+func (s *Scene) CupStand() [2]int { return s.stand() }
 
 // stand is the bottom-left pixel where cups stand.
 func (s *Scene) stand() [2]int {
@@ -298,6 +303,7 @@ func (s *Scene) Draw(c *canvas.Canvas, ox, oy int) {
 
 	s.drawPaneSnow(c, ox, oy)
 	s.drawDrops(c, ox, oy)
+	s.drawCats(c, ox, oy)
 	s.drawCup(c, ox, oy)
 	s.drawSteam(c, ox, oy)
 }
@@ -419,12 +425,13 @@ func (s *Scene) updateDrops(dt float64) {
 		return
 	}
 	rain := s.env.rain
-	limit := int(rain * 70)
+	size := float64(r.glass.w*r.glass.h) / refArea // bigger windows gather more drops
+	limit := int(rain * 70 * size)
 	if s.opts.ReducedMotion {
-		limit = int(rain * 35)
+		limit = int(rain * 35 * size)
 	}
 	s.sinceDrop += dt
-	rate := rain * 9 // new drops per second
+	rate := rain * 9 * size // new drops per second
 	for rate > 0 && s.sinceDrop > 1/rate {
 		s.sinceDrop -= 1 / rate
 		if len(s.drops) >= limit {

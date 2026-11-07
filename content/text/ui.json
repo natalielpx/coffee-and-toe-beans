@@ -2,7 +2,9 @@
   "_about": [
     "Words the player sees on screen, outside of the story itself.",
     "Things in {curly braces} are filled in by the game; keep them as they are.",
-    "The story's words (what the narrator says) are in content/dialogue; the drinks are in content/drinks.json."
+    "look_marker: the colour of the arrow in Look around; look_marker_outline: the colour around it (\"\" for none).",
+    "The story's words (what the narrator says) are in content/dialogue; the drinks are in content/drinks.json.",
+    "save_broken, save_newer, save_failed, fresh_done: notes printed in the terminal after you leave, only when something happened to the save file."
   ],
   "title": "Coffee and Toe Beans",
   "subtitle": "",
@@ -15,20 +17,29 @@
   ],
   "menu_title": "",
   "menu_leave": "Leave the café",
-  "menu_stay": "Stay a little longer",
   "menu_order": "Order a drink",
+  "menu_look": "Look around",
   "drinks_title": "On the chalkboard today",
   "drinks_hint": "↑ ↓ choose  ·  Enter order  ·  Esc back",
   "drinks_later": "from {time}",
+  "look_hint": "← → look around  ·  Esc back",
+  "look_hint_choose": "← → look  ·  ↑ ↓ choose  ·  Enter  ·  Esc back",
   "goodbye": "The door closes softly behind you. À bientôt.",
   "help": [
-    "Coffee and Toe Beans: a cozy cat café in your terminal.",
+    "Coffee and Toe Beans: a cosy cat café in your terminal.",
     "",
     "Usage:",
     "  coffee-and-toe-beans                 open the café",
-    "  coffee-and-toe-beans --color 256     use 256 colors (or truecolor; default: auto)",
+    "  coffee-and-toe-beans --color 256     use 256 colours (or truecolor; default: auto)",
     "  coffee-and-toe-beans --version       show the version",
     "",
-    "In the café: arrow keys to choose, Enter to confirm, Esc for the menu."
-  ]
+    "In the café: ↑ ↓ to choose, Enter to confirm, Esc for the menu.",
+    "The café remembers you between visits ({save})."
+  ],
+  "look_marker": "#ffffff",
+  "look_marker_outline": "#000000",
+  "save_broken": "Your old save couldn't be read, so the café started afresh. A copy of it is kept at {path}.",
+  "save_newer": "Your save came from a newer version of the game. A copy of it is kept at {path}.",
+  "save_failed": "The café couldn't save this visit: {error}",
+  "fresh_done": "The café started afresh. Your old save is kept at {path}."
 }

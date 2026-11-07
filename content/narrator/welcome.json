@@ -1,0 +1,121 @@
+{
+  "_about": [
+    "What the narrator says when you step inside, before the away note and the drink offer.",
+    "visit: first (only your very first visit), return (coming back) or regular (coming back, once you've spent regular_after_hours in the café; mixed in with the return lines).",
+    "when (late night, dawn, morning, afternoon, evening, night) and weather (clear, cloudy, drizzle, rain, heavy_rain, fog, snow) are optional: leave them out for any.",
+    "Lines with conditions are picked more often when they fit. There must always be at least one first line and one return line with no conditions.",
+    "text can be one line in quotes or a list in [ ] (one is picked). Keep each to about 3 lines of 46 letters."
+  ],
+  "regular_after_hours": 5,
+  "lines": [
+    {
+      "text": "You take the free table by the window. Coffee and Toe Beans is a charming place. If you're lucky, a cat will come by.",
+      "visit": "first"
+    },
+    {
+      "text": "The café is small: a few tables, a lot of books, and cats who come and go as they please.",
+      "visit": "first"
+    },
+    {
+      "text": "You take the table by the window. Someone has left the lamps on and the menu written on the chalkboard.",
+      "visit": "first"
+    },
+    {
+      "text": "You're the first one in this morning. The table by the window is free.",
+      "when": ["dawn", "morning"],
+      "visit": "first"
+    },
+    {
+      "text": "It's late, but the café is still open. The table by the window is free.",
+      "when": ["night", "late night"],
+      "visit": "first"
+    },
+    {"text": "You're back. The table by the window is free, as usual.", "visit": "return"},
+    {"text": "Your table by the window is waiting.", "visit": "return"},
+    {"text": "You sit down at your table by the window.", "visit": "return"},
+    {"text": "Back at the table by the window. It feels like yours by now.", "visit": "regular"},
+    {"text": "The cats barely look up when you come in. You're a regular now.", "visit": "regular"},
+    {
+      "text": "It's barely light out. The café is quiet, and the lamps are still on.",
+      "when": ["dawn"],
+      "visit": "return"
+    },
+    {"text": "Good morning. The café smells of coffee.", "when": ["morning"], "visit": "return"},
+    {
+      "text": "Morning light on the marble. Your table is free.",
+      "when": ["morning"],
+      "weather": ["clear", "cloudy"],
+      "visit": "return"
+    },
+    {
+      "text": "The afternoon is slow in the café. Your table is free.",
+      "when": ["afternoon"],
+      "visit": "return"
+    },
+    {
+      "text": "A quiet afternoon. Someone has left a newspaper on the next table.",
+      "when": ["afternoon"],
+      "visit": "return"
+    },
+    {"text": "The lamps are on. A good time to sit for a while.", "when": ["evening"], "visit": "return"},
+    {
+      "text": "Evening. The windows across the street are lighting up.",
+      "when": ["evening"],
+      "visit": "return"
+    },
+    {
+      "text": "It's late, and the café is quiet. Just the lamps and the cats.",
+      "when": ["night"],
+      "visit": "return"
+    },
+    {"text": "Paris is asleep. The café isn't, quite.", "when": ["late night"], "visit": "return"},
+    {"text": "It's very late. The café is still open, just about.", "when": ["late night"], "visit": "return"},
+    {
+      "text": "You come in out of the rain. Your table by the window is dry and warm.",
+      "weather": ["rain", "heavy_rain"],
+      "visit": "return"
+    },
+    {
+      "text": "Your umbrella drips by the door. The table by the window is free.",
+      "weather": ["drizzle", "rain"],
+      "visit": "return"
+    },
+    {
+      "text": "You made it in just before the worst of the rain.",
+      "weather": ["heavy_rain"],
+      "visit": "return"
+    },
+    {"text": "A fine drizzle outside. Inside, it's warm.", "weather": ["drizzle"], "visit": "return"},
+    {
+      "text": "The fog has hidden half of Paris. The café is right where you left it.",
+      "weather": ["fog"],
+      "visit": "return"
+    },
+    {"text": "You shake the snow off your coat. The café is warm.", "weather": ["snow"], "visit": "return"},
+    {
+      "text": "Snow, and the lamps already on. A good evening to be inside.",
+      "when": ["evening", "night"],
+      "weather": ["snow"],
+      "visit": "return"
+    },
+    {
+      "text": "A clear day. The sun reaches all the way to your table.",
+      "when": ["morning", "afternoon"],
+      "weather": ["clear"],
+      "visit": "return"
+    },
+    {
+      "text": "A clear night. You can see the Eiffel Tower from your table.",
+      "when": ["evening", "night"],
+      "weather": ["clear"],
+      "visit": "return"
+    },
+    {"text": "Grey skies over Paris. The lamps make up for it.", "weather": ["cloudy"], "visit": "return"},
+    {
+      "text": "The rooftops are wet and shiny. The café is warm and dry.",
+      "when": ["evening", "night"],
+      "weather": ["rain", "drizzle"],
+      "visit": "return"
+    }
+  ]
+}

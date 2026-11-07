@@ -1,0 +1,28 @@
+{
+  "_about": [
+    "One cat of Coffee and Toe Beans. Add a cat by adding a file like this one (its name is the cat's id) and its sprites in content/sprites.",
+    "poses: sit, stand, loaf (lying, awake) and sleep (curled up). Each pose names a sprite for each frame:",
+    "  still (always needed), blink (eyes closed a moment), ear (ear twitch), tail (tail flick), breathe (asleep: breathing out).",
+    "anchor: the pixel of the pose's sprites that sits on a spot: under the middle of the cat's body, on the bottom row ([column, row], counted from 0).",
+    "ways: the cat's habits. shy: never comes close to a stranger and leaves after a sudden choice. in_room: how much of the time it's in the room (0 to 1).",
+    "  stay_minutes / away_minutes: [shortest, longest] café minutes in one place / out of the room. energy: above 1 livelier, below 1 lazier.",
+    "  spots: how much it likes each place (left out: 1). drink: a drink it's curious about.",
+    "Its moments and observations are in content/moments/<id>.json."
+  ],
+  "name": "Brie",
+  "poses": {
+    "sit": {"anchor": [5, 17], "frames": {"still": "brie_sit", "blink": "brie_sit_blink", "ear": "brie_sit_ear", "tail": "brie_sit_tail"}},
+    "stand": {"anchor": [7, 15], "frames": {"still": "brie_stand", "blink": "brie_stand_blink", "tail": "brie_stand_tail"}},
+    "loaf": {"anchor": [8, 10], "frames": {"still": "brie_loaf", "blink": "brie_loaf_blink", "ear": "brie_loaf_ear"}},
+    "sleep": {"anchor": [9, 9], "frames": {"still": "brie_sleep", "breathe": "brie_sleep_breathe", "ear": "brie_sleep_ear"}}
+  },
+  "ways": {
+    "shy": false,
+    "in_room": 0.75,
+    "stay_minutes": [12, 30],
+    "away_minutes": [8, 20],
+    "energy": 0.7,
+    "spots": {"sill": 3, "cushion": 3, "sideboard": 2, "shelf_top": 1, "floor": 0.5, "table": 1},
+    "drink": "cafe_creme"
+  }
+}

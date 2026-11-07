@@ -25,8 +25,9 @@ e.....e
 e.....e
 end
 
-# The roof of the building just across the street: zinc, a chimney stack
-# crowned with terracotta pots, and a little dormer window.
+# The roof of the building just across the street: zinc, two chimney stacks
+# crowned with terracotta pots, and two little dormer windows. It is drawn a
+# little wider than the window and centered, so its ends are hidden.
 sprite roof_near
   z #6f7b89 @roof  zinc
   Z #808c99 @roof  zinc, standing seam
@@ -40,15 +41,16 @@ sprite roof_near
   l #b7a98e  dormer stone, shadow
   w #343c49 @window  dormer window
 grid
-..p.p.p.......................
-.cPcPcPC......................
-.ccccccC.............zZz......
-.ccccccC............zLLLz.....
-tccccccCtttttttttttLwwLltttttt
-zccccccCZzZzZzZzZzZLwwLlZzZzZz
-ZccccccCzZzZzZzZzZzLLLLlzZzZzZ
-zZzZzZzZzZzZzZzZzZzZzZzZzZzZzZ
-dddddddddddddddddddddddddddddd
+
+......p.p.p.................................
+.....cPcPcPC........................p.p.....
+.....ccccccC.........zZz.....zZz...cPcPC....
+.....ccccccC........zLLLz...zLLLz..ccccC....
+tttttccccccCttttttttLwwLltttLwwLlttccccCtttt
+zZzZzccccccCzZzZzZzZLwwLlZzZLwwLlZzccccCzZzZ
+ZzZzZccccccCZzZzZzZzLLLLlzZzLLLLlzZccccCZzZz
+zZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZ
+dddddddddddddddddddddddddddddddddddddddddddd
 end
 
 # The wrought-iron balcony rail just outside the window. It repeats across.

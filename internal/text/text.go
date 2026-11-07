@@ -11,20 +11,29 @@ import (
 
 // UI holds the interface words: title card, menus and notices.
 type UI struct {
-	Title       string   `json:"title"`
-	Subtitle    string   `json:"subtitle"` // optional line under the title
-	Prompt      string   `json:"prompt"`
-	Controls    string   `json:"controls"`
-	TooSmall    []string `json:"too_small"`
-	MenuTitle   string   `json:"menu_title"` // optional line above the pause menu
-	MenuLeave   string   `json:"menu_leave"`
-	MenuStay    string   `json:"menu_stay"`
-	MenuOrder   string   `json:"menu_order"`
-	DrinksTitle string   `json:"drinks_title"`
-	DrinksHint  string   `json:"drinks_hint"`
-	DrinksLater string   `json:"drinks_later"`
-	Goodbye     string   `json:"goodbye"`
-	Help        []string `json:"help"`
+	Title          string   `json:"title"`
+	Subtitle       string   `json:"subtitle"` // optional line under the title
+	Prompt         string   `json:"prompt"`
+	Controls       string   `json:"controls"`
+	TooSmall       []string `json:"too_small"`
+	MenuTitle      string   `json:"menu_title"` // optional line above the pause menu
+	MenuLeave      string   `json:"menu_leave"`
+	MenuOrder      string   `json:"menu_order"`
+	MenuLook       string   `json:"menu_look"`
+	LookHint       string   `json:"look_hint"`           // Look around, nothing to do
+	LookHintChoose string   `json:"look_hint_choose"`    // Look around, with things to do
+	LookMarker     string   `json:"look_marker"`         // arrow color, e.g. "#ffffff"
+	LookOutline    string   `json:"look_marker_outline"` // its outline color ("" for none)
+	DrinksTitle    string   `json:"drinks_title"`
+	DrinksHint     string   `json:"drinks_hint"`
+	DrinksLater    string   `json:"drinks_later"`
+	Goodbye        string   `json:"goodbye"`
+	Help           []string `json:"help"`
+	// Notes printed after you leave, about the save file.
+	SaveBroken string `json:"save_broken"` // {path}: where the unreadable save was kept
+	SaveNewer  string `json:"save_newer"`  // {path}: a copy of a save from a newer version
+	SaveFailed string `json:"save_failed"` // {error}: what went wrong
+	FreshDone  string `json:"fresh_done"`  // {path}: where the old save was kept (--fresh)
 }
 
 // LoadUI reads content/text/ui.json and checks nothing is missing.
@@ -40,7 +49,8 @@ func LoadUI(fsys fs.FS) (*UI, error) {
 	}
 	for _, f := range []struct{ key, val string }{
 		{"title", u.Title}, {"prompt", u.Prompt},
-		{"menu_leave", u.MenuLeave}, {"menu_stay", u.MenuStay}, {"menu_order", u.MenuOrder},
+		{"menu_leave", u.MenuLeave}, {"menu_order", u.MenuOrder}, {"menu_look", u.MenuLook},
+		{"look_hint", u.LookHint}, {"look_hint_choose", u.LookHintChoose},
 		{"drinks_title", u.DrinksTitle}, {"drinks_later", u.DrinksLater},
 	} {
 		if strings.TrimSpace(f.val) == "" {
