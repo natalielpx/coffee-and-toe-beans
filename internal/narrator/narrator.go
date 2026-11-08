@@ -520,6 +520,11 @@ type Pacing struct {
 	CupKeptMinutes    float64 `json:"cup_kept_minutes"`
 	FavouriteOrders   int     `json:"favourite_after_orders"`
 	AutosaveSeconds   float64 `json:"autosave_seconds"`
+	// Settings: how much quiet mode and "Very slow" pacing stretch the
+	// waits, and how fast words type out at each text speed.
+	QuietFactor      float64            `json:"quiet_factor"`
+	VerySlowFactor   float64            `json:"very_slow_factor"`
+	LettersPerSecond map[string]float64 `json:"letters_per_second"`
 }
 
 // LoadPacing reads the narrator's part of the pacing file.
@@ -533,6 +538,12 @@ func LoadPacing(fsys fs.FS, name string) (Pacing, error) {
 	}
 	if p.QuietAfterMinutes < 0 {
 		p.QuietAfterMinutes = 0
+	}
+	if p.QuietFactor < 1 {
+		p.QuietFactor = 2
+	}
+	if p.VerySlowFactor < 1 {
+		p.VerySlowFactor = 1.5
 	}
 	if p.QuestionSeconds <= 0 {
 		p.QuestionSeconds = 90

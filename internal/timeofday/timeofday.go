@@ -65,6 +65,7 @@ type Schedule struct {
 	keys   []keyframe
 	phases []phase
 	sun    *sunPlace
+	chosen map[string]float64 // "golden" -> its minute on the model day
 }
 
 type sunPlace struct {
@@ -98,9 +99,10 @@ type fileSun struct {
 }
 
 type file struct {
-	Keyframes []fileKeyframe `json:"keyframes"`
-	Phases    []filePhase    `json:"phases"`
-	Sun       *fileSun       `json:"sun"`
+	Keyframes []fileKeyframe    `json:"keyframes"`
+	Phases    []filePhase       `json:"phases"`
+	Sun       *fileSun          `json:"sun"`
+	Chosen    map[string]string `json:"chosen_times"`
 }
 
 // Load reads the lighting schedule from a JSON file.
@@ -187,6 +189,14 @@ func Parse(name string, data []byte) (*Schedule, error) {
 		}
 		s.sun = &sunPlace{lat: f.Sun.Latitude, lon: f.Sun.Longitude, styledRise: rise, styledSet: set}
 	}
+	s.chosen = map[string]float64{}
+	for id, at := range f.Chosen {
+		m, err := ParseClock(at)
+		if err != nil {
+			return nil, fmt.Errorf("%s: chosen_times.%s: %v", name, id, err)
+		}
+		s.chosen[id] = m
+	}
 	return s, nil
 }
 
@@ -227,6 +237,34 @@ func (s *Schedule) ModelMinute(t time.Time) float64 {
 		return m
 	}
 	return styledMinute(m, rise, set, s.sun.styledRise, s.sun.styledSet)
+}
+
+// Chosen is the model-day minute for a time of day picked in Settings
+// ("golden"), from "chosen_times" in the lighting file.
+func (s *Schedule) Chosen(id string) (float64, bool) {
+	m, ok := s.chosen[id]
+	return m, ok
+}
+
+// ClockFor is the clock time (minutes after midnight) on t's date that
+// looks like the model day's minute m: the inverse of ModelMinute, so
+// "golden evening" can be shown at the right light in any season.
+func (s *Schedule) ClockFor(t time.Time, m float64) float64 {
+	y, mo, d := t.Date()
+	midnight := time.Date(y, mo, d, 0, 0, 0, 0, t.Location())
+	at := func(min float64) float64 {
+		return s.ModelMinute(midnight.Add(time.Duration(min * float64(time.Minute))))
+	}
+	lo, hi := 0.0, 1439.99
+	for i := 0; i < 40; i++ {
+		mid := (lo + hi) / 2
+		if at(mid) < m {
+			lo = mid
+		} else {
+			hi = mid
+		}
+	}
+	return (lo + hi) / 2
 }
 
 // AtMinute returns the light at a number of minutes after midnight.

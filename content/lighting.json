@@ -12,7 +12,9 @@
     "phases: names for parts of the day, used later by the narrator and the cats.",
     "The keyframes describe a model day whose sun rises at sunrise_looks_like and sets at",
     "sunset_looks_like. The game follows the real sunrise and sunset at latitude/longitude",
-    "(Paris) for each date, stretching or squeezing the model day to fit the season."
+    "(Paris) for each date, stretching or squeezing the model day to fit the season.",
+    "chosen_times: the look of each time of day you can pick in Settings (Time of day), as a time on the",
+    "  model day. The café stays at that look; everything else (drinks cooling, cats coming by) carries on."
   ],
   "sun": {"latitude": 48.8566, "longitude": 2.3522, "sunrise_looks_like": "07:30", "sunset_looks_like": "19:30"},
   "keyframes": [
@@ -57,5 +59,12 @@
     {"from": "12:00", "name": "afternoon"},
     {"from": "17:30", "name": "evening"},
     {"from": "21:00", "name": "night"}
-  ]
+  ],
+  "chosen_times": {
+    "dawn": "06:35",
+    "morning": "09:30",
+    "afternoon": "15:00",
+    "golden": "18:50",
+    "night": "22:30"
+  }
 }

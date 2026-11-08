@@ -111,6 +111,7 @@ func TestStepInsideAndLeave(t *testing.T) {
 	g.Key(KeyBack)
 	g.Key(KeyDown)
 	g.Key(KeyDown)
+	g.Key(KeyDown)
 	g.Key(KeyConfirm) // the last choice is to leave
 	if g.phase != phaseLeaving {
 		t.Fatal("choosing to leave should start leaving")
@@ -146,8 +147,8 @@ func TestEscClosesTheMenu(t *testing.T) {
 
 func TestNoQuittingByAccident(t *testing.T) {
 	// Leaving takes Esc, then choosing "Leave the café" (on the title card
-	// it's the only choice, so Esc then Enter). Any other pair of keys, or
-	// long runs without Esc, never close the game.
+	// it's the second choice, under Settings: Esc, ↓, Enter). No pair of
+	// keys, and no long run without Esc, ever closes the game.
 	keys := []Key{KeyUp, KeyDown, KeyLeft, KeyRight, KeyConfirm, KeyBack, KeyNone}
 	for _, a := range keys {
 		for _, b := range keys {
@@ -155,16 +156,18 @@ func TestNoQuittingByAccident(t *testing.T) {
 			g.Key(a)
 			g.Key(b)
 			run(g, t0, 3)
-			if a == KeyBack && b == KeyConfirm {
-				if !g.Done() {
-					t.Fatal("Esc then Enter should leave")
-				}
-				continue
-			}
 			if g.Done() {
 				t.Fatalf("pressing %v then %v closed the game", a, b)
 			}
 		}
+	}
+	g0 := newGame(t, Config{})
+	g0.Key(KeyBack)
+	g0.Key(KeyDown)
+	g0.Key(KeyConfirm)
+	run(g0, t0, 3)
+	if !g0.Done() {
+		t.Fatal("on the title card, Esc, Down, Enter should leave")
 	}
 	rng := rand.New(rand.NewPCG(1, 2))
 	g := newGame(t, Config{})

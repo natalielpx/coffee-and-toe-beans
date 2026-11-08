@@ -58,9 +58,8 @@ func (g *Game) talkOptions() dialogue.Options {
 	o := dialogue.DefaultOptions()
 	o.Width = talkTextW
 	o.Lines = talkLines
-	if g.cfg.Reduced {
-		o.Fade = 0.12
-	}
+	o.Speed = g.letters()
+	o.Fade = g.fade()
 	if q := g.mem.pace.QuestionSeconds; q > 0 {
 		o.Patience = q
 	}
@@ -146,7 +145,7 @@ func (g *Game) settle() {
 		case "order_suggestion":
 			g.box = nil
 			g.hush(g.Now())
-			if d := g.suggestion; d != nil && d.Available(g.Now()) {
+			if d := g.suggestion; d != nil && d.Available(g.dayNow(g.Now())) {
 				g.serve(d)
 			} else {
 				g.openDrinks(false) // its hour just passed: choose another
@@ -199,7 +198,7 @@ func (g *Game) offerAnother(now time.Time) {
 func (g *Game) suggest(now time.Time) *drinks.Drink {
 	var pool []*drinks.Drink
 	for _, d := range g.drinks.Drinks {
-		if d.Available(now) && (g.order == nil || d.ID != g.order.order.Drink) {
+		if d.Available(g.dayNow(now)) && (g.order == nil || d.ID != g.order.order.Drink) {
 			pool = append(pool, d)
 		}
 	}
@@ -294,7 +293,7 @@ func (g *Game) lastDrink() int {
 }
 
 func (g *Game) servedNow(i int) bool {
-	return i >= 0 && i < len(g.drinks.Drinks) && g.drinks.Drinks[i].Available(g.Now())
+	return i >= 0 && i < len(g.drinks.Drinks) && g.drinks.Drinks[i].Available(g.dayNow(g.Now()))
 }
 
 // moveDrink moves the selection to the next drink being served, skipping

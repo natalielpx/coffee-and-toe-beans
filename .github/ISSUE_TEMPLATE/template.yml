@@ -1,0 +1,90 @@
+name: "General Task Form"
+description: "Submit a new feature request, bug fix, asset, or technical task."
+title: "[Task]: "
+labels: ["triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the form below to help us process this task effectively.
+
+  # SINGLE-CHOICE: Dropdown Menu
+  - type: dropdown
+    id: task_type
+    attributes:
+      label: Task Type
+      description: What category best fits this task?
+      options:
+        - "Feature (New functionality or asset)"
+        - "Bug Fix (Resolving an issue or broken behavior)"
+        - "Enhancement / Refactor (Improving existing code or performance)"
+        - "Art / Assets (Sprites, animations, or UI elements)"
+        - "Documentation / Planning (Guides, specs, or task lists)"
+    validations:
+      required: true
+
+  # SINGLE-CHOICE: Priority Level Dropdown
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgently does this need to be addressed?
+      options:
+        - "Low (Nice to have)"
+        - "Medium (Standard roadmap item)"
+        - "High (Important blocker)"
+        - "Critical (Urgent fix required)"
+    validations:
+      required: false
+
+  # TEXT INPUT: Summary Description
+  - type: textarea
+    id: description
+    attributes:
+      label: Description & Objective
+      description: Provide a clear explanation of what needs to be accomplished and why.
+      placeholder: "Describe the task or objective..."
+    validations:
+      required: true
+
+  # MULTI-CHOICE: Target Components Checkboxes
+  - type: checkboxes
+    id: components
+    attributes:
+      label: Affected Components / Domains
+      description: Select all categories that apply to this task.
+      options:
+        - label: Frontend / UI
+        - label: Backend / API
+        - label: Art & Sprites (Cats, Props, Drinks, Environments)
+        - label: Game Engine / Render Logic
+        - label: Documentation & Assets
+
+  # TEXT INPUT: Detailed Checklist / Steps
+  - type: textarea
+    id: subtasks
+    attributes:
+      label: Task Breakdown & Deliverables
+      description: List specific sub-tasks or items that must be completed.
+      placeholder: |
+        - [ ] Item 1
+        - [ ] Item 2
+        - [ ] Item 3
+    validations:
+      required: false
+
+  # MULTI-CHOICE: Acceptance Criteria / Verification
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria & Definition of Done
+      description: Select the verification requirements for closing this ticket.
+      options:
+        - label: All code and art assets pass quality check
+          required: true
+        - label: Automated unit tests / build checks pass
+          required: false
+        - label: Verified and tested in target environment
+          required: false

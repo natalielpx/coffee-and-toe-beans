@@ -205,7 +205,7 @@ func (g *Game) drawDrinks(c *canvas.Canvas, ox, oy int) {
 	p.writeStyled((w-canvas.Width(g.ui.DrinksTitle))/2, 1, g.ui.DrinksTitle, softInk, true)
 	for i, d := range list {
 		row := 3 + i*iconH
-		served := d.Available(now)
+		served := d.Available(g.dayNow(now))
 		name, tag := boxDim, boxFaint
 		if served {
 			name, tag = boxInk, boxDim

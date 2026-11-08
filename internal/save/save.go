@@ -77,6 +77,8 @@ type Settings struct {
 	Color         string `json:"color,omitempty"` // "", "truecolor" or "256"
 	TextSpeed     string `json:"text_speed,omitempty"`
 	Pacing        string `json:"pacing,omitempty"`
+	Weather       string `json:"weather,omitempty"`     // "" (ambient) or a kind from content/weather.json
+	TimeOfDay     string `json:"time_of_day,omitempty"` // "" (the real clock) or dawn, morning, afternoon, golden, night
 }
 
 // New is an empty save: a guest who has never been here.

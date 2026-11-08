@@ -26,6 +26,12 @@ type Options struct {
 	ReducedMotion bool
 }
 
+// Options are the scene's comfort settings now.
+func (s *Scene) Options() Options { return s.opts }
+
+// SetReducedMotion turns reduced motion on or off while the café is open.
+func (s *Scene) SetReducedMotion(on bool) { s.opts.ReducedMotion = on }
+
 // Inputs is what the scene needs to know about the world each frame.
 type Inputs struct {
 	Now       time.Time       // the game clock

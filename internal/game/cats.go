@@ -58,10 +58,7 @@ func (g *Game) loadCats(fsys fs.FS) error {
 	}
 	g.cat.world = cats.NewWorld(defs, roomFor(g), startBonds(g.cfg), g.catContext(), g.rng)
 	g.cat.world.SetCalm(g.cfg.Reduced)
-	g.cat.pacer = cats.NewPacer(pacing, g.Now(), g.rng)
-	if g.cfg.Quiet {
-		g.cat.pacer.Slow = 2
-	}
+	g.cat.pacer = cats.NewPacer(pacing, g.Now(), g.rng) // the settings stretch it in applySettings
 	return nil
 }
 
@@ -124,7 +121,7 @@ func (g *Game) catContext() cats.Context {
 	}
 	return cats.Context{
 		Now:     now,
-		Part:    g.sched.Phase(now),
+		Part:    g.sched.Phase(g.dayNow(now)),
 		Weather: g.wstate.Kind(),
 		Drink:   drink,
 	}

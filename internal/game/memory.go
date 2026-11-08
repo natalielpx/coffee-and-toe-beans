@@ -23,6 +23,7 @@ const (
 // talks about it.
 type memory struct {
 	data     *save.Data
+	before   save.Data     // the save as it was before this visit (for saving settings from the title card)
 	first    bool          // your very first visit
 	away     time.Duration // how long since your last visit
 	regular  bool          // you've spent a good while here
@@ -34,6 +35,7 @@ type memory struct {
 	recent []string // small talk said lately, not to repeat
 
 	nextTalk time.Time // café time of the next small talk
+	talkSlow float64   // how much the settings stretched that wait
 	quietTil time.Time // café time before which nobody starts talking
 	saveIn   float64   // real seconds until the next autosave
 	saveErr  error     // the last saving problem, if any
@@ -63,7 +65,7 @@ func (g *Game) loadMemory(fsys fs.FS, realNow time.Time) error {
 		d = save.New()
 	}
 	m := &g.mem
-	*m = memory{data: d, narr: narr, pace: pace, recent: append([]string(nil), d.RecentTalk...)}
+	*m = memory{data: d, before: *d, narr: narr, pace: pace, recent: append([]string(nil), d.RecentTalk...)}
 	m.first = !d.Returning()
 	if !m.first {
 		m.away = realNow.Sub(d.LastVisit)
@@ -78,21 +80,14 @@ func (g *Game) loadMemory(fsys fs.FS, realNow time.Time) error {
 	m.regular = d.Seconds >= narr.RegularHours*3600
 	m.saveIn = pace.AutosaveSeconds
 	now := g.Now()
-	m.nextTalk = now.Add(narrator.Wait(pace.SmallTalkMinutes, g.slow(), g.rng))
+	m.talkSlow = g.slow()
+	m.nextTalk = now.Add(narrator.Wait(pace.SmallTalkMinutes, m.talkSlow, g.rng))
 	if d.FirstVisit.IsZero() {
 		d.FirstVisit = realNow
 	}
 	d.Visits++
 	g.restoreCup(now)
 	return nil
-}
-
-// slow is how much quiet mode stretches the waits.
-func (g *Game) slow() float64 {
-	if g.cfg.Quiet {
-		return 2
-	}
-	return 1
 }
 
 // startBonds are how well each cat knows you as the visit begins: from
@@ -158,7 +153,7 @@ func (g *Game) favourite() *drinks.Drink {
 
 func (g *Game) narratorContext(now time.Time) narrator.Context {
 	return narrator.Context{
-		Part:    g.sched.Phase(now),
+		Part:    g.sched.Phase(g.dayNow(now)),
 		Weather: g.wstate.Kind(),
 		First:   g.mem.first,
 		Regular: g.mem.regular,
@@ -195,7 +190,7 @@ func (g *Game) arrive(now time.Time) {
 		}
 	case g.order == nil: // nobody offers a drink to someone already holding one
 		conv, _ := g.talk.Get(convArrive)
-		if fav := g.favourite(); fav != nil && fav.Available(now) && g.rng.Float64() < 0.5 {
+		if fav := g.favourite(); fav != nil && fav.Available(g.dayNow(now)) && g.rng.Float64() < 0.5 {
 			if c, ok := g.talk.Get(convArriveFav); ok {
 				conv = c
 			}
@@ -241,7 +236,8 @@ func (g *Game) smallTalk(now time.Time) bool {
 	if now.Before(m.nextTalk) || now.Before(m.quietTil) {
 		return false
 	}
-	m.nextTalk = now.Add(narrator.Wait(m.pace.SmallTalkMinutes, g.slow(), g.rng))
+	m.talkSlow = g.slow()
+	m.nextTalk = now.Add(narrator.Wait(m.pace.SmallTalkMinutes, m.talkSlow, g.rng))
 	line := m.narr.SmallTalk(g.narratorContext(now), m.recent, g.rng)
 	if line == "" {
 		return false

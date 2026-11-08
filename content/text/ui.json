@@ -4,7 +4,8 @@
     "Things in {curly braces} are filled in by the game; keep them as they are.",
     "look_marker: the colour of the arrow in Look around; look_marker_outline: the colour around it (\"\" for none).",
     "The story's words (what the narrator says) are in content/dialogue; the drinks are in content/drinks.json.",
-    "save_broken, save_newer, save_failed, fresh_done: notes printed in the terminal after you leave, only when something happened to the save file."
+    "save_broken, save_newer, save_failed, fresh_done: notes printed in the terminal after you leave, only when something happened to the save file.",
+    "settings: the Settings screen (Esc menu). Each setting has a label, and each of its values a name and a one-line note shown under the list when it's highlighted. {auto} in the colours note is filled in with what Auto picked (auto_truecolor or auto_256)."
   ],
   "title": "Coffee and Toe Beans",
   "subtitle": "",
@@ -19,6 +20,7 @@
   "menu_leave": "Leave the café",
   "menu_order": "Order a drink",
   "menu_look": "Look around",
+  "menu_settings": "Settings",
   "drinks_title": "On the chalkboard today",
   "drinks_hint": "↑ ↓ choose  ·  Enter order  ·  Esc back",
   "drinks_later": "from {time}",
@@ -30,10 +32,12 @@
     "",
     "Usage:",
     "  coffee-and-toe-beans                 open the café",
+    "  coffee-and-toe-beans --fresh         start afresh (your old save is kept as a backup)",
     "  coffee-and-toe-beans --color 256     use 256 colours (or truecolor; default: auto)",
     "  coffee-and-toe-beans --version       show the version",
     "",
-    "In the café: ↑ ↓ to choose, Enter to confirm, Esc for the menu.",
+    "In the café: ↑ ↓ to choose, Enter to confirm, Esc for the menu (and Settings).",
+    "The window needs to be at least 104 × 42.",
     "The café remembers you between visits ({save})."
   ],
   "look_marker": "#ffffff",
@@ -41,5 +45,185 @@
   "save_broken": "Your old save couldn't be read, so the café started afresh. A copy of it is kept at {path}.",
   "save_newer": "Your save came from a newer version of the game. A copy of it is kept at {path}.",
   "save_failed": "The café couldn't save this visit: {error}",
-  "fresh_done": "The café started afresh. Your old save is kept at {path}."
+  "fresh_done": "The café started afresh. Your old save is kept at {path}.",
+  "settings": {
+    "title": "Settings",
+    "hint": "↑ ↓ choose  ·  ← → change  ·  Esc back",
+    "auto_truecolor": "true colour",
+    "auto_256": "256 colours",
+    "items": [
+      {
+        "id": "reduced_motion",
+        "label": "Reduced motion",
+        "values": [
+          {
+            "id": "off",
+            "name": "Off",
+            "about": "Rain, snow, steam and candlelight move as usual."
+          },
+          {
+            "id": "on",
+            "name": "On",
+            "about": "Calmer, sparser rain and snow, no flicker, softer fades."
+          }
+        ]
+      },
+      {
+        "id": "quiet",
+        "label": "Quiet mode",
+        "values": [
+          {
+            "id": "off",
+            "name": "Off",
+            "about": "The narrator and the cats come by as usual."
+          },
+          {
+            "id": "on",
+            "name": "On",
+            "about": "Half as much small talk, and the cats come to you less often."
+          }
+        ]
+      },
+      {
+        "id": "text_speed",
+        "label": "Text speed",
+        "values": [
+          {
+            "id": "slow",
+            "name": "Slow",
+            "about": "Words appear slowly, letter by letter."
+          },
+          {
+            "id": "normal",
+            "name": "Normal",
+            "about": "Words appear letter by letter."
+          },
+          {
+            "id": "instant",
+            "name": "Instant",
+            "about": "Each page appears all at once."
+          }
+        ]
+      },
+      {
+        "id": "pacing",
+        "label": "Pacing",
+        "values": [
+          {
+            "id": "gentle",
+            "name": "Gentle",
+            "about": "A cat comes to you every 10 to 20 minutes or so."
+          },
+          {
+            "id": "very_slow",
+            "name": "Very slow",
+            "about": "A cat every 15 to 30 minutes, for long, quiet stays."
+          }
+        ]
+      },
+      {
+        "id": "weather",
+        "label": "Weather",
+        "values": [
+          {
+            "id": "ambient",
+            "name": "Changing",
+            "about": "The weather comes and goes on its own, mostly rain."
+          },
+          {
+            "id": "clear",
+            "name": "Clear",
+            "about": "Clear skies over the rooftops."
+          },
+          {
+            "id": "cloudy",
+            "name": "Cloudy",
+            "about": "Grey clouds drifting by, no rain."
+          },
+          {
+            "id": "drizzle",
+            "name": "Drizzle",
+            "about": "A light drizzle on the window."
+          },
+          {
+            "id": "rain",
+            "name": "Rain",
+            "about": "Steady rain on the glass."
+          },
+          {
+            "id": "heavy_rain",
+            "name": "Heavy rain",
+            "about": "A downpour, raindrops racing down the panes."
+          },
+          {
+            "id": "fog",
+            "name": "Fog",
+            "about": "Paris softened by fog."
+          },
+          {
+            "id": "snow",
+            "name": "Snow",
+            "about": "Snow falling and settling on the roofs."
+          }
+        ]
+      },
+      {
+        "id": "time_of_day",
+        "label": "Time of day",
+        "values": [
+          {
+            "id": "real",
+            "name": "Real clock",
+            "about": "Follows your clock, with Paris's real sunrise and sunset."
+          },
+          {
+            "id": "dawn",
+            "name": "Dawn",
+            "about": "Always first light, the city just waking."
+          },
+          {
+            "id": "morning",
+            "name": "Morning",
+            "about": "Always a bright morning."
+          },
+          {
+            "id": "afternoon",
+            "name": "Afternoon",
+            "about": "Always a quiet afternoon."
+          },
+          {
+            "id": "golden",
+            "name": "Golden evening",
+            "about": "Always the warm light just before sunset."
+          },
+          {
+            "id": "night",
+            "name": "Night",
+            "about": "Always night: lamps lit, the tower glowing."
+          }
+        ]
+      },
+      {
+        "id": "color",
+        "label": "Colours",
+        "values": [
+          {
+            "id": "auto",
+            "name": "Auto",
+            "about": "Uses what your terminal can show (here: {auto})."
+          },
+          {
+            "id": "truecolor",
+            "name": "True colour",
+            "about": "Smoothest colours. If the café looks odd, choose 256."
+          },
+          {
+            "id": "256",
+            "name": "256",
+            "about": "For terminals with fewer colours, like older macOS Terminal."
+          }
+        ]
+      }
+    ]
+  }
 }

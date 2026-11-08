@@ -105,8 +105,9 @@ func run() int {
 	if data == nil {
 		data = save.New()
 	}
+	detected := game.DetectColorMode(os.Getenv)
 	if auto {
-		mode = game.DetectColorMode(os.Getenv)
+		mode = detected
 		switch data.Settings.Color {
 		case "256":
 			mode, _, _ = game.ParseColorMode("256")
@@ -124,9 +125,8 @@ func run() int {
 		Fast:      *fast,
 		Weather:   *sky,
 		ColorMode: mode,
-		Reduced:   data.Settings.ReducedMotion,
-		Quiet:     data.Settings.Quiet,
-		Save:      data,
+		AutoColor: detected,
+		Save:      data, // with the player's settings
 		Store:     store,
 		Away:      pretend,
 	}, content.FS, now)

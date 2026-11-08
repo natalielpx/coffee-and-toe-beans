@@ -58,8 +58,9 @@ func TestTo256NeverUsesThemeColors(t *testing.T) {
 }
 
 func TestTo256ExactMatches(t *testing.T) {
-	// Colors that exist in the palette must map to themselves.
-	for _, i := range []uint8{16, 59, 94, 136, 168, 180, 231, 232, 240, 255} {
+	// Colors that exist in the palette must map to themselves (except the
+	// harsh and loud ones, which the room never uses).
+	for _, i := range []uint8{16, 59, 95, 137, 168, 180, 231, 232, 240, 255} {
 		c := Xterm(i)
 		got := To256(c)
 		if Xterm(got) != c {
@@ -103,5 +104,39 @@ func TestSmoothstep(t *testing.T) {
 	}
 	if math.Abs(Smoothstep(0, 1, 0.5)-0.5) > 1e-9 {
 		t.Fatal("smoothstep midpoint")
+	}
+}
+
+func TestLoudOrangesAreLeftOutOfTheRoom(t *testing.T) {
+	// Lamp light on the walls used to fall onto pure orange stripes.
+	for _, hex := range []string{"#ff8700", "#af5f00", "#d75f00", "#ffaf00", "#875f00"} {
+		got := Xterm(To256(MustHex(hex)))
+		if got == MustHex(hex) {
+			t.Errorf("%s should not be used for the room", hex)
+		}
+	}
+	// ...but a cat may use them: Hunter stays ginger.
+	ginger := MustHex("#ff8700")
+	if got := Xterm(To256At(ginger, Cat)); got != ginger {
+		t.Errorf("a cat's #ff8700 should stay #ff8700, got %v", got)
+	}
+}
+
+func TestDimCatsStayLighterThanTheRoom(t *testing.T) {
+	// Brie's fur at night (a dusky cream) matched the room's mauve; in a
+	// dim place it lands on something lighter. Her darker lines don't move.
+	fur, line := MustHex("#8f7063"), MustHex("#5b3c31")
+	room := Xterm(To256(fur))
+	dim := Xterm(To256At(fur, DimCat))
+	if dim.Luma() <= room.Luma()+0.03 {
+		t.Errorf("dim fur %v should be lighter than the room's match %v", dim, room)
+	}
+	if To256At(line, DimCat) != To256At(line, Cat) {
+		t.Error("a cat's dark lines shouldn't be lifted")
+	}
+	// In good light, a cat is matched as it is.
+	cream := MustHex("#f0e0c8")
+	if To256At(cream, DimCat) != To256At(cream, Cat) {
+		t.Error("light fur shouldn't be lifted")
 	}
 }

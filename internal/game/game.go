@@ -55,10 +55,14 @@ type Config struct {
 	Start     time.Time   // café time to start at (zero: the real clock)
 	Fast      bool        // run all timers FastSpeed times faster
 	Weather   string      // keep this weather (for previews); "" for ambient
-	ColorMode canvas.Mode // true color or 256 colors
-	Reduced   bool        // reduced motion
-	Quiet     bool        // quiet mode: moments and small talk half as often
-	Seed      uint64      // for the little random choices (0: from the clock)
+	ColorMode canvas.Mode // true color or 256 colors, to start with
+	AutoColor canvas.Mode // what the "Auto" colour setting means here (detected)
+	// Reduced and Quiet turn reduced motion and quiet mode on from the
+	// start, whatever the save says (previews and tests). The player's own
+	// settings come from Save and can be changed in the Settings screen.
+	Reduced bool
+	Quiet   bool
+	Seed    uint64 // for the little random choices (0: from the clock)
 	// Save is what the café remembers from earlier visits (nil: a first
 	// visit with nothing remembered).
 	Save *save.Data
@@ -99,6 +103,7 @@ var (
 // Game is one session at the café.
 type Game struct {
 	cfg       Config
+	set       save.Settings // the comfort settings now
 	ui        *text.UI
 	lib       *sprites.Library
 	sched     *timeofday.Schedule
@@ -118,11 +123,12 @@ type Game struct {
 	phase    phase
 	progress float64 // 0..1 through a fade
 
-	pause *pauseMenu
-	menu  *drinksMenu
-	box   *talkBox   // the dialogue box on screen
-	queue []*talkBox // conversations waiting their turn
-	look  *lookMode  // Look around (from the Esc menu), or nil
+	pause    *pauseMenu
+	settings *settingsMenu // the Settings screen, over the pause menu
+	menu     *drinksMenu
+	box      *talkBox   // the dialogue box on screen
+	queue    []*talkBox // conversations waiting their turn
+	look     *lookMode  // Look around (from the Esc menu), or nil
 
 	inCafe  float64   // real seconds since stepping inside
 	greeted bool      // the "arrive" conversation has been offered
@@ -176,6 +182,14 @@ func New(cfg Config, fsys fs.FS, realNow time.Time) (*Game, error) {
 	if err := checkDrinkArt(menu, lib); err != nil {
 		return nil, err
 	}
+	set := save.Settings{}
+	if cfg.Save != nil {
+		set = cfg.Save.Settings
+	}
+	set.ReducedMotion = set.ReducedMotion || cfg.Reduced
+	set.Quiet = set.Quiet || cfg.Quiet
+	set = normalizeBasic(set) // weather and time of day are checked once their files are loaded
+	cfg.Reduced, cfg.Quiet = set.ReducedMotion, set.Quiet
 	sc, err := scene.New(fsys, cfg.Interior, lib, scene.Options{ReducedMotion: cfg.Reduced})
 	if err != nil {
 		return nil, err
@@ -195,10 +209,14 @@ func New(cfg Config, fsys fs.FS, realNow time.Time) (*Game, error) {
 		seed = uint64(realNow.UnixNano())
 	}
 	g := &Game{
-		cfg: cfg, ui: ui, lib: lib, sched: sched, wcfg: wcfg, wstate: ws,
+		cfg: cfg, set: set, ui: ui, lib: lib, sched: sched, wcfg: wcfg, wstate: ws,
 		scene: sc, clock: clock, talk: talk, drinks: menu,
 		rng:      rand.New(rand.NewPCG(seed, seed>>17|1)),
 		lastReal: realNow, w: FrameW, h: FrameH,
+	}
+	g.set = g.normalize(g.set)
+	if cfg.Weather == "" && g.set.Weather != "" {
+		_ = g.wstate.Pin(g.set.Weather, g.Now())
 	}
 	if err := g.loadCats(fsys); err != nil {
 		return nil, err
@@ -209,6 +227,7 @@ func New(cfg Config, fsys fs.FS, realNow time.Time) (*Game, error) {
 	if err := g.loadMemory(fsys, realNow); err != nil {
 		return nil, err
 	}
+	g.applySettings(false)
 	g.Tick(realNow)
 	return g, nil
 }
@@ -273,9 +292,10 @@ func (g *Game) Tick(realNow time.Time) {
 	g.wstate.Advance(now)
 	g.updateCup(now)
 	g.updateCats(dt)
+	day := g.dayNow(now)
 	g.scene.Update(dt, scene.Inputs{
-		Now:       now,
-		Light:     g.sched.At(now),
+		Now:       day,
+		Light:     g.sched.At(day),
 		Weather:   g.wstate.Params(),
 		SnowCover: g.wstate.SnowCover(),
 	})
@@ -315,6 +335,10 @@ func (g *Game) Key(k Key) {
 			g.leave()
 		}
 		g.phase, g.progress = phaseGone, 1
+		return
+	}
+	if g.settings != nil {
+		g.settingsKey(k)
 		return
 	}
 	if g.pause != nil {
@@ -382,6 +406,7 @@ type menuAction int
 const (
 	actOrder menuAction = iota
 	actLook
+	actSettings
 	actLeave
 )
 
@@ -393,10 +418,11 @@ type pauseMenu struct {
 func (g *Game) openPause() {
 	// Order a drink first, Leave the café last (Nala's choice after the M2
 	// review). Esc closes the menu, so no "stay" item is needed. On the
-	// title card there's nothing to order yet. Settings join in milestone 5.
-	p := &pauseMenu{items: []menuAction{actLeave}}
+	// title card there's nothing to order yet, but the settings are there,
+	// so colours can be set before stepping in.
+	p := &pauseMenu{items: []menuAction{actSettings, actLeave}}
 	if g.phase == phaseCafe {
-		p.items = []menuAction{actOrder, actLook, actLeave}
+		p.items = []menuAction{actOrder, actLook, actSettings, actLeave}
 	}
 	g.pause = p
 	g.holdTalk(true)
@@ -413,6 +439,8 @@ func (g *Game) label(a menuAction) string {
 		return g.ui.MenuLeave
 	case actLook:
 		return g.ui.MenuLook
+	case actSettings:
+		return g.ui.MenuSettings
 	}
 	return g.ui.MenuOrder
 }
@@ -442,6 +470,8 @@ func (g *Game) pauseKey(k Key) {
 		case actLook:
 			g.pause = nil
 			g.openLook()
+		case actSettings:
+			g.openSettings()
 		}
 	}
 }
@@ -493,7 +523,9 @@ func (g *Game) View() string {
 	if g.menu != nil {
 		g.drawDrinks(c, ox, oy)
 	}
-	if g.pause != nil {
+	if g.settings != nil {
+		g.drawSettings(c, ox, oy)
+	} else if g.pause != nil {
 		g.drawPause(c, ox, oy)
 	}
 	return c.String(g.cfg.ColorMode)

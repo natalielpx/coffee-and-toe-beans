@@ -5,6 +5,7 @@
 //	go run ./cmd/snapshot --screen title
 //	go run ./cmd/snapshot --drink chai_latte --sipped 9
 //	go run ./cmd/snapshot --screen drinks --time 22:00
+//	go run ./cmd/snapshot --screen settings --row 5 --set color=256
 //	go run ./cmd/snapshot --cat brie:sit@sill --cat mimi:sleep@cushion/breathe
 //	go run ./cmd/snapshot --cat brie:sit@table --bond brie=friend --moment brie_table
 //	go run ./cmd/snapshot --cat mimi:loaf@shelf_top --look mimi   (Look around, on Mimi)
@@ -30,10 +31,10 @@ import (
 type options struct {
 	clock, date, sky, colors, screen, drink string
 	moment, look, away                      string
-	page                                    int
+	page, row, frames                       int
 	width, height                           int
 	seconds, sipped                         float64
-	cats, bonds                             catList
+	cats, bonds, sets                       catList
 }
 
 // catList collects --cat flags: ID:POSE@SPOT, optionally /FRAME.
@@ -61,13 +62,16 @@ func main() {
 	flag.StringVar(&o.date, "date", "", "date as YYYY-MM-DD (default: today)")
 	flag.StringVar(&o.sky, "weather", "", "weather to show (default: today's ambient weather)")
 	flag.StringVar(&o.colors, "color", "auto", "auto, truecolor or 256")
-	flag.StringVar(&o.screen, "screen", "cafe", "title, cafe, menu (the pause menu), drinks, talk, poses (each cat's poses) or sheet (every pose and frame)")
+	flag.StringVar(&o.screen, "screen", "cafe", "title, title-settings, cafe, menu (the pause menu), settings, drinks, talk, poses (each cat's poses) or sheet (every pose and frame)")
 	flag.Var(&o.cats, "cat", "put a cat somewhere: ID:POSE@SPOT or ID:POSE@SPOT/FRAME, e.g. brie:sit@sill (repeatable)")
 	flag.Var(&o.bonds, "bond", "how well a cat knows you: ID=TIER or ID=NUMBER (0..100), e.g. mimi=friend (repeatable)")
 	flag.StringVar(&o.moment, "moment", "", "show this cat moment in the dialogue box, e.g. brie_sigh")
 	flag.StringVar(&o.look, "look", "", "open Look around on this: window, table or a cat's id (e.g. brie)")
 	flag.StringVar(&o.drink, "drink", "", "put this drink on the table, e.g. cafe_creme")
 	flag.StringVar(&o.away, "away", "", "pretend your last visit was this long ago (45m, 3h, 2d, 1w): shows the welcome back and the away note")
+	flag.Var(&o.sets, "set", "change a setting first: ID=VALUE, e.g. reduced_motion=on, text_speed=slow, pacing=very_slow, color=256 (repeatable)")
+	flag.IntVar(&o.row, "row", 1, "with --screen settings: which setting is highlighted (1 to 5)")
+	flag.IntVar(&o.frames, "frames", 1, "print this many frames, a tenth of a second apart, separated by a line with a form feed (for making animations)")
 	flag.IntVar(&o.page, "page", 1, "with --screen talk: which page of the conversation to show")
 	flag.Float64Var(&o.sipped, "sipped", 0, "with --drink: minutes since it arrived (cups are empty at 15)")
 	flag.IntVar(&o.width, "width", game.FrameW, "terminal width in cells")
@@ -106,8 +110,9 @@ func run(o options) error {
 	if err != nil {
 		return err
 	}
+	detected := game.DetectColorMode(os.Getenv)
 	if auto {
-		mode = game.DetectColorMode(os.Getenv)
+		mode = detected
 	}
 	// With --sipped, the café opens that many minutes earlier, the drink
 	// arrives, and the clock is then moved on to the time asked for.
@@ -118,14 +123,21 @@ func run(o options) error {
 			return fmt.Errorf("--away: %v", err)
 		}
 	}
-	g, err := game.New(game.Config{Start: start.Add(-sipped), Weather: o.sky, ColorMode: mode, Seed: 1, Away: away}, content.FS, real)
+	g, err := game.New(game.Config{Start: start.Add(-sipped), Weather: o.sky, ColorMode: mode, AutoColor: detected, Seed: 1, Away: away}, content.FS, real)
 	if err != nil {
 		return err
 	}
 	g.Resize(o.width, o.height)
-	if o.screen != "title" {
+	if o.screen != "title" && o.screen != "title-settings" {
 		g.Key(game.KeyConfirm)
 		g.Key(game.KeyConfirm)
+	}
+	for _, s := range o.sets {
+		id, val, ok := strings.Cut(s, "=")
+		if !ok {
+			return fmt.Errorf("--set should look like reduced_motion=on, got %q", s)
+		}
+		g.SetSetting(id, val)
 	}
 	if o.drink != "" {
 		if err := g.Serve(o.drink); err != nil {
@@ -176,8 +188,22 @@ func run(o options) error {
 	}
 	switch o.screen {
 	case "title", "cafe":
+	case "title-settings":
+		g.Key(game.KeyBack)
+		g.Key(game.KeyConfirm) // Settings, Leave the café
+		for i := 1; i < o.row; i++ {
+			g.Key(game.KeyDown)
+		}
 	case "menu":
 		g.Key(game.KeyBack)
+	case "settings":
+		g.Key(game.KeyBack)
+		g.Key(game.KeyDown)
+		g.Key(game.KeyDown)
+		g.Key(game.KeyConfirm) // Order a drink, Look around, Settings
+		for i := 1; i < o.row; i++ {
+			g.Key(game.KeyDown)
+		}
 	case "drinks":
 		g.Key(game.KeyBack)    // the pause menu opens on "Order a drink"
 		g.Key(game.KeyConfirm) // ...which opens the chalkboard
@@ -198,8 +224,15 @@ func run(o options) error {
 			wait(60)
 		}
 	default:
-		return fmt.Errorf("--screen should be title, cafe, menu, drinks, talk or sheet")
+		return fmt.Errorf("--screen should be title, title-settings, cafe, menu, settings, drinks, talk or sheet")
 	}
 	fmt.Println(g.View())
+	end := real.Add(time.Duration(steps) * 100 * time.Millisecond)
+	for f := 1; f < o.frames; f++ {
+		end = end.Add(100 * time.Millisecond)
+		g.Tick(end)
+		fmt.Println("\f")
+		fmt.Println(g.View())
+	}
 	return nil
 }

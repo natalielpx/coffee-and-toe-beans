@@ -75,6 +75,10 @@ func place(sp *sprites.Sprite, st Spot, anchor [2]int) (x, y int) {
 // the lamps and the candle), so a cat in a dim corner is still easy to see.
 var catGlow = rgb.Color{R: 1, G: 0.84, B: 0.66}
 
+// dimCat is how dim the light on a cat must be (0..1) for its fur to be
+// kept lighter in 256-color mode.
+const dimCat = 0.6
+
 // catGlowMax is how much of it at the darkest hour of the night.
 const catGlowMax = 0.2
 
@@ -91,6 +95,10 @@ func (s *Scene) drawCats(c *canvas.Canvas, ox, oy int) {
 			a = 1
 		}
 		x0, y0 := place(cd.sp, cd.spot, cd.Anchor)
+		// A cat in a dim place is marked, so that in 256 colors its fur is
+		// kept lighter than the room around it (see rgb.To256At).
+		mid := s.lightAt(x0+cd.sp.W/2, y0+cd.sp.H/2).Add(glow)
+		dim := mid.Luma() < dimCat
 		for y := 0; y < cd.sp.H; y++ {
 			for x := 0; x < cd.sp.W; x++ {
 				sx := x
@@ -113,6 +121,9 @@ func (s *Scene) drawCats(c *canvas.Canvas, ox, oy int) {
 					col = c.At(ox+px, oy+py).Lerp(col, a)
 				}
 				c.Set(ox+px, oy+py, col)
+				if a >= 0.5 {
+					c.MarkVivid(ox+px, oy+py, dim)
+				}
 			}
 		}
 	}

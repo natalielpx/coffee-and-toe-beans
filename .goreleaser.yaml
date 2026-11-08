@@ -1,0 +1,61 @@
+# How a release is built (used by .github/workflows/release.yml).
+# Four ready-to-play zips, named so players can tell which one is theirs:
+#   coffee-and-toe-beans-macos-apple-silicon.zip   Macs with M1, M2, M3...
+#   coffee-and-toe-beans-macos-intel.zip           older Intel Macs
+#   coffee-and-toe-beans-linux-x86_64.zip          Linux and Windows (WSL) PCs
+#   coffee-and-toe-beans-linux-arm64.zip           Linux on ARM
+# The names have no version number on purpose, so this link always gives
+# the newest one:
+#   https://github.com/natalielpx/coffee-and-toe-beans/releases/latest/download/<name>.zip
+# Each zip holds a folder with the game, README.md and LICENSE.
+version: 2
+
+project_name: coffee-and-toe-beans
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: game
+    main: ./cmd/coffee-and-toe-beans
+    binary: coffee-and-toe-beans
+    env:
+      - CGO_ENABLED=0
+    goos: [darwin, linux]
+    goarch: [amd64, arm64]
+    flags: [-trimpath]
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  - id: zips
+    formats: [zip]
+    name_template: >-
+      {{ .ProjectName }}-
+      {{- if eq .Os "darwin" }}macos-{{ if eq .Arch "arm64" }}apple-silicon{{ else }}intel{{ end }}
+      {{- else }}{{ .Os }}-{{ if eq .Arch "amd64" }}x86_64{{ else }}{{ .Arch }}{{ end }}{{ end }}
+    wrap_in_directory: true
+    files:
+      - README.md
+      - LICENSE
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  use: git
+  sort: asc
+  filters:
+    exclude:
+      - "^Merge"
+
+release:
+  name_template: "Coffee and Toe Beans {{ .Version }}"
+  header: |
+    A cosy, silent cat café on the rooftops of Paris, for your terminal.
+
+    **Which file?** Mac with M1/M2/M3/M4: `macos-apple-silicon`. Older Intel Mac: `macos-intel`.
+    Linux or Windows (WSL) PC: `linux-x86_64`. Linux on ARM: `linux-arm64`.
+    How to open it (and the one-time "Open Anyway" step on a Mac):
+    see the [README](https://github.com/natalielpx/coffee-and-toe-beans#play).

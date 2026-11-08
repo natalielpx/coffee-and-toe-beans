@@ -314,6 +314,20 @@ func (s *State) Advance(t time.Time) {
 	}
 }
 
+// Pin keeps the weather at one kind from now on ("" follows the ambient
+// story again). The sky changes at once, as when the café opens.
+func (s *State) Pin(kind string, t time.Time) error {
+	if kind != "" && !s.cfg.Has(kind) {
+		return fmt.Errorf("unknown weather %q (try one of: %v)", kind, s.cfg.names)
+	}
+	if kind == s.pinned {
+		return nil
+	}
+	s.pinned = kind
+	s.reset(t)
+	return nil
+}
+
 // Params is the current weather.
 func (s *State) Params() Params { return s.cur }
 

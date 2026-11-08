@@ -33,14 +33,14 @@ func items(g *Game) []menuAction { return g.pause.items }
 func TestPauseMenuOrder(t *testing.T) {
 	g := newGame(t, Config{})
 	g.Key(KeyBack)
-	if got := items(g); len(got) != 1 || got[0] != actLeave {
-		t.Errorf("on the title card the menu is just Leave; got %v", got)
+	if got := items(g); len(got) != 2 || got[0] != actSettings || got[1] != actLeave {
+		t.Errorf("on the title card the menu is Settings, Leave; got %v", got)
 	}
 	g.Key(KeyBack)
 
 	g, _ = inside(t, Config{})
 	g.Key(KeyBack)
-	want := []menuAction{actOrder, actLook, actLeave}
+	want := []menuAction{actOrder, actLook, actSettings, actLeave}
 	got := items(g)
 	if len(got) != len(want) {
 		t.Fatalf("café menu: got %v, want %v", got, want)
@@ -54,13 +54,10 @@ func TestPauseMenuOrder(t *testing.T) {
 	if strings.Contains(s, "Stay a little longer") {
 		t.Error("there's no Stay item any more: Esc closes the menu")
 	}
-	for _, w := range []string{"Leave the café", "Order a drink", "Look around"} {
+	for _, w := range []string{"Leave the café", "Order a drink", "Look around", "Settings"} {
 		if !strings.Contains(s, w) {
 			t.Errorf("pause menu should show %q", w)
 		}
-	}
-	if strings.Contains(s, "Settings") {
-		t.Error("Settings stay hidden until milestone 5")
 	}
 }
 

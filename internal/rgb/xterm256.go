@@ -22,7 +22,12 @@ import (
 //   - Hue counts a little more than brightness (chromaWeight), and colors are
 //     made a touch more colorful before matching (chromaBoost), so that the
 //     warm and cool moods survive.
-//   - No dithering: patterns of two colors looked like noise on the walls.
+//   - The loud, fully saturated colors (#ff8700, #af5f00, #875f00...) are
+//     left out too (M5): lamp light on the walls fell onto them as hard
+//     orange stripes. Cats may still use them (see To256At).
+//   - No dithering: patterns of two colors looked like noise on the walls
+//     (tried again in M5 between close shades only; it made no visible
+//     difference once the loud colors were gone).
 
 var cubeLevels = [6]float64{0, 95, 135, 175, 215, 255}
 
@@ -52,7 +57,7 @@ const chromaBoost = 1.1
 
 func buildPalette() {
 	for i := 16; i < 256; i++ {
-		if harsh(uint8(i)) {
+		if harsh(uint8(i)) || loud(uint8(i)) {
 			continue
 		}
 		c := Xterm(uint8(i))
@@ -76,6 +81,28 @@ func harsh(i uint8) bool {
 	}
 	return lit == 1
 }
+
+// loud reports whether a cube color is fully saturated, like #ff8700,
+// #af5f00 or #875f00 (one channel off, another at least #87). Lamp light on the
+// walls fell onto these as hard orange stripes; without them it steps
+// through the softer peaches and tans.
+func loud(i uint8) bool {
+	if i < 16 || i >= 232 {
+		return false
+	}
+	n := int(i) - 16
+	ch := []int{n / 36, (n / 6) % 6, n % 6}
+	lo, hi := 5, 0
+	for _, v := range ch {
+		lo, hi = min(lo, v), max(hi, v)
+	}
+	return lo == 0 && hi >= loudFrom
+}
+
+// loudFrom is the cube level (0-5) from which a color with one channel off
+// counts as loud: 2 is #87, 3 is #af. At 3, sunset walls and floors still
+// showed mustard (#875f00) patches; at 2 they step through mauve and tan.
+const loudFrom = 2
 
 // Xterm returns the color an xterm-compatible terminal shows for a palette
 // index from 16 to 255.
@@ -143,4 +170,93 @@ func oklab(c Color) (L, A, B float64) {
 	A = 1.9779984951*l - 2.4285922050*m + 0.4505937099*s
 	B = 0.0259040371*l + 0.7827717662*m - 0.8086757660*s
 	return
+}
+
+// --- Cats that keep their colors (added in M5) ---------------------------
+//
+// The room is matched against a palette without the loud oranges (see
+// loud), which softens the lamp light on the walls at sunset and in the
+// evening. Cats may still use them (Hunter is ginger), and a cat in a dim
+// place has its fur lifted a little, so at night it stays a cat and doesn't
+// melt into the room's greys and mauves. The scene says which pixels are
+// cats (canvas.MarkVivid).
+
+// vividLift is how much lighter dim fur is made before matching.
+const vividLift = 0.22
+
+var (
+	vividMu    sync.Mutex
+	vividCache = map[uint32]uint8{}
+	vividOnce  sync.Once
+	vividPal   []paletteEntry
+)
+
+func dist2(l, a, b float64, p paletteEntry) float64 {
+	dl, da, db := l-p.l, (a-p.a)*chromaWeight, (b-p.b)*chromaWeight
+	return dl*dl + da*da + db*db
+}
+
+// Vivid says how a pixel is matched in 256 colors.
+type Vivid uint8
+
+const (
+	Plain  Vivid = iota // the room: the palette without the loud oranges
+	Cat                 // a cat: the full palette (Hunter stays ginger)
+	DimCat              // a cat in a dim place: its fur kept a little lighter
+)
+
+// To256At is the 256-color match for one pixel of the picture: the room
+// uses To256; cats keep their colors.
+func To256At(c Color, v Vivid) uint8 {
+	if v != Plain {
+		return toVivid(c, v == DimCat)
+	}
+	return To256(c)
+}
+
+func toVivid(c Color, dim bool) uint8 {
+	key := c.Pack()
+	if dim {
+		key |= 1 << 24 // cached apart from the same color undimmed
+	}
+	vividMu.Lock()
+	if idx, ok := vividCache[key]; ok {
+		vividMu.Unlock()
+		return idx
+	}
+	vividMu.Unlock()
+	vividOnce.Do(func() {
+		for i := 16; i < 256; i++ {
+			if harsh(uint8(i)) {
+				continue // the loud ones stay: Hunter is ginger
+			}
+			c := Xterm(uint8(i))
+			pl, pa, pb := oklab(c)
+			p := paletteEntry{index: uint8(i), l: pl, a: pa, b: pb, color: c}
+			vividPal = append(vividPal, p)
+		}
+	})
+	l, a, b := oklab(FromBytes(uint8(key>>16), uint8(key>>8), uint8(key)))
+	// Only dim fur is lifted (lightness about 0.45 to 0.7): lines, points,
+	// eyes and outlines stay dark, so the cat keeps its shape, and daylight
+	// fur is left as it is.
+	if dim {
+		mid := clamp01((l-0.44)/0.08) * clamp01((0.72-l)/0.14)
+		l += (1 - l) * vividLift * mid
+	}
+	a, b = a*chromaBoost, b*chromaBoost
+	best := vividPal[0].index
+	bestD := math.MaxFloat64
+	for _, p := range vividPal {
+		if d := dist2(l, a, b, p); d < bestD {
+			bestD, best = d, p.index
+		}
+	}
+	vividMu.Lock()
+	if len(vividCache) > 1<<16 {
+		vividCache = map[uint32]uint8{}
+	}
+	vividCache[key] = best
+	vividMu.Unlock()
+	return best
 }

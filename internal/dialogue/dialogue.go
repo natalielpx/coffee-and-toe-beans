@@ -164,6 +164,19 @@ func pause(r rune) float64 {
 // SetPaused stops the clock (while a menu covers the box, say).
 func (b *Box) SetPaused(p bool) { b.paused = p }
 
+// SetSpeed changes how fast the letters type out (0: every page at once)
+// and how long the box takes to fade, for the text speed setting.
+func (b *Box) SetSpeed(lettersPerSecond, fade float64) {
+	b.opts.Speed = lettersPerSecond
+	b.opts.Fade = fade
+	if lettersPerSecond <= 0 && b.state == typing {
+		b.shown = b.pageLen()
+		b.budget = 0
+		b.state = waiting
+		b.idle = 0
+	}
+}
+
 // Update moves the box forward by dt seconds of real time.
 func (b *Box) Update(dt float64) {
 	if b.paused || dt <= 0 {

@@ -46,6 +46,9 @@ type Canvas struct {
 	W, H int
 	px   []rgb.Color
 	text []textCell
+	// vivid marks pixels (the cats) that keep their colors in 256-color
+	// mode: 1 a cat, 2 a cat in a dim place (see rgb.To256At).
+	vivid []uint8
 }
 
 // New makes a blank (black) canvas of w x h cells.
@@ -57,10 +60,11 @@ func New(w, h int) *Canvas {
 		h = 0
 	}
 	return &Canvas{
-		W:    w,
-		H:    h,
-		px:   make([]rgb.Color, w*h*2),
-		text: make([]textCell, w*h),
+		W:     w,
+		H:     h,
+		px:    make([]rgb.Color, w*h*2),
+		text:  make([]textCell, w*h),
+		vivid: make([]uint8, w*h*2),
 	}
 }
 
@@ -75,6 +79,20 @@ func (c *Canvas) inside(x, y int) bool {
 func (c *Canvas) Set(x, y int, col rgb.Color) {
 	if c.inside(x, y) {
 		c.px[y*c.W+x] = col
+	}
+}
+
+// MarkVivid says the pixel belongs to a cat, which keeps its colors in
+// 256-color mode; dim says the cat sits in a dim place, where its fur is
+// kept a little lighter than the room. Set and Blend leave the mark; Fill
+// clears it.
+func (c *Canvas) MarkVivid(x, y int, dim bool) {
+	if c.inside(x, y) {
+		v := uint8(1)
+		if dim {
+			v = 2
+		}
+		c.vivid[y*c.W+x] = v
 	}
 }
 
@@ -102,6 +120,7 @@ func (c *Canvas) Blend(x, y int, col rgb.Color, a float64) {
 func (c *Canvas) Fill(col rgb.Color) {
 	for i := range c.px {
 		c.px[i] = col
+		c.vivid[i] = 0
 	}
 	for i := range c.text {
 		c.text[i] = textCell{}
@@ -214,6 +233,16 @@ func key(col rgb.Color, mode Mode) uint32 {
 	return col.Pack()
 }
 
+// pixelKey is a pixel's color code; in 256-color mode it softens gradient
+// steps and keeps vivid pixels colorful (see rgb.To256At).
+func (c *Canvas) pixelKey(x, y int, mode Mode) uint32 {
+	i := y*c.W + x
+	if mode == Color256 {
+		return uint32(rgb.To256At(c.px[i], rgb.Vivid(c.vivid[i])))
+	}
+	return c.px[i].Pack()
+}
+
 // Lines renders the canvas as one string per row of cells, using terminal
 // color codes. Each line ends by resetting the colors.
 func (c *Canvas) Lines(mode Mode) []string {
@@ -234,8 +263,8 @@ func (c *Canvas) Lines(mode Mode) []string {
 				glyph = t.r
 				fg, bg = key(t.fg, mode), key(t.bg, mode)
 			} else {
-				top := key(c.px[(cy*2)*c.W+cx], mode)
-				bot := key(c.px[(cy*2+1)*c.W+cx], mode)
+				top := c.pixelKey(cx, cy*2, mode)
+				bot := c.pixelKey(cx, cy*2+1, mode)
 				bg = bot
 				if top == bot {
 					glyph = ' ' // a space only needs the background color

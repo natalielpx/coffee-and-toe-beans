@@ -9,14 +9,21 @@
     "cup_kept_minutes: come back within this many minutes and your drink is still on the table.",
     "favourite_after_orders: a drink becomes your favourite once you've ordered it this many times (and more than any other).",
     "autosave_seconds: how often the café saves while you're inside (it also saves when you leave).",
-    "Quiet mode (milestone 5) makes the moments and the small talk half as frequent."
+    "Settings (Esc menu, Settings): quiet_factor stretches the waits for moments and small talk in quiet mode (2 = half as often); very_slow_factor does the same for the \"Very slow\" pacing (1.5 = moments every 15–30 minutes). Both together multiply.",
+    "letters_per_second: how fast words type out at each text speed (Instant shows each page at once)."
   ],
-  "moment_minutes": [10, 20],
+  "moment_minutes": [5, 10],
   "retry_minutes": 1,
   "small_talk_minutes": [8, 15],
   "quiet_after_minutes": 1,
   "question_seconds": 90,
   "cup_kept_minutes": 30,
   "favourite_after_orders": 3,
-  "autosave_seconds": 60
+  "autosave_seconds": 60,
+  "quiet_factor": 2,
+  "very_slow_factor": 1.5,
+  "letters_per_second": {
+    "slow": 20,
+    "normal": 34
+  }
 }

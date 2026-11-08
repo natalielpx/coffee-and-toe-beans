@@ -64,6 +64,20 @@ func (pc *Pacer) slow() float64 {
 	return pc.Slow
 }
 
+// SetSlow changes how much every wait is stretched, and stretches (or
+// shortens) the wait already running to match, so a change of setting is
+// felt straight away.
+func (pc *Pacer) SetSlow(slow float64, now time.Time) {
+	if slow <= 0 {
+		slow = 1
+	}
+	old := pc.slow()
+	pc.Slow = slow
+	if left := pc.nextMoment.Sub(now); left > 0 && old != slow {
+		pc.nextMoment = now.Add(time.Duration(float64(left) * slow / old))
+	}
+}
+
 // MomentDue says whether it's time.
 func (pc *Pacer) MomentDue(now time.Time) bool { return !now.Before(pc.nextMoment) }
 

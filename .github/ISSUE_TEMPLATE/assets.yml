@@ -1,0 +1,123 @@
+name: "Sprite & Asset Art Task"
+description: "Request enlarged, multi-scale, or detailed versions of game sprites and scene objects."
+title: "[Art]: Enlarged & Detailed Sprite Set"
+labels: ["art", "sprites", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to track asset creation for multi-scale sprites across character, item, object, furniture, and scene categories.
+
+  - type: dropdown
+    id: task_type
+    attributes:
+      label: Task Type
+      description: Select the primary category of this art task.
+      options:
+        - "Art / Assets (Sprites, animations, or UI elements)"
+        - "Feature (New functionality or asset)"
+        - "Enhancement / Refactor (Improving existing code or performance)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgently are these assets needed?
+      options:
+        - "Medium (Standard roadmap item)"
+        - "High (Important blocker)"
+        - "Low (Nice to have)"
+        - "Critical (Urgent fix required)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description & Objective
+      description: Provide a clear overview of the asset scope and design requirements.
+      value: |
+        Create enlarged and highly detailed sprite variants for character cats, beverage items, scene objects, furniture, and background scene layouts across specific size targets (Thumbnail, Medium, Large). All assets must maintain visual consistency, color palette harmony, and transparent backgrounds.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: components
+    attributes:
+      label: Affected Asset Categories
+      description: Select all categories included in this batch.
+      options:
+        - label: Cats (Characters)
+          required: true
+        - label: Drinks (UI & World Items)
+          required: true
+        - label: Objects (Interactive Props)
+          required: true
+        - label: Furniture (Environment Decor)
+          required: true
+        - label: Scene (Background Layouts)
+          required: true
+
+  - type: textarea
+    id: subtasks
+    attributes:
+      label: Task Breakdown & Asset Checklist
+      description: Specific deliverables broken down by asset group and required size variants.
+      value: |
+        ### Cats (Variants: Medium, Large)
+        - [ ] **Brie** (Medium scale)
+        - [ ] **Brie** (Large scale)
+        - [ ] **Hunter** (Medium scale)
+        - [ ] **Hunter** (Large scale)
+        - [ ] **Mimi** (Medium scale)
+        - [ ] **Mimi** (Large scale)
+
+        ### Drinks (Variants: Thumbnail, Medium, Large)
+        - [ ] **Coffee** (Thumbnail icon)
+        - [ ] **Coffee** (Medium world item)
+        - [ ] **Coffee** (Large display item)
+        - [ ] **Chai** (Thumbnail icon)
+        - [ ] **Chai** (Medium world item)
+        - [ ] **Chai** (Large display item)
+        - [ ] **Tea** (Thumbnail icon)
+        - [ ] **Tea** (Medium world item)
+        - [ ] **Tea** (Large display item)
+
+        ### Objects (Variants: Medium, Large)
+        - [ ] **Lamp** (Medium scale + glow layer)
+        - [ ] **Lamp** (Large scale + glow layer)
+        - [ ] **Plant** (Medium scale)
+        - [ ] **Plant** (Large scale)
+        - [ ] **Books** (Medium scale)
+        - [ ] **Books** (Large scale)
+        - [ ] **Candle** (Medium scale + flame frames)
+        - [ ] **Candle** (Large scale + flame frames)
+
+        ### Furniture
+        - [ ] **Curtains** (Window decor / overlay)
+        - [ ] **Windowframe** (Wall element / background frame)
+
+        ### Scene Layouts
+        - [ ] **Terrace** (Outdoor environment backdrop)
+        - [ ] **Bar** (Indoor seating / counter environment)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria & Definition of Done
+      description: Select the verification requirements before closing this ticket.
+      options:
+        - label: All assets exported as transparent PNGs at exact designated resolution scales
+          required: true
+        - label: Pivot points and collision hitboxes aligned across scale variants
+          required: true
+        - label: Light sources (Lamp, Candle) include isolated emissive/glow overlay layers
+          required: false
+        - label: Assets packed into optimized sprite sheets / atlases
+          required: false
