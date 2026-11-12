@@ -240,6 +240,13 @@ func TestTheCupCoolsEmptiesAndStays(t *testing.T) {
 		t.Fatal("an empty cup stays on the table")
 	}
 
+	// A cat moment may come by in the meantime (moments come every 5-10
+	// minutes and always wait for an answer). Answer it, so the offer, which
+	// waits its turn behind it, can be seen.
+	for k := 0; k < 20 && g.box != nil && g.box.kind == talkMoment; k++ {
+		g.Key(KeyConfirm)
+		now = run(g, now, 1)
+	}
 	// A little later, one gentle offer of another.
 	sawOffer := false
 	for i := 0; i < 100 && !sawOffer; i++ {

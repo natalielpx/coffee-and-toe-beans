@@ -307,8 +307,8 @@ func TestPacing(t *testing.T) {
 			now = now.Add(10 * time.Minute)
 		}
 	}
-	if f.pace.MomentMinutes != [2]float64{10, 20} {
-		t.Errorf("moments should come every 10-20 min (most choices are in Look around), got %v", f.pace.MomentMinutes)
+	if f.pace.MomentMinutes != [2]float64{5, 10} {
+		t.Errorf("moments should come every 5-10 min (Nala's change, 8 Nov 2026), got %v", f.pace.MomentMinutes)
 	}
 	// Not every gap is the same: it shouldn't feel mechanical.
 	p := NewPacer(f.pace, day, rng)

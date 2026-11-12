@@ -57,11 +57,11 @@ func TestTheCatsAndTheNarratorTakeTheirTime(t *testing.T) {
 	bonds := map[string]float64{"brie": 30, "hunter": 30, "mimi": 30}
 	m, st, lines, who, _ := catTalk(t, Config{Seed: 11, Bonds: bonds, Start: t0.Add(12 * time.Hour)}, 180)
 	t.Logf("3 café hours: %d moments, %d small talk", m, st)
-	// A moment every 10-20 minutes and small talk every 8-15, but never on
+	// A moment every 5-10 minutes and small talk every 8-15, but never on
 	// top of each other or of the café's own words: fewer than the bare
 	// numbers, never more.
-	if m < 6 || m > 180/10 {
-		t.Errorf("%d cat moments in 3 hours; expected roughly one every 10-20 minutes", m)
+	if m < 6 || m > 180/5 {
+		t.Errorf("%d cat moments in 3 hours; expected roughly one every 5-10 minutes", m)
 	}
 	if st < 7 || st > 180/8+1 {
 		t.Errorf("%d small talk in 3 hours; expected roughly one every 8-15 minutes", st)

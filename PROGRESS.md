@@ -2,6 +2,7 @@
 
 Read this first at the start of every milestone conversation. The design is in
 `gameplay.md` and the plan in `brief.md` (both in the claude.ai project).
+Version 1 is finished; this file now also records what version 2 starts from.
 
 ## Status
 
@@ -10,8 +11,181 @@ Read this first at the start of every milestone conversation. The design is in
 | M1 — The room | Done; review changes applied (7 Nov 2026) |
 | M2 — Talking | Done; review changes applied (7 Nov 2026) |
 | M3 — The cats | Done (7 Nov 2026): bigger room, the three cats, wandering, moments, bonds, Look around |
-| **M4 — The narrator and memory** | **Done** (7 Nov 2026): welcomes, away notes, small talk, saving, the text pass. Waiting for Nala's review |
-| M5 — Comfort and polish | |
+| M4 — The narrator and memory | Done; reviewed by Nala, nothing to change (7 Nov 2026) |
+| **M5 — Comfort and polish** | **Done** (8 Nov 2026): settings, 256-colour fixes, README, CI, releases. Ready to publish **v1.0.0** |
+
+**Version 1 is complete.** Next: Nala publishes v1.0.0 (steps in the handover
+and at the end of this file), then version 2.
+
+## Version 1 in short
+
+A cosy, silent cat café in the terminal (Go + Bubble Tea, one ~4 MB program,
+macOS and Linux, Windows through WSL).
+- **The room:** the French interior (104 × 84 pixels, 104 × 42 cells), the
+  view over Paris with the Eiffel Tower (lit at dusk, sparkling on the hour),
+  lamps, candle, bookcase, chalkboard; title card.
+- **Time and weather:** real-clock lighting following Paris's real sunrise
+  and sunset through the seasons; ambient weather (clear, cloudy, drizzle,
+  rain, heavy rain, fog, winter snow) made from the date. Both can also be
+  chosen in Settings.
+- **Talking:** a visual-novel dialogue box (typing, ▼, choices), the Esc
+  menu (Order a drink · Look around · Settings · Leave the café), the drinks
+  chalkboard with seven drinks in seven cups that cool and empty over 15
+  minutes.
+- **The cats:** Brie, Hunter and Mimi, drawn from Nala's PixelLab art;
+  they wander, sleep, blink and flick their tails; hidden bonds with five
+  tiers; 58 moments each; Look around to look at and interact with them;
+  Mimi's patience.
+- **The narrator and memory:** welcomes by time and weather, small talk,
+  "while you were away" notes, your favourite drink; saving with autosave,
+  safe writes and broken-save recovery.
+- **Comfort:** Settings for reduced motion, quiet mode, text speed, pacing,
+  weather, time of day and colours; true colour or a hand-tuned 256-colour
+  look for macOS Terminal.
+- **Release:** README with a GIF, CI that tests and builds every push,
+  GoReleaser releases with four clearly named zips.
+
+## M5: comfort and polish (7–8 Nov 2026)
+
+Decided with Nala before building:
+- **Esc menu:** Order a drink · Look around · **Settings** · Leave the café
+  (leaving is now Esc, ↑, Enter, or Esc ↓ ↓ ↓ Enter). The title card's menu
+  is **Settings · Leave the café**, so colours can be set before stepping in
+  (leaving from the title card is now Esc, ↓, Enter).
+- **Pacing:** Gentle = the M4 pace (moments every 10–20 café minutes, small
+  talk every 8–15), the default; Very slow = 1.5 × rarer. Quiet mode halves
+  whichever is chosen (they multiply).
+- Nala is on macOS 15 (Sequoia): Terminal shows 256 colours, so the 256
+  look was tested hardest.
+- M4 review: nothing to change.
+
+Added after Nala saw the first previews:
+- **Weather** and **Time of day** settings (Nala's request; "weather of
+  choice" was planned for version 2 in gameplay.md, now in version 1).
+- Settings in **two columns** (label, then its value right after it, with
+  ‹ › close around the highlighted value), and the "Settings" title
+  **left-aligned**, in line with the labels.
+
+**The Settings screen** (`internal/game/settings.go`; words in
+`content/text/ui.json` → `settings`; timings in `content/pacing.json`):
+- Reduced motion (Off/On), Quiet mode (Off/On), Text speed (Slow / Normal /
+  Instant), Pacing (Gentle / Very slow), Weather (Changing / Clear / Cloudy /
+  Drizzle / Rain / Heavy rain / Fog / Snow), Time of day (Real clock / Dawn /
+  Morning / Afternoon / Golden evening / Night), Colours (Auto / True colour
+  / 256). A one-line note under the list explains the highlighted value
+  ("Auto" says what it picked here).
+- ↑ ↓ choose, ← → change (going round), Enter = →, Esc back to the menu.
+  Every change applies at once (the scene, the cats, the dialogue box
+  already open, the waits already running, the colours) and is **saved at
+  once**. On the title card only the settings are saved; the visit isn't
+  counted.
+- **Reduced motion:** no lamp or candle flicker, no tower sparkle or star
+  twinkle, sparser and slower rain and snow, raindrops that stay put, slower
+  steam, fewer little cat movements, no blinking ▼ or pulsing title, shorter
+  fades. All of it now switches on and off while playing.
+- **Quiet mode:** half as much small talk and half as many cat moments
+  (tested over 4 café hours: 36 → 18). Very slow: 36 → 26.
+- **Text speed:** Slow 20 letters a second, Normal 34, Instant (each page
+  at once). In `content/pacing.json` (`letters_per_second`).
+- **Weather:** a chosen kind changes the sky at once and stays (snow in any
+  month). `--weather` still wins, for previews.
+- **Time of day:** the café keeps that look. The light, sky, lamps, tower,
+  the cats' moods, the narrator's lines and the drinks served follow it;
+  the clock still runs everything else (cups cooling, cats coming by, away
+  notes). Each look is a time on the model day, so Golden evening looks
+  golden in June and December: `chosen_times` in `content/lighting.json`
+  (dawn 06:35, morning 09:30, afternoon 15:00, golden 18:50, night 22:30).
+- **Colours:** Auto uses what was detected (`--color` still overrides for a
+  run).
+- The save's `settings` part gained `weather` and `time_of_day`.
+
+**256 colours** (Nala approved from before/after previews):
+- **Wall bands at sunset and in the evening:** most of the hard rings were
+  loud, fully saturated cube colours (#ff8700, #af5f00, #875f00 and the
+  like) appearing as stripes beside soft peaches. The room no longer uses
+  any colour with one channel off and another at #87 or more (`loud` in
+  `internal/rgb/xterm256.go`); the lamp light now steps through peach, tan
+  and mauve. Daylight is unchanged. A checker blend between close shades
+  was tried and dropped: busy, and no visible gain once the loud colours
+  were gone.
+- **Cats in dim corners:** the scene marks cat pixels (`canvas.MarkVivid`).
+  Cats keep the full palette (Hunter stays ginger), and a cat in a dim
+  place (light below 0.6 at its middle) has its fur tones (lightness
+  0.45–0.7) lifted a little before matching, so sleeping Brie at night is a
+  light cat on her cushion instead of one flat mauve shape; lines, points
+  and eyes stay dark.
+
+**Polish pass:** every weather at six times of day in 256 colours (nothing
+overlapping, nothing cut off); the help text mentions `--fresh`, Settings
+and the window size; the snapshot tool gained `--screen settings`,
+`--screen title-settings`, `--row N`, `--set id=value` and `--frames N`
+(for the README GIF).
+
+**Performance** (measured here, in a virtual terminal at 104 × 42):
+heavy rain at night uses **3.0 % of one CPU core in 256 colours, 4.3 % in
+true colour**. A 25-minute `--fast` session (12½ café hours, 859 random
+key presses) averaged 2.8 % CPU, memory stayed between 14 and 18 MB with
+no growth, and it closed cleanly. A frame costs ~0.6 ms.
+
+**Release setup:**
+- `README.md`: what it is, a GIF (`docs/cafe.gif`: rain, Brie on the sill,
+  her moment typing in the box) and a screenshot (`docs/screenshot.png`),
+  which zip to pick, playing on macOS (with the "Open Anyway" step), Linux
+  and Windows (WSL), window size in macOS Terminal and Windows Terminal,
+  controls, settings, the save and starting afresh, building from source,
+  the content files, "Support the café" (placeholders), license.
+- `.github/workflows/ci.yml`: gofmt, vet and tests on Linux and macOS, then
+  builds for macOS (Apple silicon, Intel) and Linux (x86_64, arm64), kept
+  30 days as downloadable artifacts on each run's page.
+- `.github/workflows/release.yml` + `.goreleaser.yaml`: pushing a tag like
+  `v1.0.0` tests, builds and publishes a Release with
+  `coffee-and-toe-beans-macos-apple-silicon.zip`, `-macos-intel.zip`,
+  `-linux-x86_64.zip`, `-linux-arm64.zip` (each a folder with the game,
+  README and LICENSE), `checksums.txt` and a changelog from the commits.
+  No version in the file names, so
+  `…/releases/latest/download/<name>.zip` always gives the newest.
+  `--version` shows the tag's version.
+- GoReleaser itself couldn't be run here (downloading it into the workspace
+  isn't allowed), so the config was checked against the GoReleaser v2
+  documentation, the zip names were checked with Go's template engine
+  (which GoReleaser uses), and all four programs were cross-built here.
+  The first real run is Nala's tag push.
+- `LICENSE` (MIT, natalielpx), `SPONSORS.md` and `.github/FUNDING.yml`
+  placeholders kept.
+
+**Tests added:** the settings screen fits and shows every setting; every
+setting goes round with the arrows; settings apply at once (scene, text
+speed, colours); quiet and very slow stretch the running waits; quiet and
+pacing cut the talk (counted over 4 café hours); time of day keeps its look
+across seasons but not the timers, and serves evening drinks; every weather
+can be chosen and `--weather` wins; settings saved and back on the next
+visit; settings from the title card don't count a visit; reduced motion
+stops the blink and shortens fades; loud colours left out of the room but
+not the cats; dim cats lighter than the room, lines not lifted.
+
+**Played here** (real game, virtual terminal 104 × 42): title card →
+Settings → colours to 256 (saved, no visit counted) → step in → welcome →
+order → every setting changed (all shown, the note follows, saved at once)
+→ Esc back → leave (goodbye printed, visit saved); relaunch (welcome, away
+note, settings restored); Ctrl+C (saves); a save cut off at 120 bytes
+(starts afresh, note after leaving); an 80 × 30 window (polite message, can
+still leave); 50 presses of arrows/Enter/Space (never closes); 25 minutes
+of `--fast` with 859 random key presses (no crash).
+
+### Acceptance criteria (brief.md), checked one by one
+
+| Criterion | How it was checked | |
+|---|---|---|
+| Builds and runs on Linux and macOS without extra installs; no panics in a 2-hour `--fast` session | Linux build played here (static, nothing else needed); macOS builds cross-compiled here and built and tested on a Mac by CI. A simulated 2-hour `--fast` session runs in the tests; a real 25-minute `--fast` session ran here with random keys | ✓ (Nala's Mac: the final check) |
+| Dawn, day, dusk and night visibly different, smooth, following the seasons | Lighting tests (no visible steps, winter and summer evenings); every-hour × every-weather frames | ✓ |
+| Fully playable with arrows, Enter, Esc; leaving only through the Esc menu | Tests (no pair of keys closes the game; long runs without Esc); played here | ✓ (Ctrl+C stays as the emergency exit, as agreed in M2) |
+| Mimi never approaches a stranger; calm raises, sudden lowers | Cat tests (enforced in code too) | ✓ |
+| Every cat moment can be ignored and resolves gently | Since M4 moments wait for you; leaving with one open takes its quiet answer (tests) | ✓ (as changed with Nala in M4) |
+| Quitting and relaunching restores bonds, settings, favourite drink, and shows an away note | Tests; played here | ✓ |
+| A save cut off mid-write doesn't crash | Tests (five kinds of broken save); played here | ✓ |
+| Reduced motion removes flicker and fast animation; quiet mode cuts narrator frequency by at least half | Scene and settings tests; counted: 36 → 18 | ✓ |
+| Looks intentional in macOS Terminal's 256 colours | Before/after previews approved; every-weather sweep in 256 | ✓ (confirm on Nala's Mac) |
+| All player-facing text in `content/` | Searched the Go code: only symbols (▼ ▸ ‹ ›) and developer error messages | ✓ |
 
 ## M4: the narrator and memory (7 Nov 2026)
 
@@ -457,6 +631,8 @@ What's in:
 cmd/coffee-and-toe-beans/  the game: reads flags, starts the UI
 cmd/snapshot/              dev tool: prints one still frame (any screen, any drink)
 content/                   ALL art, words, lighting and weather (embedded)
+docs/                      the README's GIF and screenshot
+.github/, .goreleaser.yaml CI on every push; releases when a v* tag is pushed
 internal/ui/               the only code that uses Bubble Tea (thin)
 internal/game/             screens, keys, clock, layout of a frame
 internal/scene/            the room, the view, weather effects, lighting
@@ -560,25 +736,64 @@ game's side of them (when to speak, what to save) is in
     threshold (3 orders) and autosave (60 s) are in `content/pacing.json`**,
     with the small-talk timing, so they can be tuned without code.
 
+24. **Settings are applied live, never by restarting** (`applySettings`):
+    the dialogue box already open, the waits already running and the scene
+    all change at once, so a player can flip through values and see them.
+25. **Time of day is a look, not a clock.** A chosen time changes what the
+    café shows (`dayNow`) but the café clock keeps running, so cups,
+    moments and saves behave the same whatever is chosen.
+26. **256 colours: leave out loud colours rather than dither.** Fewer, softer
+    palette entries gave calmer gradients than any pattern; cats are matched
+    separately so they keep their colours.
+27. **Release files have no version in their names**, so the "latest
+    download" links in the README never go stale.
+
 ## Open questions for Nala
 
-- Table close-ups (see M3) when PixelLab is available again.
-- How chatty the café feels now: small talk every 8–15 café minutes and a
-  cat moment every 10–20. Both are in `content/pacing.json`.
-- 256 colours at night: cats in dim corners turn greyish (from M3).
+- Table close-ups (see M3) when PixelLab is available again (a version 2
+  item now).
+- After playing v1.0.0 on the Mac: does the 256-colour café look right
+  (sunset, evening, night), and is the pacing right?
+- Support links: which platforms (GitHub Sponsors, Ko-fi, itch.io), so the
+  README and `.github/FUNDING.yml` can be filled in.
 
-## Next: M5 — Comfort and polish
+## Next: version 2
 
-Settings screen in the Esc menu: reduced motion, quiet mode, text speed,
-pacing, colour mode (the save already has a `settings` part and the game
-already reads `reduced_motion` and `quiet` from it). Final polish pass on
-animation details. README (GIF or screenshot, install, Support section),
-CI for linux/macOS × amd64/arm64, GoReleaser and the first release.
+From gameplay.md (minus what's already done), roughly in this order:
+1. **Rustic vintage and outdoor garden interiors** (as data files, like
+   `content/interiors/french.json`), and an Interior setting.
+2. **The cat journal:** a page per cat with a portrait, a description that
+   grows with the bond, and memories ("Mimi slept on your lap during the
+   first snow"); unmet cats as silhouettes.
+3. **Real weather** for a chosen city via Open-Meteo, with your clock or the
+   city's (the first network use: optional, off by default, never
+   required). Weather of choice is already done.
+4. **More moments** (8–10 more per cat) and **shared two-cat moments**.
+5. **Bigger cats on your table** (close-ups, from Nala's PixelLab art).
+6. Also worth doing: an itch.io page for the same zips, a Homebrew tap so
+   Mac players can `brew install`, signing and notarizing the Mac build so
+   the "Open Anyway" step goes away (needs an Apple Developer account).
+Then version 3: seasons and festivities, seasonal drinks and decorations;
+and later, sponsors (thanks page, commissioned cats).
+
+## Publishing a release (v1.0.0 and later)
+
+In the repo folder, after the milestone's files are in and pushed:
+
+```sh
+git tag -a v1.0.0 -m "Coffee and Toe Beans 1.0.0"
+git push origin v1.0.0
+```
+
+GitHub → Actions → "Release" runs (a few minutes), then the Releases page
+has the four zips. To redo a tag after a fix:
+`git tag -d v1.0.0 && git push --delete origin v1.0.0`, then tag again.
+The next version is `v1.0.1` (fixes) or `v1.1.0` (new things).
 
 ## Notes for the next conversation
 
 - **The code comes from the zip Nala attaches to the conversation** (e.g.
-  `coffee-and-toe-beans-m4.zip`), not from GitHub: the repo isn't connected
+  `coffee-and-toe-beans-m5.zip`), not from GitHub: the repo isn't connected
   to these chats. Unzip it into its own folder, then read this file.
 - The project docs (`claude/PROGRESS.md`, `claude/brief.md`,
   `claude/gameplay.md`) are in the claude.ai project; this file is also in
@@ -603,4 +818,11 @@ CI for linux/macOS × amd64/arm64, GoReleaser and the first release.
   reply the virtual terminal doesn't give; real terminals answer at once.
 - Preview frames: `go run ./cmd/snapshot ...` prints ANSI; convert to PNG
   (draw each `▀` cell as two squares) to look at the art. The virtual
-  terminal must be 104 × 42.
+  terminal must be 104 × 42. `--frames N` prints N frames a tenth of a
+  second apart, separated by a line with a form feed (how the README GIF
+  was made: night, rain, Brie on the sill with `--moment brie_rain`).
+- In the virtual terminal, words written over the picture (the title,
+  "press Enter") have the picture showing through the spaces, so search
+  for single words, not phrases.
+- Downloading programs such as GoReleaser into the workspace isn't
+  allowed; check the release config against its documentation instead.

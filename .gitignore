@@ -16,3 +16,6 @@
 # Leftovers from Go tests
 *.test
 *.out
+
+# Misc.
+cat-sprites
