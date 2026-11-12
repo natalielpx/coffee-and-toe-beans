@@ -52,15 +52,15 @@ body:
       description: Select all categories included in this batch.
       options:
         - label: Cats (Characters)
-          required: true
+          required: false
         - label: Drinks (UI & World Items)
-          required: true
+          required: false
         - label: Objects (Interactive Props)
-          required: true
+          required: false
         - label: Furniture (Environment Decor)
-          required: true
+          required: false
         - label: Scene (Background Layouts)
-          required: true
+          required: false
 
   - type: textarea
     id: subtasks
@@ -69,10 +69,13 @@ body:
       description: Specific deliverables broken down by asset group and required size variants.
       value: |
         ### Cats (Variants: Medium, Large)
+        - [ ] **Brie** (Thumbnail icon)
         - [ ] **Brie** (Medium scale)
         - [ ] **Brie** (Large scale)
+        - [ ] **Hunter** (Thumbnail icon)
         - [ ] **Hunter** (Medium scale)
         - [ ] **Hunter** (Large scale)
+        - [ ] **Mimi** (Thumbnail icon)
         - [ ] **Mimi** (Medium scale)
         - [ ] **Mimi** (Large scale)
 
@@ -106,18 +109,3 @@ body:
         - [ ] **Bar** (Indoor seating / counter environment)
     validations:
       required: true
-
-  - type: checkboxes
-    id: acceptance_criteria
-    attributes:
-      label: Acceptance Criteria & Definition of Done
-      description: Select the verification requirements before closing this ticket.
-      options:
-        - label: All assets exported as transparent PNGs at exact designated resolution scales
-          required: true
-        - label: Pivot points and collision hitboxes aligned across scale variants
-          required: true
-        - label: Light sources (Lamp, Candle) include isolated emissive/glow overlay layers
-          required: false
-        - label: Assets packed into optimized sprite sheets / atlases
-          required: false
