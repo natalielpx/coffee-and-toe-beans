@@ -184,7 +184,7 @@ func TestDrinksMenuFromThePauseMenu(t *testing.T) {
 
 func TestEveningDrinks(t *testing.T) {
 	ids := func(hh, mm int) []string {
-		start := time.Date(2026, 11, 7, hh, mm, 0, 0, time.Local)
+		start := time.Date(2026, 11, 7, hh, mm, 0, 0, paris)
 		g, _ := inside(t, Config{Start: start})
 		g.Key(KeyBack)
 		g.Key(KeyConfirm)
@@ -215,7 +215,7 @@ func TestEveningDrinks(t *testing.T) {
 		t.Errorf("at 23:00 both are served: %v", late)
 	}
 
-	start := time.Date(2026, 11, 7, 12, 0, 0, 0, time.Local)
+	start := time.Date(2026, 11, 7, 12, 0, 0, 0, paris)
 	g, _ := inside(t, Config{Start: start})
 	g.openDrinks(false)
 	if s := screen(g); !strings.Contains(s, "from 17:00") || !strings.Contains(s, "from 21:00") {

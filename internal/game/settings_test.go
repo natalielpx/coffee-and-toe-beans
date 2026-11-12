@@ -197,7 +197,7 @@ func TestQuietAndPacingSettingsCutTheTalk(t *testing.T) {
 
 func TestTimeOfDayKeepsTheLookButNotTheTimers(t *testing.T) {
 	// 10:00 on a November morning, but the café is set to night.
-	start := time.Date(2026, 11, 7, 10, 0, 0, 0, time.Local)
+	start := time.Date(2026, 11, 7, 10, 0, 0, 0, paris)
 	g, err := New(Config{Start: start, Seed: 3}, content.FS, t0)
 	if err != nil {
 		t.Fatal(err)
@@ -218,8 +218,8 @@ func TestTimeOfDayKeepsTheLookButNotTheTimers(t *testing.T) {
 	}
 	// The chosen look holds whatever the season.
 	for _, date := range []time.Time{
-		time.Date(2026, 6, 21, 12, 0, 0, 0, time.Local),
-		time.Date(2026, 12, 21, 12, 0, 0, 0, time.Local),
+		time.Date(2026, 6, 21, 12, 0, 0, 0, paris),
+		time.Date(2026, 12, 21, 12, 0, 0, 0, paris),
 	} {
 		for _, id := range []string{"dawn", "morning", "afternoon", "golden", "night"} {
 			g.SetSetting("time_of_day", id)

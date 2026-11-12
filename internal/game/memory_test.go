@@ -81,7 +81,7 @@ func last(s *[]*save.Data) *save.Data {
 }
 
 func TestFirstVisitThenComingBack(t *testing.T) {
-	day := time.Date(2026, 11, 7, 15, 0, 0, 0, time.Local)
+	day := time.Date(2026, 11, 7, 15, 0, 0, 0, paris)
 	g, stored := visit(t, nil, day, 3)
 	if !g.FirstVisit() {
 		t.Fatal("with no save it's a first visit")
@@ -173,7 +173,7 @@ func TestAwayNotesScaleWithTheAbsence(t *testing.T) {
 		4 * 24 * time.Hour:  "days",
 		10 * 24 * time.Hour: "week",
 	}
-	day := time.Date(2026, 11, 7, 18, 0, 0, 0, time.Local)
+	day := time.Date(2026, 11, 7, 18, 0, 0, 0, paris)
 	for away, gap := range gaps {
 		d := save.New()
 		d.LastVisit = day.Add(-away)
@@ -200,7 +200,7 @@ func TestAwayNotesScaleWithTheAbsence(t *testing.T) {
 }
 
 func TestYourCupIsStillThereIfYouComeBackSoon(t *testing.T) {
-	day := time.Date(2026, 11, 7, 15, 0, 0, 0, time.Local)
+	day := time.Date(2026, 11, 7, 15, 0, 0, 0, paris)
 	g, stored := visit(t, nil, day, 5)
 	now := run(g, day, 4)
 	g.serve(mustDrink(t, g, "chai_latte"))
@@ -249,7 +249,7 @@ func TestYourCupIsStillThereIfYouComeBackSoon(t *testing.T) {
 }
 
 func TestAnEmptyCupIsNotKept(t *testing.T) {
-	day := time.Date(2026, 11, 7, 15, 0, 0, 0, time.Local)
+	day := time.Date(2026, 11, 7, 15, 0, 0, 0, paris)
 	g, stored := visit(t, nil, day, 5)
 	g.serve(mustDrink(t, g, "cafe_creme"))
 	now := run(g, day, 16*60)
@@ -318,7 +318,7 @@ func TestPretendingToBeAway(t *testing.T) {
 }
 
 func TestTheFavouriteIsMentioned(t *testing.T) {
-	day := time.Date(2026, 11, 7, 15, 0, 0, 0, time.Local)
+	day := time.Date(2026, 11, 7, 15, 0, 0, 0, paris)
 	mentioned := 0
 	for seed := uint64(1); seed <= 30; seed++ {
 		d := save.New()

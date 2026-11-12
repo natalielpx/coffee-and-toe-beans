@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 	"time"
+	_ "time/tzdata" // so Paris time works on any machine, CI included
 
 	"coffee-and-toe-beans/content"
 	"coffee-and-toe-beans/internal/canvas"
@@ -15,7 +16,17 @@ var ansi = regexp.MustCompile("\x1b\\[[0-9;]*m")
 
 func visible(s string) string { return ansi.ReplaceAllString(s, "") }
 
-var t0 = time.Date(2026, 11, 7, 2, 18, 0, 0, time.Local)
+// paris is the café's own clock zone. Tests use it instead of time.Local so
+// results don't depend on the machine (CI runs in UTC).
+var paris = func() *time.Location {
+	loc, err := time.LoadLocation("Europe/Paris")
+	if err != nil {
+		panic(err)
+	}
+	return loc
+}()
+
+var t0 = time.Date(2026, 11, 7, 2, 18, 0, 0, paris)
 
 func newGame(t *testing.T, cfg Config) *Game {
 	t.Helper()
