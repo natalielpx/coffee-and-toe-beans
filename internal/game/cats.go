@@ -8,8 +8,10 @@ import (
 	"time"
 
 	"coffee-and-toe-beans/internal/cats"
+	"coffee-and-toe-beans/internal/dialogue"
 	"coffee-and-toe-beans/internal/scene"
 	"coffee-and-toe-beans/internal/sprites"
+	"coffee-and-toe-beans/internal/text"
 )
 
 // catPart is the cats' share of the game: the cats themselves, their
@@ -167,6 +169,40 @@ func (g *Game) startMoment(c *cats.Cat, m *cats.Moment) {
 	b.Shuffle(g.rng) // choices in a different order each time
 	g.queue = append(g.queue, &talkBox{Box: b, kind: talkMoment, catOf: c, moment: m})
 	g.nextTalk()
+}
+
+// catReplyAfter queues the cat's own answer to your choice, shown right
+// after the moment, so every moment ends with the cat responding. The
+// choice's reply is used if it has one; otherwise a reply in the cat's
+// voice for how you answered (calm, sudden or other).
+func (g *Game) catReplyAfter(b *talkBox) {
+	m, c := b.moment, b.catOf
+	if m == nil || c == nil {
+		return
+	}
+	r, _ := b.Done()
+	manner := ""
+	var pages dialogue.Text
+	if r.Choice >= 0 && r.Choice < len(m.Choices) {
+		ch := m.Choices[r.Choice]
+		pages, manner = ch.Reply, ch.Manner
+	}
+	if len(pages) == 0 {
+		pages = g.cat.content.Response(c.Def.ID, manner, g.rng.IntN)
+	}
+	if len(pages) == 0 {
+		pages = g.cat.content.Looks[c.Def.ID].Rest // always something from the cat
+	}
+	if len(pages) == 0 {
+		return
+	}
+	vals := map[string]string{"cat": c.Def.Name, "drink": g.drinkWord()}
+	out := make(dialogue.Text, len(pages))
+	for i, p := range pages {
+		out[i] = text.Fill(p, vals)
+	}
+	rb := &talkBox{Box: dialogue.Start(c.Def.Name, out, nil, 0, g.talkOptions()), kind: talkCatReply, catOf: c}
+	g.queue = append([]*talkBox{rb}, g.queue...)
 }
 
 // endMoment applies a moment's answer to its cat.

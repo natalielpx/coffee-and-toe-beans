@@ -1,66 +1,213 @@
 {
-  "_about": ["Hunter's moments and observations. The format is explained at the top of brie.json."],
+  "_about": [
+    "Hunter's moments and observations. The format is explained at the top of brie.json."
+  ],
   "cat": "hunter",
+  "responses": {
+    "calm": [
+      "Hunter blinks at you, then flops over, perfectly content."
+    ],
+    "sudden": [
+      "Hunter's ears flatten, and he darts off after something only he can see."
+    ],
+    "other": [
+      "Hunter's tail gives one curious flick, then he goes back to watching the window."
+    ]
+  },
   "moments": {
     "hunter_steam": {
       "drink": "any",
-      "pages": ["Hunter has seen the steam rising from your cup.", "He crouches. His tail swishes."],
+      "pages": [
+        "Hunter has seen the steam rising from your cup.",
+        "He crouches. His tail swishes."
+      ],
       "choices": [
-        {"text": "Blow on the steam for him", "bond": 2},
-        {"text": "Move the cup away", "bond": 0},
-        {"text": "Watch what he does", "bond": 1, "manner": "calm"}
+        {
+          "text": "Blow on the steam for him",
+          "bond": 2,
+          "reply": [
+            "Hunter's eyes go wide. He pounces at the puff of air and misses by a whisker, delighted."
+          ]
+        },
+        {
+          "text": "Move the cup away",
+          "bond": 0,
+          "reply": [
+            "Hunter's head whips round. He stares at the cup as if it had personally betrayed him."
+          ]
+        },
+        {
+          "text": "Watch what he does",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter bats at the steam twice, then gives up and sits, very pleased with his efforts."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_raindrop": {
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "spots": ["sill"],
-      "pages": ["Hunter paws at a raindrop on the window. It slides away.", "He tries the next one."],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Hunter paws at a raindrop on the window. It slides away.",
+        "He tries the next one."
+      ],
       "choices": [
-        {"text": "Tap the glass for him", "bond": 2},
-        {"text": "Cheer him on", "bond": 1},
-        {"text": "Let him try", "bond": 1, "manner": "calm"}
+        {
+          "text": "Tap the glass for him",
+          "bond": 2,
+          "reply": [
+            "Hunter's paw hits the glass beside yours. The raindrop slides off, and he is thrilled."
+          ]
+        },
+        {
+          "text": "Cheer him on",
+          "bond": 1,
+          "reply": [
+            "Hunter glances back at you, then tries the next drop with extra determination."
+          ]
+        },
+        {
+          "text": "Let him try",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter paws at the next drop, misses, and tries again, quite happy with the attempt."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_dash": {
-      "when": ["evening"],
-      "poses": ["stand", "sit"],
-      "pages": ["Hunter races across the room for no reason at all.", "Then he sits down, as if nothing happened."],
+      "when": [
+        "evening"
+      ],
+      "poses": [
+        "stand",
+        "sit"
+      ],
+      "pages": [
+        "Hunter races across the room for no reason at all.",
+        "Then he sits down, as if nothing happened."
+      ],
       "choices": [
-        {"text": "Laugh", "bond": 2},
-        {"text": "Clap for him", "bond": 1},
-        {"text": "Pretend you didn't see", "bond": 1, "manner": "calm"}
+        {
+          "text": "Laugh",
+          "bond": 2,
+          "reply": [
+            "Hunter looks back, startled, then flops down looking very pleased with his dash."
+          ]
+        },
+        {
+          "text": "Clap for him",
+          "bond": 1,
+          "reply": [
+            "Hunter takes a bow from his sitting position, extremely proud of himself."
+          ]
+        },
+        {
+          "text": "Pretend you didn't see",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter sits very still and pretends he wasn't running either. It is not convincing."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_thread": {
       "tier": "curious",
-      "pages": ["Hunter has spotted a loose thread on your sleeve. He is very interested in it."],
+      "pages": [
+        "Hunter has spotted a loose thread on your sleeve. He is very interested in it."
+      ],
       "choices": [
-        {"text": "Wiggle it for him", "bond": 3},
-        {"text": "Tuck it away", "bond": 0},
-        {"text": "Laugh", "bond": 1}
+        {
+          "text": "Wiggle it for him",
+          "bond": 3,
+          "reply": [
+            "Hunter pounces on the thread the moment it wiggles, and stays crouched over it, purring."
+          ]
+        },
+        {
+          "text": "Tuck it away",
+          "bond": 0,
+          "reply": [
+            "Hunter's ears flatten. He looks at your sleeve, then at you, deeply betrayed."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 1,
+          "reply": [
+            "Hunter glances up at your laugh, unsure whether he should be offended. He decides not to be."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_bandana": {
       "tier": "curious",
-      "pages": ["Hunter's bandana has slipped to one side. He doesn't seem to mind."],
+      "pages": [
+        "Hunter's bandana has slipped to one side. He doesn't seem to mind."
+      ],
       "choices": [
-        {"text": "Straighten it for him", "bond": 2},
-        {"text": "Leave it, it suits him", "bond": 1, "manner": "calm"}
+        {
+          "text": "Straighten it for him",
+          "bond": 2,
+          "reply": [
+            "Hunter stands very still while you fix his bandana, then shakes his head to test it."
+          ]
+        },
+        {
+          "text": "Leave it, it suits him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter gives a happy little wiggle and trots off with his bandana slightly crooked."
+          ]
+        }
       ],
       "ignore": 2
     },
     "hunter_toy": {
       "tier": "familiar",
       "comes_to": "floor",
-      "pages": ["Hunter trots over with a little felt mouse and drops it at your feet.", "He waits."],
+      "pages": [
+        "Hunter trots over with a little felt mouse and drops it at your feet.",
+        "He waits."
+      ],
       "choices": [
-        {"text": "Throw it for him", "bond": 3},
-        {"text": "Say thank you", "bond": 2, "manner": "calm"},
-        {"text": "Pick it up and look at it", "bond": 1}
+        {
+          "text": "Throw it for him",
+          "bond": 3,
+          "reply": [
+            "Hunter races after the felt mouse, skids on the floorboards, and brings it straight back."
+          ]
+        },
+        {
+          "text": "Say thank you",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter's tail goes straight up. He picks the mouse up again, proud as anything."
+          ]
+        },
+        {
+          "text": "Pick it up and look at it",
+          "bond": 1,
+          "reply": [
+            "Hunter watches you inspect his toy and gives a tiny chirp. He is waiting for you to play."
+          ]
+        }
       ],
       "ignore": 2
     },
@@ -71,28 +218,81 @@
         "Hunter hops onto your table, sniffs your cup and flops down beside it.",
         "One paw lands on your book."
       ],
-      "choices": [{"text": "Scratch behind his ears", "bond": 3}, {"text": "Let him stay", "bond": 2, "manner": "calm"}],
+      "choices": [
+        {
+          "text": "Scratch behind his ears",
+          "bond": 3,
+          "reply": [
+            "Hunter leans so hard into your fingers that his paw slides off your book."
+          ]
+        },
+        {
+          "text": "Let him stay",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter settles into the cup's warmth and purrs, his paw still on your book."
+          ]
+        }
+      ],
       "ignore": 2,
       "then": "loaf"
     },
     "hunter_yourcat": {
       "tier": "your_cat",
-      "pages": ["Hunter brings you a toy, then falls asleep before you can throw it."],
+      "pages": [
+        "Hunter brings you a toy, then falls asleep before you can throw it."
+      ],
       "then": "sleep",
       "choices": [
-        {"text": "Tuck the toy in beside him", "bond": 2, "manner": "calm"},
-        {"text": "Keep it for later", "bond": 1, "manner": "calm"}
+        {
+          "text": "Tuck the toy in beside him",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter gives a sleepy purr and curls round the toy, very much as if it were his idea."
+          ]
+        },
+        {
+          "text": "Keep it for later",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter's tail twitches in his sleep, as if he is still deciding where to hide the toy."
+          ]
+        }
       ],
       "ignore": 1
     },
     "hunter_s_miss": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Hunter tries to jump onto the sideboard, misses, and sits down to wash a paw as if nothing happened."],
+      "pages": [
+        "Hunter tries to jump onto the sideboard, misses, and sits down to wash a paw as if nothing happened."
+      ],
       "choices": [
-        {"text": "Pretend you didn't see", "bond": 2, "manner": "calm"},
-        {"text": "Clap anyway", "bond": 1},
-        {"text": "Laugh", "bond": 1}
+        {
+          "text": "Pretend you didn't see",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter gives you a quick look, then washes his paw very slowly, as if he had meant to miss."
+          ]
+        },
+        {
+          "text": "Clap anyway",
+          "bond": 1,
+          "reply": [
+            "Hunter's ears swivel towards the clapping. He tries the sideboard again, with a more serious face."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 1,
+          "reply": [
+            "Hunter's tail puffs up at once. He stalks off, with great dignity, to try the sideboard again."
+          ]
+        }
       ],
       "ignore": 1
     },
@@ -100,11 +300,32 @@
       "tier": "stranger",
       "max_tier": "stranger",
       "comes_to": "floor",
-      "pages": ["Hunter has spotted your shoelace. He crouches low, tail swishing, and creeps closer."],
+      "pages": [
+        "Hunter has spotted your shoelace. He crouches low, tail swishing, and creeps closer."
+      ],
       "choices": [
-        {"text": "Wiggle your foot", "bond": 2},
-        {"text": "Keep still and see", "bond": 1, "manner": "calm"},
-        {"text": "Tuck your feet under the chair", "bond": 0}
+        {
+          "text": "Wiggle your foot",
+          "bond": 2,
+          "reply": [
+            "Hunter pounces at your shoe at once. He is extremely serious about it."
+          ]
+        },
+        {
+          "text": "Keep still and see",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter creeps forward, tail low, and stops just short of the lace, quite sure of his plan."
+          ]
+        },
+        {
+          "text": "Tuck your feet under the chair",
+          "bond": 0,
+          "reply": [
+            "Hunter peers under the chair, looking very disappointed in you."
+          ]
+        }
       ],
       "ignore": 2
     },
@@ -112,131 +333,400 @@
       "tier": "stranger",
       "max_tier": "stranger",
       "drink": "any",
-      "pages": ["Hunter sits on the floor and watches the steam from your cup, his head tilting left, then right."],
+      "pages": [
+        "Hunter sits on the floor and watches the steam from your cup, his head tilting left, then right."
+      ],
       "choices": [
-        {"text": "Blow the steam his way", "bond": 2},
-        {"text": "Tilt your head too", "bond": 1},
-        {"text": "Watch him watch it", "bond": 1, "manner": "calm"},
-        {"text": "Drink it before he gets ideas", "bond": 0}
+        {
+          "text": "Blow the steam his way",
+          "bond": 2,
+          "reply": [
+            "Hunter's whiskers twitch as the steam reaches him, and he sits up very straight, ready to pounce."
+          ]
+        },
+        {
+          "text": "Tilt your head too",
+          "bond": 1,
+          "reply": [
+            "Hunter's head tilts with yours, left and right, and he looks at you with grave respect."
+          ]
+        },
+        {
+          "text": "Watch him watch it",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter's head tilts back and forth. He is very focused, and not at all bothered by you."
+          ]
+        },
+        {
+          "text": "Drink it before he gets ideas",
+          "bond": 0,
+          "reply": [
+            "Hunter stares at your cup with narrowed eyes, clearly plotting something."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_s_nothing": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Hunter is chasing something round the room. You can't see what it is. Possibly nothing."],
+      "pages": [
+        "Hunter is chasing something round the room. You can't see what it is. Possibly nothing."
+      ],
       "choices": [
-        {"text": "Point to where it went", "bond": 2},
-        {"text": "Cheer him on", "bond": 1},
-        {"text": "Look for it too", "bond": 1, "manner": "calm"},
-        {"text": "Follow it with your eyes", "bond": 1},
-        {"text": "Tell him there's nothing there", "bond": 0}
+        {
+          "text": "Point to where it went",
+          "bond": 2,
+          "reply": [
+            "Hunter chases the imaginary thing exactly where you pointed, then looks back, very pleased."
+          ]
+        },
+        {
+          "text": "Cheer him on",
+          "bond": 1,
+          "reply": [
+            "Hunter gives you a sideways look, as if to say he was doing fine without you."
+          ]
+        },
+        {
+          "text": "Look for it too",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter's ears go up. Together you search an empty corner, and he is satisfied with the result."
+          ]
+        },
+        {
+          "text": "Tell him there's nothing there",
+          "bond": 0,
+          "reply": [
+            "Hunter looks at you with enormous pity and goes on chasing it, all the same."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_s_bag": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Hunter sniffs your bag very thoroughly, then sneezes."],
+      "pages": [
+        "Hunter sniffs your bag very thoroughly, then sneezes."
+      ],
       "choices": [
-        {"text": "Let him look inside", "bond": 2},
-        {"text": "Say \"bless you\"", "bond": 1},
-        {"text": "Let him finish", "bond": 1, "manner": "calm"},
-        {"text": "Move the bag", "bond": 0}
+        {
+          "text": "Let him look inside",
+          "bond": 2,
+          "reply": [
+            "Hunter sticks his whole head into the bag and emerges with a sneeze and a look of triumph."
+          ]
+        },
+        {
+          "text": "Say \"bless you\"",
+          "bond": 1,
+          "reply": [
+            "Hunter looks at you, sneezes again, and seems rather pleased you noticed."
+          ]
+        },
+        {
+          "text": "Let him finish",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter sniffs the bag from every side, very thoroughly, then sits back, satisfied."
+          ]
+        },
+        {
+          "text": "Move the bag",
+          "bond": 0,
+          "reply": [
+            "Hunter follows the bag across the table with his eyes, deeply suspicious of it."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_s_fog": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "weather": ["fog"],
-      "spots": ["sill"],
-      "pages": ["Hunter stares into the fog outside, ears forward, as if something might come out of it."],
+      "weather": [
+        "fog"
+      ],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Hunter stares into the fog outside, ears forward, as if something might come out of it."
+      ],
       "choices": [
-        {"text": "Make a spooky noise", "bond": 2},
-        {"text": "Tell him it's only fog", "bond": 1},
-        {"text": "Stare into the fog too", "bond": 1, "manner": "calm"},
-        {"text": "Tap the glass", "bond": 0}
+        {
+          "text": "Make a spooky noise",
+          "bond": 2,
+          "reply": [
+            "Hunter's tail puffs straight up, and he bolts a few steps before stopping to look back at you."
+          ]
+        },
+        {
+          "text": "Tell him it's only fog",
+          "bond": 1,
+          "reply": [
+            "Hunter looks at the fog, then at you, and sits down, still watching it carefully."
+          ]
+        },
+        {
+          "text": "Stare into the fog too",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter glances at you, impressed that you are on watch, and keeps staring into the fog with you."
+          ]
+        },
+        {
+          "text": "Tap the glass",
+          "bond": 0,
+          "reply": [
+            "Hunter jumps, then glares at the glass as if it had made the fog on purpose."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_s_trouble": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "when": ["evening"],
-      "pages": ["Hunter's pupils are huge. He is in the mood for trouble."],
-      "choices": [
-        {"text": "Find him something to chase", "bond": 2},
-        {"text": "Hide your bookmark", "bond": 1},
-        {"text": "Wish him luck", "bond": 1},
-        {"text": "Look away and hope for the best", "bond": 1, "manner": "calm"},
-        {"text": "Stay very still", "bond": 0}
+      "when": [
+        "evening"
       ],
-      "ignore": 4
+      "pages": [
+        "Hunter's pupils are huge. He is in the mood for trouble."
+      ],
+      "choices": [
+        {
+          "text": "Find him something to chase",
+          "bond": 2,
+          "reply": [
+            "Hunter's eyes light up, and he is off across the café before you have finished the sentence."
+          ]
+        },
+        {
+          "text": "Wish him luck",
+          "bond": 1,
+          "reply": [
+            "Hunter gives a short, confident nod, as if he had been waiting for someone to notice."
+          ]
+        },
+        {
+          "text": "Look away and hope for the best",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter takes this as permission and does something very quick and very mischievous."
+          ]
+        },
+        {
+          "text": "Stay very still",
+          "bond": 0,
+          "reply": [
+            "Hunter studies you for a moment, then decides you are not worth the trouble and wanders off."
+          ]
+        }
+      ],
+      "ignore": 3
     },
     "hunter_s_bandana": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Hunter scratches at his bandana with a back paw and gets it stuck over one ear."],
-      "choices": [
-        {"text": "Offer to help", "bond": 2},
-        {"text": "Straighten it for him", "bond": 2},
-        {"text": "Tell him it's a good look", "bond": 1},
-        {"text": "Laugh", "bond": 1},
-        {"text": "Wait to see if he gets out", "bond": 1, "manner": "calm"}
+      "pages": [
+        "Hunter scratches at his bandana with a back paw and gets it stuck over one ear."
       ],
-      "ignore": 5
+      "choices": [
+        {
+          "text": "Offer to help",
+          "bond": 2,
+          "reply": [
+            "Hunter sits very still and lets you ease the bandana off his ear, looking dignified about it."
+          ]
+        },
+        {
+          "text": "Straighten it for him",
+          "bond": 2,
+          "reply": [
+            "Hunter shakes his head and sets the bandana right, then looks at you, quite pleased."
+          ]
+        },
+        {
+          "text": "Tell him it's a good look",
+          "bond": 1,
+          "reply": [
+            "Hunter pokes his head out at a jaunty angle, extremely pleased with the compliment."
+          ]
+        },
+        {
+          "text": "Wait to see if he gets out",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter gives the bandana three more kicks, then pops out, looking very smug about it."
+          ]
+        }
+      ],
+      "ignore": 4
     },
     "hunter_s_paperbag": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Hunter has found an empty paper bag and climbed inside. Only his tail sticks out."],
+      "pages": [
+        "Hunter has found an empty paper bag and climbed inside. Only his tail sticks out."
+      ],
       "choices": [
-        {"text": "Rustle the bag", "bond": 2},
-        {"text": "Say \"where's Hunter?\"", "bond": 2},
-        {"text": "Leave him to his bag", "bond": 1, "manner": "calm"}
+        {
+          "text": "Rustle the bag",
+          "bond": 2,
+          "reply": [
+            "Hunter pops out of the bag, startled, then dives straight back in to show he meant it."
+          ]
+        },
+        {
+          "text": "Say \"where's Hunter?\"",
+          "bond": 2,
+          "reply": [
+            "Hunter's tail gives a happy wiggle from inside the bag, and he stays right where he is."
+          ]
+        },
+        {
+          "text": "Leave him to his bag",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter's tail goes still for a while, then flicks, very slightly, as if to say thanks."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_s_waiting": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "spots": ["floor"],
+      "spots": [
+        "floor"
+      ],
       "pages": [
         "Hunter sits in the middle of the floor and stares at you.",
         "He's waiting for you to do something interesting."
       ],
       "choices": [
-        {"text": "Wiggle your fingers", "bond": 2},
-        {"text": "Drop your napkin", "bond": 2},
-        {"text": "Make a funny face", "bond": 1},
-        {"text": "Do nothing interesting", "bond": 1, "manner": "calm"}
+        {
+          "text": "Wiggle your fingers",
+          "bond": 2,
+          "reply": [
+            "Hunter's eyes lock on your hand. He crouches, wiggles his own tail, and pounces."
+          ]
+        },
+        {
+          "text": "Drop your napkin",
+          "bond": 2,
+          "reply": [
+            "Hunter races to the napkin, then looks up at you as if you had planned the whole thing."
+          ]
+        },
+        {
+          "text": "Make a funny face",
+          "bond": 1,
+          "reply": [
+            "Hunter tilts his head very seriously, then sneezes, having decided you are truly odd."
+          ]
+        },
+        {
+          "text": "Do nothing interesting",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter waits a little longer, then sighs and goes off to find something more exciting."
+          ]
+        }
       ],
       "ignore": 4
     },
     "hunter_c_pen": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Hunter has stolen your pen. He's batting it under the radiator."],
+      "pages": [
+        "Hunter has stolen your pen. He's batting it under the radiator."
+      ],
       "choices": [
-        {"text": "Try to get it back", "bond": 2},
-        {"text": "Offer him your bookmark instead", "bond": 2},
-        {"text": "Let him have it", "bond": 1, "manner": "calm"},
-        {"text": "Write with your finger instead", "bond": 1}
+        {
+          "text": "Try to get it back",
+          "bond": 2,
+          "reply": [
+            "Hunter lets you reach under the radiator, then bats the pen further away, just to see what you'll do."
+          ]
+        },
+        {
+          "text": "Offer him your bookmark instead",
+          "bond": 2,
+          "reply": [
+            "Hunter sniffs the bookmark, decides it is almost as good, and drags it off to his corner."
+          ]
+        },
+        {
+          "text": "Let him have it",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter bats the pen happily under the radiator and sits beside it, very satisfied."
+          ]
+        },
+        {
+          "text": "Write with your finger instead",
+          "bond": 1,
+          "reply": [
+            "Hunter watches your finger move across the page with great interest, and pounces on it."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_c_ambush": {
       "tier": "curious",
       "max_tier": "curious",
-      "when": ["evening"],
-      "pages": ["Hunter crouches behind the leg of a chair, ready to pounce on your foot."],
+      "when": [
+        "evening"
+      ],
+      "pages": [
+        "Hunter crouches behind the leg of a chair, ready to pounce on your foot."
+      ],
       "choices": [
-        {"text": "Move your foot slowly, like prey", "bond": 3},
-        {"text": "Pretend you didn't see", "bond": 2, "manner": "calm"},
-        {"text": "Pounce first", "bond": 1},
-        {"text": "Tuck your feet up", "bond": 0},
-        {"text": "Stamp your foot", "bond": -1, "manner": "sudden"}
+        {
+          "text": "Move your foot slowly, like prey",
+          "bond": 3,
+          "reply": [
+            "Hunter's ears go flat with focus. He pounces, hits the chair leg, and comes out looking very pleased."
+          ]
+        },
+        {
+          "text": "Pretend you didn't see",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter waits, tail twitching, and then pounces on nothing at all, sneaking a look at you."
+          ]
+        },
+        {
+          "text": "Pounce first",
+          "bond": 1,
+          "reply": [
+            "Hunter jumps back, startled, then glares at you and leaps at your foot all the same."
+          ]
+        },
+        {
+          "text": "Stamp your foot",
+          "bond": -1,
+          "manner": "sudden",
+          "reply": [
+            "Hunter darts away in fright, then peeks back round the chair leg, cross and wary."
+          ]
+        }
       ],
       "ignore": 2
     },
@@ -244,52 +734,151 @@
       "tier": "curious",
       "max_tier": "curious",
       "drink": "any",
-      "pages": ["Hunter stands on his back legs and swats at the steam above your cup. He misses every time."],
+      "pages": [
+        "Hunter stands on his back legs and swats at the steam above your cup. He misses every time."
+      ],
       "choices": [
-        {"text": "Blow more steam for him", "bond": 2},
-        {"text": "Hold the cup lower", "bond": 1},
-        {"text": "Cheer him on", "bond": 1, "manner": "calm"}
+        {
+          "text": "Blow more steam for him",
+          "bond": 2,
+          "reply": [
+            "Hunter swats at the steam, misses again, and gives you a grateful look for trying so hard."
+          ]
+        },
+        {
+          "text": "Hold the cup lower",
+          "bond": 1,
+          "reply": [
+            "Hunter gets his paw nearly into the steam this time, and stares at it, astonished."
+          ]
+        },
+        {
+          "text": "Cheer him on",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter does a little twirl on his hind legs and swats again, misses again, and is happy."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_c_drop": {
       "tier": "curious",
       "max_tier": "curious",
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "spots": ["sill"],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "spots": [
+        "sill"
+      ],
       "pages": [
         "A big raindrop runs down the window. Hunter follows it all the way down.",
         "Then he looks at you, as if it were your fault it got away."
       ],
       "choices": [
-        {"text": "Point out another one", "bond": 2},
-        {"text": "Tap the glass where it went", "bond": 1},
-        {"text": "Apologise", "bond": 1, "manner": "calm"},
-        {"text": "Shrug", "bond": 0}
+        {
+          "text": "Point out another one",
+          "bond": 2,
+          "reply": [
+            "Hunter spots the next drop at once, and follows it all the way to the sill, purring."
+          ]
+        },
+        {
+          "text": "Tap the glass where it went",
+          "bond": 1,
+          "reply": [
+            "Hunter pounces at the glass where the drop was, then looks back at you, pleased you helped."
+          ]
+        },
+        {
+          "text": "Apologise",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter forgives you at once and goes straight back to looking for the next drop."
+          ]
+        },
+        {
+          "text": "Shrug",
+          "bond": 0,
+          "reply": [
+            "Hunter stares at you, outraged, then turns back to the window with a sulky twitch of his tail."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_c_bookmark": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Hunter has his eye on the bookmark sticking out of your book."],
-      "choices": [
-        {"text": "Wiggle it for him", "bond": 3},
-        {"text": "Pull it out slowly", "bond": 2},
-        {"text": "Let him have a go", "bond": 2},
-        {"text": "Read on, carefully", "bond": 1, "manner": "calm"},
-        {"text": "Close the book on it", "bond": 0}
+      "pages": [
+        "Hunter has his eye on the bookmark sticking out of your book."
       ],
-      "ignore": 4
+      "choices": [
+        {
+          "text": "Wiggle it for him",
+          "bond": 3,
+          "reply": [
+            "Hunter pounces at the bookmark and holds it down with both paws, purring, very pleased."
+          ]
+        },
+        {
+          "text": "Pull it out slowly",
+          "bond": 2,
+          "reply": [
+            "Hunter follows the bookmark out of the book, step by step, and grabs it with a happy chirp."
+          ]
+        },
+        {
+          "text": "Read on, carefully",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter watches you turn the page, then gives the bookmark one thoughtful bat and leaves it alone."
+          ]
+        },
+        {
+          "text": "Close the book on it",
+          "bond": 0,
+          "reply": [
+            "Hunter's eyes go wide. He sits back, outraged at the book, and then stalks off."
+          ]
+        }
+      ],
+      "ignore": 3
     },
     "hunter_c_ear": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Hunter's floppy ear has flopped the other way. He hasn't noticed."],
+      "pages": [
+        "Hunter's floppy ear has flopped the other way. He hasn't noticed."
+      ],
       "choices": [
-        {"text": "Fix it for him, gently", "bond": 2},
-        {"text": "Tell him", "bond": 1},
-        {"text": "Keep it to yourself", "bond": 1, "manner": "calm"}
+        {
+          "text": "Fix it for him, gently",
+          "bond": 2,
+          "reply": [
+            "Hunter holds very still while you fix his ear, then shakes his head to test it, very carefully."
+          ]
+        },
+        {
+          "text": "Tell him",
+          "bond": 1,
+          "reply": [
+            "Hunter's ear swings round at once, and he looks at you, startled that you noticed."
+          ]
+        },
+        {
+          "text": "Keep it to yourself",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter goes on with his day, one ear still flopped, happy as ever."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -297,51 +886,154 @@
       "tier": "curious",
       "max_tier": "curious",
       "comes_to": "floor",
-      "pages": ["Hunter brings you a sock. Nobody knows whose it is."],
+      "pages": [
+        "Hunter brings you a sock. Nobody knows whose it is."
+      ],
       "choices": [
-        {"text": "Throw it for him", "bond": 3},
-        {"text": "Thank him", "bond": 2},
-        {"text": "Put it on the chair, just in case", "bond": 1, "manner": "calm"}
+        {
+          "text": "Throw it for him",
+          "bond": 3,
+          "reply": [
+            "Hunter races after the sock, skids on the floorboards, and brings it right back."
+          ]
+        },
+        {
+          "text": "Thank him",
+          "bond": 2,
+          "reply": [
+            "Hunter wags his tail proudly, sits down beside you and looks very pleased with himself."
+          ]
+        },
+        {
+          "text": "Put it on the chair, just in case",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter eyes the sock on the chair, then curls up next to it, as if guarding it."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_c_sleepy": {
       "tier": "curious",
       "max_tier": "curious",
-      "when": ["morning"],
+      "when": [
+        "morning"
+      ],
       "pages": [
         "Hunter is still half asleep. He walks into the leg of a table, blinks at it, and lies down right there."
       ],
       "choices": [
-        {"text": "Say good morning", "bond": 2, "then": "loaf", "manner": "calm"},
-        {"text": "Laugh softly", "bond": 1, "then": "loaf"},
-        {"text": "Ask the table if it's all right", "bond": 1, "then": "loaf"}
+        {
+          "text": "Say good morning",
+          "bond": 2,
+          "then": "loaf",
+          "manner": "calm",
+          "reply": [
+            "Hunter blinks, yawns, and gives the table leg a sleepy nod. He is still working out where he is."
+          ]
+        },
+        {
+          "text": "Laugh softly",
+          "bond": 1,
+          "then": "loaf",
+          "reply": [
+            "Hunter lifts his head, mildly insulted, and lies back down with his nose against the table."
+          ]
+        },
+        {
+          "text": "Ask the table if it's all right",
+          "bond": 1,
+          "then": "loaf",
+          "reply": [
+            "Hunter gives the table leg a long, serious look, then sighs and closes his eyes beside it."
+          ]
+        }
       ],
       "ignore": 1
     },
     "hunter_c_flakes": {
       "tier": "curious",
       "max_tier": "curious",
-      "weather": ["snow"],
-      "spots": ["sill"],
-      "pages": ["Hunter is on the sill, batting at snowflakes through the glass. He hasn't caught one yet."],
+      "weather": [
+        "snow"
+      ],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Hunter is on the sill, batting at snowflakes through the glass. He hasn't caught one yet."
+      ],
       "choices": [
-        {"text": "Tap at one too", "bond": 2},
-        {"text": "Tell him he nearly had that one", "bond": 2, "manner": "calm"},
-        {"text": "Count his misses", "bond": 1},
-        {"text": "Breathe on the glass to mist it", "bond": 1}
+        {
+          "text": "Tap at one too",
+          "bond": 2,
+          "reply": [
+            "Hunter taps the glass beside yours, and you both watch the snowflake slide off, grinning."
+          ]
+        },
+        {
+          "text": "Tell him he nearly had that one",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter looks up, encouraged, and goes straight back to batting at the window."
+          ]
+        },
+        {
+          "text": "Count his misses",
+          "bond": 1,
+          "reply": [
+            "Hunter glances at you, counting too, and redoubles his efforts with a determined flick."
+          ]
+        },
+        {
+          "text": "Breathe on the glass to mist it",
+          "bond": 1,
+          "reply": [
+            "Hunter sits back, amazed by the mist, and draws a sort of circle in it with his nose."
+          ]
+        }
       ],
       "ignore": 2
     },
     "hunter_c_spin": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Hunter notices his own tail and spins round to catch it. Twice."],
+      "pages": [
+        "Hunter notices his own tail and spins round to catch it. Twice."
+      ],
       "choices": [
-        {"text": "Cheer when he catches it", "bond": 2},
-        {"text": "Tell him it went that way", "bond": 1},
-        {"text": "Count the spins", "bond": 1},
-        {"text": "Hold still so you don't distract him", "bond": 1, "manner": "calm"}
+        {
+          "text": "Cheer when he catches it",
+          "bond": 2,
+          "reply": [
+            "Hunter's tail thumps the floor, and he looks at you as if you had just made his whole day."
+          ]
+        },
+        {
+          "text": "Tell him it went that way",
+          "bond": 1,
+          "reply": [
+            "Hunter looks where you point, spins round in the wrong direction, and tries again, quite happy."
+          ]
+        },
+        {
+          "text": "Count the spins",
+          "bond": 1,
+          "reply": [
+            "Hunter stops after the third spin, looking very dizzy, and sits down with a satisfied air."
+          ]
+        },
+        {
+          "text": "Hold still so you don't distract him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter spins three more times, then looks over at you, pleased that you stayed quiet."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -349,23 +1041,71 @@
       "tier": "familiar",
       "max_tier": "familiar",
       "comes_to": "floor",
-      "pages": ["Hunter drops a scrunched-up paper ball by your chair and backs away, waiting."],
+      "pages": [
+        "Hunter drops a scrunched-up paper ball by your chair and backs away, waiting."
+      ],
       "choices": [
-        {"text": "Throw it far", "bond": 3},
-        {"text": "Throw it badly", "bond": 2},
-        {"text": "Hand it back to him", "bond": 1, "manner": "calm"}
+        {
+          "text": "Throw it far",
+          "bond": 3,
+          "reply": [
+            "Hunter gallops after the paper ball and brings it back at once, tail held high, very pleased."
+          ]
+        },
+        {
+          "text": "Throw it badly",
+          "bond": 2,
+          "reply": [
+            "Hunter chases the ball into the corner, then gives you a look that says you can do better."
+          ]
+        },
+        {
+          "text": "Hand it back to him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter takes the ball from your hand, gives it a shake, and drops it at your feet again."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_f_slip": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Hunter tries to climb onto your lap, slips off, and pretends he was only stretching."],
+      "pages": [
+        "Hunter tries to climb onto your lap, slips off, and pretends he was only stretching."
+      ],
       "choices": [
-        {"text": "Help him up", "bond": 2},
-        {"text": "Pat your lap", "bond": 2},
-        {"text": "Laugh", "bond": 1},
-        {"text": "Pretend you believe him", "bond": 1, "manner": "calm"}
+        {
+          "text": "Help him up",
+          "bond": 2,
+          "reply": [
+            "Hunter lets you lift him onto your lap, then wriggles down again, pretending it was his plan."
+          ]
+        },
+        {
+          "text": "Pat your lap",
+          "bond": 2,
+          "reply": [
+            "Hunter hops back up, carefully this time, and settles with a satisfied chirp."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 1,
+          "reply": [
+            "Hunter looks at you over his shoulder, very dignified, and sits back down right where he slipped."
+          ]
+        },
+        {
+          "text": "Pretend you believe him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter gives a slow nod, as if you had both agreed he meant to slip all along."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -373,102 +1113,309 @@
       "tier": "familiar",
       "max_tier": "familiar",
       "drink": "any",
-      "pages": ["Hunter sits by your chair and chirps at the steam rising from your cup, as if it were a bird."],
-      "choices": [
-        {"text": "Chirp back", "bond": 2},
-        {"text": "Waft the steam towards him", "bond": 2},
-        {"text": "Lower the cup so he can see", "bond": 1},
-        {"text": "Explain it's only steam", "bond": 1, "manner": "calm"},
-        {"text": "Blow on your drink to cool it", "bond": 0}
+      "pages": [
+        "Hunter sits by your chair and chirps at the steam rising from your cup, as if it were a bird."
       ],
-      "ignore": 4
+      "choices": [
+        {
+          "text": "Chirp back",
+          "bond": 2,
+          "reply": [
+            "Hunter's chirp gets louder, and the steam seems to chirp back, which thrills him."
+          ]
+        },
+        {
+          "text": "Waft the steam towards him",
+          "bond": 2,
+          "reply": [
+            "Hunter sniffs the steam you send his way and chirps at it, very pleased with the reply."
+          ]
+        },
+        {
+          "text": "Explain it's only steam",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter looks at you, then at the steam, and decides it is still a bird, just a sleepy one."
+          ]
+        },
+        {
+          "text": "Blow on your drink to cool it",
+          "bond": 0,
+          "reply": [
+            "Hunter watches the steam vanish, and chirps mournfully at the empty air."
+          ]
+        }
+      ],
+      "ignore": 3
     },
     "hunter_f_untied": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Hunter's bandana has come off. He's sitting on it, waiting for you to put it back."],
+      "pages": [
+        "Hunter's bandana has come off. He's sitting on it, waiting for you to put it back."
+      ],
       "choices": [
-        {"text": "Tie it back on", "bond": 3},
-        {"text": "Tie it the other way round", "bond": 2},
-        {"text": "Wait until he's ready", "bond": 1, "manner": "calm"}
+        {
+          "text": "Tie it back on",
+          "bond": 3,
+          "reply": [
+            "Hunter stands very still while you tie his bandana back on, then pats your hand with his paw."
+          ]
+        },
+        {
+          "text": "Tie it the other way round",
+          "bond": 2,
+          "reply": [
+            "Hunter tries to look offended, but shakes his head and rather likes the new look."
+          ]
+        },
+        {
+          "text": "Wait until he's ready",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter yawns, then picks up his bandana in his teeth and pushes it into your hand."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_f_shadow": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "when": ["evening"],
-      "pages": ["Hunter is stalking the shadow of your hand on the floor."],
-      "choices": [
-        {"text": "Make a bird with your hand", "bond": 3},
-        {"text": "Move it slowly", "bond": 2},
-        {"text": "Make it jump", "bond": 2},
-        {"text": "Keep your hand still", "bond": 1, "manner": "calm"},
-        {"text": "Put your hand away", "bond": 0}
+      "when": [
+        "evening"
       ],
-      "ignore": 4
+      "pages": [
+        "Hunter is stalking the shadow of your hand on the floor."
+      ],
+      "choices": [
+        {
+          "text": "Make a bird with your hand",
+          "bond": 3,
+          "reply": [
+            "Hunter's eyes go wide at the shadow bird. He leaps after it, quite certain it's real."
+          ]
+        },
+        {
+          "text": "Make it jump",
+          "bond": 2,
+          "reply": [
+            "Hunter pounces at the shadow, and misses, and tries again, delighted by the game."
+          ]
+        },
+        {
+          "text": "Keep your hand still",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter stalks the still shadow carefully, then gives it a gentle bat, testing it."
+          ]
+        },
+        {
+          "text": "Put your hand away",
+          "bond": 0,
+          "reply": [
+            "Hunter stares at the empty floor, then looks at you as if you had taken the best bit of the game."
+          ]
+        }
+      ],
+      "ignore": 3
     },
     "hunter_f_upsidedown": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "spots": ["floor"],
-      "pages": ["Hunter rolls onto his back in the middle of the floor and looks at you upside down."],
+      "spots": [
+        "floor"
+      ],
+      "pages": [
+        "Hunter rolls onto his back in the middle of the floor and looks at you upside down."
+      ],
       "choices": [
-        {"text": "Rub his belly, carefully", "bond": 2},
-        {"text": "Tell him it's a trap", "bond": 1},
-        {"text": "Admire him from here", "bond": 1, "manner": "calm"}
+        {
+          "text": "Rub his belly, carefully",
+          "bond": 2,
+          "reply": [
+            "Hunter wriggles happily upside down, then grabs your hand with all four paws, just in case."
+          ]
+        },
+        {
+          "text": "Tell him it's a trap",
+          "bond": 1,
+          "reply": [
+            "Hunter's ears flatten, then he grins upside down and says, just once, that it's a nice trap."
+          ]
+        },
+        {
+          "text": "Admire him from here",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter rolls back onto his feet, looking extremely proud of his upside-down performance."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_f_ceiling": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "weather": ["drizzle", "rain", "heavy_rain"],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
       "pages": [
         "Hunter keeps looking up at the ceiling. He's trying to find where the sound of the rain is coming from."
       ],
       "choices": [
-        {"text": "Tell him it's on the roof", "bond": 2},
-        {"text": "Tap the table like rain", "bond": 2},
-        {"text": "Look up too", "bond": 1, "manner": "calm"},
-        {"text": "Laugh", "bond": 1}
+        {
+          "text": "Tell him it's on the roof",
+          "bond": 2,
+          "reply": [
+            "Hunter looks up at the ceiling, then out the window, and decides you are probably right."
+          ]
+        },
+        {
+          "text": "Tap the table like rain",
+          "bond": 2,
+          "reply": [
+            "Hunter tilts his head, listening carefully to your tapping, and pats the table back."
+          ]
+        },
+        {
+          "text": "Look up too",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter sits beside you, both of you gazing up at the ceiling, searching for the sound."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 1,
+          "reply": [
+            "Hunter looks at you, slightly offended, then looks back at the ceiling, still listening."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_f_curtain": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "spots": ["sill"],
-      "pages": ["Hunter is climbing the curtain, very slowly, hoping nobody notices."],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Hunter is climbing the curtain, very slowly, hoping nobody notices."
+      ],
       "choices": [
-        {"text": "Ask him what's up there", "bond": 2},
-        {"text": "Lift him down", "bond": 1},
-        {"text": "Pretend you haven't noticed", "bond": 1, "manner": "calm"},
-        {"text": "Say \"Hunter!\"", "bond": -1, "manner": "sudden"}
+        {
+          "text": "Ask him what's up there",
+          "bond": 2,
+          "reply": [
+            "Hunter clings to the curtain and tips his head towards the top, very serious about the answer."
+          ]
+        },
+        {
+          "text": "Lift him down",
+          "bond": 1,
+          "reply": [
+            "Hunter lets you lift him down, then climbs straight back up the curtain the moment you let go."
+          ]
+        },
+        {
+          "text": "Pretend you haven't noticed",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter climbs a little higher, convinced he has got away with it."
+          ]
+        },
+        {
+          "text": "Say \"Hunter!\"",
+          "bond": -1,
+          "manner": "sudden",
+          "reply": [
+            "Hunter drops off the curtain at once, ears flat, and slinks off towards the sideboard."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_f_midgame": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "poses": ["sleep"],
-      "pages": ["Hunter has fallen asleep in the middle of a game, one paw still on his toy."],
+      "poses": [
+        "sleep"
+      ],
+      "pages": [
+        "Hunter has fallen asleep in the middle of a game, one paw still on his toy."
+      ],
       "choices": [
-        {"text": "Let him sleep", "bond": 2, "manner": "calm"},
-        {"text": "Move the toy closer to him", "bond": 2},
-        {"text": "Whisper \"good game\"", "bond": 1}
+        {
+          "text": "Let him sleep",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter's paw twitches on his toy, and he sighs happily in his sleep."
+          ]
+        },
+        {
+          "text": "Move the toy closer to him",
+          "bond": 2,
+          "reply": [
+            "Hunter's paw curls round the toy, very gently, and he doesn't wake up."
+          ]
+        },
+        {
+          "text": "Whisper \"good game\"",
+          "bond": 1,
+          "reply": [
+            "Hunter's tail thumps once against the floor, as though he heard you and approved."
+          ]
+        }
       ],
       "ignore": 1
     },
     "hunter_f_follow": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Hunter chirps at you from across the room, runs off, then comes back to see if you're following."],
+      "pages": [
+        "Hunter chirps at you from across the room, runs off, then comes back to see if you're following."
+      ],
       "choices": [
-        {"text": "Pretend to chase him", "bond": 3},
-        {"text": "Chirp back", "bond": 2},
-        {"text": "Wave him over", "bond": 1},
-        {"text": "Follow him with your eyes", "bond": 1, "manner": "calm"}
+        {
+          "text": "Pretend to chase him",
+          "bond": 3,
+          "reply": [
+            "Hunter yelps with joy and races off, looking back to check you are really following."
+          ]
+        },
+        {
+          "text": "Chirp back",
+          "bond": 2,
+          "reply": [
+            "Hunter stops, chirps again, and charges back to fetch you, bouncing with excitement."
+          ]
+        },
+        {
+          "text": "Wave him over",
+          "bond": 1,
+          "reply": [
+            "Hunter trots back over, very pleased to have been called, and sits politely in front of you."
+          ]
+        },
+        {
+          "text": "Follow him with your eyes",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter circles the café and comes back, certain he has been watched the whole way."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -477,36 +1424,113 @@
       "max_tier": "friend",
       "drink": "any",
       "comes_to": "table",
-      "pages": ["Hunter sits on your table and pushes your spoon towards the edge, slowly, watching your face."],
+      "pages": [
+        "Hunter sits on your table and pushes your spoon towards the edge, slowly, watching your face."
+      ],
       "choices": [
-        {"text": "Let it fall", "bond": 3},
-        {"text": "Catch it before it falls", "bond": 2},
-        {"text": "Say \"don't you dare\"", "bond": 1},
-        {"text": "Move it back", "bond": 1, "manner": "calm"}
+        {
+          "text": "Let it fall",
+          "bond": 3,
+          "reply": [
+            "Hunter bats the spoon right off the table, then sits back, wide-eyed, to see what you will say."
+          ]
+        },
+        {
+          "text": "Catch it before it falls",
+          "bond": 2,
+          "reply": [
+            "Hunter's eyes go wide as you catch the spoon, and he gives it a serious sniff."
+          ]
+        },
+        {
+          "text": "Say \"don't you dare\"",
+          "bond": 1,
+          "reply": [
+            "Hunter takes one paw off the spoon, very slowly, and sits back with a guilty look."
+          ]
+        },
+        {
+          "text": "Move it back",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter pushes the spoon towards the edge again, very slowly, watching your face the whole time."
+          ]
+        }
       ],
       "ignore": 4
     },
     "hunter_fr_curtain": {
       "tier": "friend",
       "max_tier": "friend",
-      "spots": ["sill"],
-      "pages": ["Hunter hides behind the curtain. His tail is sticking out."],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Hunter hides behind the curtain. His tail is sticking out."
+      ],
       "choices": [
-        {"text": "Say \"where's Hunter?\"", "bond": 3},
-        {"text": "Tug the tail, gently", "bond": 2},
-        {"text": "Let him think he's hidden", "bond": 1, "manner": "calm"}
+        {
+          "text": "Say \"where's Hunter?\"",
+          "bond": 3,
+          "reply": [
+            "Hunter's tail wags wildly behind the curtain, and he shows you his whole head with a proud grin."
+          ]
+        },
+        {
+          "text": "Tug the tail, gently",
+          "bond": 2,
+          "reply": [
+            "Hunter comes out of the curtain at once, and rubs his head against your hand in thanks."
+          ]
+        },
+        {
+          "text": "Let him think he's hidden",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter stays hidden, tail swishing, happy to be sneaky a little longer."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_fr_shove": {
       "tier": "friend",
       "max_tier": "friend",
-      "pages": ["Hunter jumps onto the chair next to you and pushes his head into your shoulder, hard."],
+      "pages": [
+        "Hunter jumps onto the chair next to you and pushes his head into your shoulder, hard."
+      ],
       "choices": [
-        {"text": "Scratch behind his ears", "bond": 2},
-        {"text": "Push back, gently", "bond": 2},
-        {"text": "Tell him he's very strong", "bond": 1},
-        {"text": "Let him", "bond": 1, "manner": "calm"}
+        {
+          "text": "Scratch behind his ears",
+          "bond": 2,
+          "reply": [
+            "Hunter's head pushes harder into your shoulder, and he purrs so loudly the chair shakes."
+          ]
+        },
+        {
+          "text": "Push back, gently",
+          "bond": 2,
+          "reply": [
+            "Hunter's head pushes back against you, and he is clearly delighted by the game of pushing."
+          ]
+        },
+        {
+          "text": "Tell him he's very strong",
+          "bond": 1,
+          "reply": [
+            "Hunter sits up tall and puffs out his chest, enormously pleased with the compliment."
+          ]
+        },
+        {
+          "text": "Let him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter presses harder, then settles against your shoulder and sighs with contentment."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -515,27 +1539,82 @@
       "max_tier": "friend",
       "drink": "any",
       "comes_to": "table",
-      "pages": ["Hunter sticks his nose right into the steam above your cup, then sneezes."],
-      "choices": [
-        {"text": "Say \"bless you\"", "bond": 2},
-        {"text": "Laugh", "bond": 2},
-        {"text": "Wipe his nose", "bond": 1},
-        {"text": "Blow the steam away for him", "bond": 1},
-        {"text": "Move the cup back a bit", "bond": 1, "manner": "calm"}
+      "pages": [
+        "Hunter sticks his nose right into the steam above your cup, then sneezes."
       ],
-      "ignore": 5
+      "choices": [
+        {
+          "text": "Say \"bless you\"",
+          "bond": 2,
+          "reply": [
+            "Hunter sneezes again, then looks up at you, very pleased to have been noticed."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 2,
+          "reply": [
+            "Hunter sneezes once more for good measure, so you will laugh a second time."
+          ]
+        },
+        {
+          "text": "Wipe his nose",
+          "bond": 1,
+          "reply": [
+            "Hunter holds very still for the wipe, then sneezes straight into your sleeve."
+          ]
+        },
+        {
+          "text": "Move the cup back a bit",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter moves back from the steam, looking very grateful to have the steam at a safe distance."
+          ]
+        }
+      ],
+      "ignore": 4
     },
     "hunter_fr_laps": {
       "tier": "friend",
       "max_tier": "friend",
-      "when": ["evening"],
+      "when": [
+        "evening"
+      ],
       "comes_to": "table",
-      "pages": ["Hunter does three laps of the café, then lands on your table, out of breath and very pleased."],
+      "pages": [
+        "Hunter does three laps of the café, then lands on your table, out of breath and very pleased."
+      ],
       "choices": [
-        {"text": "Clap for him", "bond": 2},
-        {"text": "Ask if he won", "bond": 2},
-        {"text": "Time the next lap", "bond": 1},
-        {"text": "Steady your cup", "bond": 1, "manner": "calm"}
+        {
+          "text": "Clap for him",
+          "bond": 2,
+          "reply": [
+            "Hunter takes an exaggerated bow, panting, and then climbs straight onto your table to receive his applause."
+          ]
+        },
+        {
+          "text": "Ask if he won",
+          "bond": 2,
+          "reply": [
+            "Hunter puffs out his chest. Of course he won. He wins every lap he runs."
+          ]
+        },
+        {
+          "text": "Time the next lap",
+          "bond": 1,
+          "reply": [
+            "Hunter takes off again at once, eager to be timed, and does his best lap yet."
+          ]
+        },
+        {
+          "text": "Steady your cup",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter lands carefully, grinning, and sits down on the table without spilling a drop."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -543,25 +1622,79 @@
       "tier": "friend",
       "max_tier": "friend",
       "comes_to": "table",
-      "pages": ["Hunter brings you a dried ivy leaf and drops it on your book."],
+      "pages": [
+        "Hunter brings you a dried ivy leaf and drops it on your book."
+      ],
       "choices": [
-        {"text": "Thank him properly", "bond": 3},
-        {"text": "Keep it as a bookmark", "bond": 2},
-        {"text": "Put it back on the ivy", "bond": 1, "manner": "calm"}
+        {
+          "text": "Thank him properly",
+          "bond": 3,
+          "reply": [
+            "Hunter's tail goes high. He rubs his whole head against your hand, very proud of his gift."
+          ]
+        },
+        {
+          "text": "Keep it as a bookmark",
+          "bond": 2,
+          "reply": [
+            "Hunter's eyes light up. He watches you tuck the leaf into your book as if it were a treasure."
+          ]
+        },
+        {
+          "text": "Put it back on the ivy",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter looks shocked, then trots off to the ivy with the leaf, and comes back empty-mouthed and pleased."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_fr_pigeon": {
       "tier": "friend",
       "max_tier": "friend",
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "spots": ["sill"],
-      "pages": ["Hunter is on the sill, chattering at a pigeon sheltering on the balcony rail."],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Hunter is on the sill, chattering at a pigeon sheltering on the balcony rail."
+      ],
       "choices": [
-        {"text": "Chatter too", "bond": 2},
-        {"text": "Tell him he'd never catch it", "bond": 1},
-        {"text": "Watch the pigeon with him", "bond": 1, "manner": "calm"},
-        {"text": "Tap the glass to send it off", "bond": 0}
+        {
+          "text": "Chatter too",
+          "bond": 2,
+          "reply": [
+            "Hunter chatters at the pigeon with you, and the pigeon hops off the rail, quite offended."
+          ]
+        },
+        {
+          "text": "Tell him he'd never catch it",
+          "bond": 1,
+          "reply": [
+            "Hunter's tail thumps. He stares at the pigeon, then at you, and tries to prove you wrong."
+          ]
+        },
+        {
+          "text": "Watch the pigeon with him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter sits very still beside you, watching the pigeon, both of you perfectly silent."
+          ]
+        },
+        {
+          "text": "Tap the glass to send it off",
+          "bond": 0,
+          "reply": [
+            "Hunter gives a jump, then sits back, scowling at the empty rail the pigeon has left."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -572,23 +1705,71 @@
         "Hunter lands on your lap, turns round once and gets straight back down. Just checking it's still there."
       ],
       "choices": [
-        {"text": "Pat your lap for next time", "bond": 2},
-        {"text": "Laugh", "bond": 1},
-        {"text": "Brush off the fur", "bond": 1, "manner": "calm"}
+        {
+          "text": "Pat your lap for next time",
+          "bond": 2,
+          "reply": [
+            "Hunter gives your lap a long, thoughtful look, then climbs down to go and play, reassured."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 1,
+          "reply": [
+            "Hunter jumps down, laughing in his own way, and bounces off into the room."
+          ]
+        },
+        {
+          "text": "Brush off the fur",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter shakes his coat, sends fur into the air, and gives you a look of total innocence."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_fr_tired": {
       "tier": "friend",
       "max_tier": "friend",
-      "when": ["night"],
-      "pages": ["Hunter is finally tired. He sits beside you and leans on your leg, eyes half closed."],
+      "when": [
+        "night"
+      ],
+      "pages": [
+        "Hunter is finally tired. He sits beside you and leans on your leg, eyes half closed."
+      ],
       "choices": [
-        {"text": "Stroke his back", "bond": 2},
-        {"text": "Hum him something slow", "bond": 2},
-        {"text": "Stay still so he can rest", "bond": 2, "then": "loaf", "manner": "calm"},
-        {"text": "Tell him he did well today", "bond": 1},
-        {"text": "Ask what he chased today", "bond": 1}
+        {
+          "text": "Stroke his back",
+          "bond": 2,
+          "reply": [
+            "Hunter sighs deeply and melts under your hand, his eyes closing properly this time."
+          ]
+        },
+        {
+          "text": "Hum him something slow",
+          "bond": 2,
+          "reply": [
+            "Hunter's breathing slows to match your humming. He is nearly asleep before you finish the tune."
+          ]
+        },
+        {
+          "text": "Stay still so he can rest",
+          "bond": 2,
+          "then": "loaf",
+          "manner": "calm",
+          "reply": [
+            "Hunter leans a little harder against your leg and drifts off, soft and warm."
+          ]
+        },
+        {
+          "text": "Tell him he did well today",
+          "bond": 1,
+          "reply": [
+            "Hunter's tail gives one proud thump against the floor, and he settles back with a sigh."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -596,24 +1777,78 @@
       "tier": "friend",
       "max_tier": "friend",
       "comes_to": "table",
-      "pages": ["Hunter sits on your book. Not near it. On it."],
+      "pages": [
+        "Hunter sits on your book. Not near it. On it."
+      ],
       "choices": [
-        {"text": "Give him the book, it's his now", "bond": 2},
-        {"text": "Tickle his paws", "bond": 2},
-        {"text": "Slide it out slowly", "bond": 1},
-        {"text": "Read around him", "bond": 1, "manner": "calm"}
+        {
+          "text": "Give him the book, it's his now",
+          "bond": 2,
+          "reply": [
+            "Hunter lies back on the book with a pleased purr, as if you had handed him a prize."
+          ]
+        },
+        {
+          "text": "Tickle his paws",
+          "bond": 2,
+          "reply": [
+            "Hunter kicks his paws in the air, squirming on the book, and nearly rolls off it."
+          ]
+        },
+        {
+          "text": "Slide it out slowly",
+          "bond": 1,
+          "reply": [
+            "Hunter holds onto the book with both paws, refusing to let go, and purrs at you."
+          ]
+        },
+        {
+          "text": "Read around him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter stays firmly on the book, purring away, while you read the page around his body."
+          ]
+        }
       ],
       "ignore": 4
     },
     "hunter_y_foot": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "pages": ["Hunter trots over with his tail straight up and sits on your foot."],
+      "pages": [
+        "Hunter trots over with his tail straight up and sits on your foot."
+      ],
       "choices": [
-        {"text": "Scratch his chin", "bond": 2},
-        {"text": "Wiggle your foot", "bond": 2},
-        {"text": "Ask how his day was", "bond": 1},
-        {"text": "Leave your foot where it is", "bond": 1, "manner": "calm"}
+        {
+          "text": "Scratch his chin",
+          "bond": 2,
+          "reply": [
+            "Hunter tips his head right back, eyes shut, and purrs so hard his foot-sitting shakes."
+          ]
+        },
+        {
+          "text": "Wiggle your foot",
+          "bond": 2,
+          "reply": [
+            "Hunter pounces on the wiggle at once, then settles back on your foot, grinning."
+          ]
+        },
+        {
+          "text": "Ask how his day was",
+          "bond": 1,
+          "reply": [
+            "Hunter tells you, at length and with great detail, about his day, from a sitting position on your foot."
+          ]
+        },
+        {
+          "text": "Leave your foot where it is",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter sighs and settles in deeper, perfectly happy to stay on your foot all evening."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -621,26 +1856,73 @@
       "tier": "your_cat",
       "max_tier": "your_cat",
       "comes_to": "floor",
-      "pages": ["Hunter has brought all his toys over, one by one. There's a small pile at your feet."],
+      "pages": [
+        "Hunter has brought all his toys over, one by one. There's a small pile at your feet."
+      ],
       "choices": [
-        {"text": "Play with every one", "bond": 3},
-        {"text": "Pick a favourite", "bond": 2},
-        {"text": "Admire the pile", "bond": 1, "manner": "calm"}
+        {
+          "text": "Play with every one",
+          "bond": 3,
+          "reply": [
+            "Hunter's tail goes straight up. He starts a game with the first toy and then the next, all the way through the pile."
+          ]
+        },
+        {
+          "text": "Pick a favourite",
+          "bond": 2,
+          "reply": [
+            "Hunter watches you pick out his favourite, then gives it a proud, careful nudge towards you."
+          ]
+        },
+        {
+          "text": "Admire the pile",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter sits beside his pile of toys, chest puffed out, very proud of his collection."
+          ]
+        }
       ],
       "ignore": 3
     },
     "hunter_y_scarf": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "pages": ["Hunter climbs up onto your shoulder and settles there like a scarf."],
-      "choices": [
-        {"text": "Read your book aloud to him", "bond": 2},
-        {"text": "Lean your head on him", "bond": 2},
-        {"text": "Tell him he's heavy", "bond": 1},
-        {"text": "Ask him not to fall asleep there", "bond": 1},
-        {"text": "Hold very still", "bond": 2, "manner": "calm"}
+      "pages": [
+        "Hunter climbs up onto your shoulder and settles there like a scarf."
       ],
-      "ignore": 5
+      "choices": [
+        {
+          "text": "Read your book aloud to him",
+          "bond": 2,
+          "reply": [
+            "Hunter's purr rumbles against your shoulder as you read, and he doesn't move at all."
+          ]
+        },
+        {
+          "text": "Lean your head on him",
+          "bond": 2,
+          "reply": [
+            "Hunter shifts a little to make room for your head, and purrs as if that were the nicest thing."
+          ]
+        },
+        {
+          "text": "Tell him he's heavy",
+          "bond": 1,
+          "reply": [
+            "Hunter grumbles, insulted, and digs his claws in very gently to show you exactly how heavy he is."
+          ]
+        },
+        {
+          "text": "Hold very still",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter stays where he is, warm and purring, and drifts off on your shoulder."
+          ]
+        }
+      ],
+      "ignore": 4
     },
     "hunter_y_steam": {
       "tier": "your_cat",
@@ -651,60 +1933,190 @@
         "He just watches it with you."
       ],
       "choices": [
-        {"text": "Watch it together", "bond": 2, "manner": "calm"},
-        {"text": "Blow a little for him", "bond": 2},
-        {"text": "Tell him he's grown up", "bond": 1}
+        {
+          "text": "Watch it together",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter's tail gives one slow flick. He sits beside you and watches the steam rise, calm as anything."
+          ]
+        },
+        {
+          "text": "Blow a little for him",
+          "bond": 2,
+          "reply": [
+            "Hunter watches the steam curl up, very pleased, and purrs softly as it drifts away."
+          ]
+        },
+        {
+          "text": "Tell him he's grown up",
+          "bond": 1,
+          "reply": [
+            "Hunter gives a small, proud chirp, and watches the steam with you, looking quite dignified."
+          ]
+        }
       ],
       "ignore": 1
     },
     "hunter_y_inhand": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "when": ["evening"],
-      "pages": ["Hunter brings you the felt mouse and drops it in your hand this time, not on the floor."],
-      "choices": [
-        {"text": "Throw it", "bond": 3},
-        {"text": "Make it dance", "bond": 2},
-        {"text": "Hide it in your pocket", "bond": 2},
-        {"text": "Tell him you're honoured", "bond": 2},
-        {"text": "Give it back to him", "bond": 1, "manner": "calm"}
+      "when": [
+        "evening"
       ],
-      "ignore": 5
+      "pages": [
+        "Hunter brings you the felt mouse and drops it in your hand this time, not on the floor."
+      ],
+      "choices": [
+        {
+          "text": "Throw it",
+          "bond": 3,
+          "reply": [
+            "Hunter races after the felt mouse, skids on the floorboards, and brings it straight back to your hand."
+          ]
+        },
+        {
+          "text": "Make it dance",
+          "bond": 2,
+          "reply": [
+            "Hunter bounces up and down, following the mouse as it dances, utterly delighted."
+          ]
+        },
+        {
+          "text": "Tell him you're honoured",
+          "bond": 2,
+          "reply": [
+            "Hunter's chest puffs out. He takes the mouse back and holds it proudly, looking very pleased."
+          ]
+        },
+        {
+          "text": "Give it back to him",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter takes the felt mouse back and trots off with it, tail high, very content."
+          ]
+        }
+      ],
+      "ignore": 4
     },
     "hunter_y_sprawl": {
       "tier": "your_cat",
       "max_tier": "your_cat",
       "comes_to": "table",
-      "pages": ["Hunter stretches out on your table, takes up all of it, and falls asleep."],
+      "pages": [
+        "Hunter stretches out on your table, takes up all of it, and falls asleep."
+      ],
       "choices": [
-        {"text": "Stroke his white paws", "bond": 2, "then": "sleep"},
-        {"text": "Let him have the table", "bond": 2, "then": "sleep"},
-        {"text": "Rest your book on him, lightly", "bond": 1, "then": "sleep"},
-        {"text": "Move your cup out of the way", "bond": 1, "then": "sleep", "manner": "calm"}
+        {
+          "text": "Stroke his white paws",
+          "bond": 2,
+          "then": "sleep",
+          "reply": [
+            "Hunter sighs in his sleep and stretches one white paw towards your hand, without waking up."
+          ]
+        },
+        {
+          "text": "Let him have the table",
+          "bond": 2,
+          "then": "sleep",
+          "reply": [
+            "Hunter's tail slides across the table, and he sighs contentedly, takes up the rest of the space."
+          ]
+        },
+        {
+          "text": "Rest your book on him, lightly",
+          "bond": 1,
+          "then": "sleep",
+          "reply": [
+            "Hunter purrs under the book, sound asleep, and doesn't even twitch."
+          ]
+        },
+        {
+          "text": "Move your cup out of the way",
+          "bond": 1,
+          "then": "sleep",
+          "manner": "calm",
+          "reply": [
+            "Hunter doesn't wake up, but his tail twitches, and he settles more firmly on your table."
+          ]
+        }
       ],
       "ignore": 4
     },
     "hunter_y_raindrops": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "pages": ["Hunter used to chase the raindrops. Now he sits with you and watches them, one paw on your arm."],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "pages": [
+        "Hunter used to chase the raindrops. Now he sits with you and watches them, one paw on your arm."
+      ],
       "choices": [
-        {"text": "Watch them with him", "bond": 2, "manner": "calm"},
-        {"text": "Point out a fast one", "bond": 2},
-        {"text": "Hold his paw", "bond": 2}
+        {
+          "text": "Watch them with him",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter's paw rests on your arm, and you both watch the drops run down the window, quietly."
+          ]
+        },
+        {
+          "text": "Point out a fast one",
+          "bond": 2,
+          "reply": [
+            "Hunter's eyes follow the fast drop all the way down. He chirps, very pleased with you."
+          ]
+        },
+        {
+          "text": "Hold his paw",
+          "bond": 2,
+          "reply": [
+            "Hunter lets you hold his paw, and purrs, watching the rain with you."
+          ]
+        }
       ],
       "ignore": 1
     },
     "hunter_y_crooked": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "pages": ["Hunter's bandana is crooked again. He leans towards you so you can fix it."],
+      "pages": [
+        "Hunter's bandana is crooked again. He leans towards you so you can fix it."
+      ],
       "choices": [
-        {"text": "Fix it and scratch his ears", "bond": 3},
-        {"text": "Fix it, carefully", "bond": 2},
-        {"text": "Make it extra crooked", "bond": 1},
-        {"text": "Tell him it looks fine as it is", "bond": 1, "manner": "calm"}
+        {
+          "text": "Fix it and scratch his ears",
+          "bond": 3,
+          "reply": [
+            "Hunter leans into your hand while you fix his bandana, purring loudly, eyes shut."
+          ]
+        },
+        {
+          "text": "Fix it, carefully",
+          "bond": 2,
+          "reply": [
+            "Hunter holds very still while you fix his bandana, then shakes his head to check it's just right."
+          ]
+        },
+        {
+          "text": "Make it extra crooked",
+          "bond": 1,
+          "reply": [
+            "Hunter looks at you, delighted, and shakes his head so the bandana slips over one eye."
+          ]
+        },
+        {
+          "text": "Tell him it looks fine as it is",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Hunter's tail gives a happy flick, and he stays crooked, pleased with your verdict."
+          ]
+        }
       ],
       "ignore": 4
     },
@@ -715,23 +2127,73 @@
         "Hunter chirps at you from across the room. When you look up, he blinks slowly, very proud of himself."
       ],
       "choices": [
-        {"text": "Blink back slowly", "bond": 2, "manner": "calm"},
-        {"text": "Chirp back", "bond": 2},
-        {"text": "Call him over", "bond": 2},
-        {"text": "Wave", "bond": 1}
+        {
+          "text": "Blink back slowly",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter's eyes close very slowly, then open, very proud of how long he managed it."
+          ]
+        },
+        {
+          "text": "Chirp back",
+          "bond": 2,
+          "reply": [
+            "Hunter chirps happily from across the room, delighted you answered him."
+          ]
+        },
+        {
+          "text": "Call him over",
+          "bond": 2,
+          "reply": [
+            "Hunter comes trotting straight over to you, tail up, and sits at your feet."
+          ]
+        },
+        {
+          "text": "Wave",
+          "bond": 1,
+          "reply": [
+            "Hunter bounces in place and waves his tail back at you, as if you had shared a joke."
+          ]
+        }
       ],
       "ignore": 1
     },
     "hunter_y_winning": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "when": ["late night"],
-      "poses": ["sleep"],
-      "pages": ["Hunter is asleep, paws twitching. Every so often his tail thumps, as if he's winning something."],
+      "when": [
+        "late night"
+      ],
+      "poses": [
+        "sleep"
+      ],
+      "pages": [
+        "Hunter is asleep, paws twitching. Every so often his tail thumps, as if he's winning something."
+      ],
       "choices": [
-        {"text": "Let him dream", "bond": 2, "manner": "calm"},
-        {"text": "Whisper \"go on, Hunter\"", "bond": 2},
-        {"text": "Tuck his tail in", "bond": 1}
+        {
+          "text": "Let him dream",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Hunter's tail thumps again in his sleep, and he goes on dreaming of his victory."
+          ]
+        },
+        {
+          "text": "Whisper \"go on, Hunter\"",
+          "bond": 2,
+          "reply": [
+            "Hunter's paws twitch faster, and his tail thumps harder, as though he is winning."
+          ]
+        },
+        {
+          "text": "Tuck his tail in",
+          "bond": 1,
+          "reply": [
+            "Hunter murmurs something in his sleep and nestles into the cushion, still very much winning."
+          ]
+        }
       ],
       "ignore": 1
     }
@@ -739,30 +2201,60 @@
   "observations": [
     {
       "text": "Hunter's tail twitches. He is watching something only he can see.",
-      "poses": ["sit", "stand", "loaf"]
+      "poses": [
+        "sit",
+        "stand",
+        "loaf"
+      ]
     },
     {
-      "text": ["Hunter sneezes, then looks offended.", "Hunter's ears turn towards the window."],
-      "poses": ["sit", "loaf"]
+      "text": [
+        "Hunter sneezes, then looks offended.",
+        "Hunter's ears turn towards the window."
+      ],
+      "poses": [
+        "sit",
+        "loaf"
+      ]
     },
     {
       "text": "Hunter is chasing his own tail. He caught it.",
-      "poses": ["stand", "sit"],
-      "when": ["evening", "afternoon"]
+      "poses": [
+        "stand",
+        "sit"
+      ],
+      "when": [
+        "evening",
+        "afternoon"
+      ]
     },
     {
       "text": [
         "Hunter is asleep, stretched out as long as he can go.",
         "Hunter twitches in his sleep. Dreaming of mice, maybe."
       ],
-      "poses": ["sleep"]
+      "poses": [
+        "sleep"
+      ]
     },
     {
       "text": "Hunter is watching the rain, very seriously.",
-      "spots": ["sill"],
-      "weather": ["drizzle", "rain", "heavy_rain"]
+      "spots": [
+        "sill"
+      ],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ]
     },
-    {"text": "Hunter is looking at your cup.", "poses": ["sit", "stand"]}
+    {
+      "text": "Hunter is looking at your cup.",
+      "poses": [
+        "sit",
+        "stand"
+      ]
+    }
   ],
   "look": {
     "looks": {
@@ -792,33 +2284,46 @@
       {
         "text": "Tap the floor with your foot",
         "tier": "curious",
-        "reply": ["Hunter's ears snap towards the sound. He stares at your foot, very suspicious."],
+        "reply": [
+          "Hunter's ears snap towards the sound. He stares at your foot, very suspicious."
+        ],
         "bond": 1
       },
       {
         "text": "Let him sleep",
         "tier": "curious",
-        "poses": ["sleep"],
-        "reply": ["Hunter's paw twitches. He is chasing something in his dream."],
+        "poses": [
+          "sleep"
+        ],
+        "reply": [
+          "Hunter's paw twitches. He is chasing something in his dream."
+        ],
         "bond": 1,
         "manner": "calm"
       },
       {
         "text": "Dangle your scarf for him",
         "tier": "familiar",
-        "reply": ["Hunter bats at the scarf, misses, bats again, and catches it.", "He looks very proud of himself."],
+        "reply": [
+          "Hunter bats at the scarf, misses, bats again, and catches it.",
+          "He looks very proud of himself."
+        ],
         "bond": 3
       },
       {
         "text": "Stroke his head",
         "tier": "familiar",
-        "reply": ["Hunter pushes his head into your hand, hard."],
+        "reply": [
+          "Hunter pushes his head into your hand, hard."
+        ],
         "bond": 2
       },
       {
         "text": "Scratch behind his ears",
         "tier": "friend",
-        "reply": ["Hunter leans so far into it that he nearly falls over."],
+        "reply": [
+          "Hunter leans so far into it that he nearly falls over."
+        ],
         "bond": 3
       },
       {
@@ -826,20 +2331,29 @@
         "tier": "friend",
         "drink": "any",
         "comes_to": "table",
-        "reply": ["Hunter is there in two jumps. He sniffs your cup and flops down beside it."],
+        "reply": [
+          "Hunter is there in two jumps. He sniffs your cup and flops down beside it."
+        ],
         "bond": 2,
         "then": "loaf"
       },
       {
         "text": "Rub his belly",
         "tier": "your_cat",
-        "reply": ["Hunter rolls over, grabs your hand with all four paws and purrs.", "It's a trap, but a nice one."],
+        "reply": [
+          "Hunter rolls over, grabs your hand with all four paws and purrs.",
+          "It's a trap, but a nice one."
+        ],
         "bond": 2
       }
     ]
   },
   "away": [
-    {"bond": "new", "gone": "short", "text": "Hunter dashes past your legs, on his way somewhere important."},
+    {
+      "bond": "new",
+      "gone": "short",
+      "text": "Hunter dashes past your legs, on his way somewhere important."
+    },
     {
       "bond": "new",
       "gone": "short",
@@ -855,7 +2369,11 @@
       "gone": "long",
       "text": "A felt mouse has turned up under your table. Hunter's, probably."
     },
-    {"bond": "knows", "gone": "short", "text": "Hunter looks up from the floor, ears forward. Oh, it's you."},
+    {
+      "bond": "knows",
+      "gone": "short",
+      "text": "Hunter looks up from the floor, ears forward. Oh, it's you."
+    },
     {
       "bond": "knows",
       "gone": "short",
@@ -871,7 +2389,11 @@
       "gone": "long",
       "text": "There's a felt mouse on your chair. Hunter left it for you, maybe."
     },
-    {"bond": "yours", "gone": "short", "text": "Hunter is waiting under your table with a toy in his mouth."},
+    {
+      "bond": "yours",
+      "gone": "short",
+      "text": "Hunter is waiting under your table with a toy in his mouth."
+    },
     {
       "bond": "yours",
       "gone": "short",

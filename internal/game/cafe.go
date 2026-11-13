@@ -35,6 +35,7 @@ const (
 	talkServed                   // a drink arriving
 	talkMoment                   // a moment with a cat (waits for you)
 	talkNarrator                 // the narrator: welcome, small talk
+	talkCatReply                 // the cat's answer after a moment (so nothing ends in silence)
 )
 
 // talkBox is a conversation on screen (or waiting for its turn).
@@ -130,6 +131,7 @@ func (g *Game) settle() {
 	if b.Answered() && !b.handled && b.kind == talkMoment {
 		b.handled = true
 		if b.moment != nil {
+			g.catReplyAfter(b)
 			g.endMoment(b)
 		}
 	}
