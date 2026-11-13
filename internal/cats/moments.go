@@ -32,11 +32,17 @@ type Moment struct {
 	Choices          []ChoiceEffect
 }
 
+// Responses are the cat's own replies, by manner, for a choice that has
+// no reply of its own: so every moment ends with the cat responding.
+// Keys: "calm", "sudden" and "other" (a choice with no manner).
+var responseKeys = []string{"calm", "sudden", "other"}
+
 // ChoiceEffect is what a choice in a moment does to the bond.
 type ChoiceEffect struct {
-	Bond   float64 // added to the bond (can be negative)
-	Manner string  // "calm", "sudden" or "" (shy cats care a lot)
-	Then   string  // overrides the moment's Then for this choice
+	Bond   float64       // added to the bond (can be negative)
+	Manner string        // "calm", "sudden" or "" (shy cats care a lot)
+	Then   string        // overrides the moment's Then for this choice
+	Reply  dialogue.Text // what the cat does in answer (optional)
 }
 
 // Observation is a small line about a cat, with no choices.
@@ -53,8 +59,22 @@ type Observation struct {
 type Content struct {
 	Moments      []*Moment
 	Observations []*Observation
-	Looks        map[string]*Look // by cat id
-	Away         []AwayLine       // what each cat was like while you were away
+	Looks        map[string]*Look               // by cat id
+	Away         []AwayLine                     // what each cat was like while you were away
+	Responses    map[string]map[string][]string // cat id -> manner -> replies (one page each)
+}
+
+// Response is one of the cat's own replies for a manner ("calm", "sudden"
+// or "other"), picked by pick (0 to n-1). It falls back to "other", and
+// then to nil if the cat has none.
+func (c *Content) Response(catID, manner string, pick func(n int) int) dialogue.Text {
+	by := c.Responses[catID]
+	for _, k := range []string{manner, "other"} {
+		if list := by[k]; len(list) > 0 {
+			return dialogue.Text{list[pick(len(list))]}
+		}
+	}
+	return nil
 }
 
 // AwayLine is a line about a cat for the note when you come back: Bond is
@@ -72,6 +92,7 @@ type momentFile struct {
 	Observations []observationDef           `json:"observations"`
 	Look         *lookDef                   `json:"look"`
 	Away         []awayDef                  `json:"away"`
+	Responses    map[string][]string        `json:"responses"`
 }
 
 type awayDef struct {
@@ -95,9 +116,10 @@ type momentDef struct {
 }
 
 type choiceDef struct {
-	Bond   float64 `json:"bond"`
-	Manner string  `json:"manner"`
-	Then   string  `json:"then"`
+	Bond   float64       `json:"bond"`
+	Manner string        `json:"manner"`
+	Then   string        `json:"then"`
+	Reply  dialogue.Text `json:"reply"`
 }
 
 type observationDef struct {
@@ -132,7 +154,7 @@ func LoadContent(fsys fs.FS, dir string, ck Checks) (*Content, error) {
 		return nil, err
 	}
 	sort.Strings(names)
-	out := &Content{Looks: map[string]*Look{}}
+	out := &Content{Looks: map[string]*Look{}, Responses: map[string]map[string][]string{}}
 	seen := map[string]string{}
 	for _, name := range names {
 		data, err := fs.ReadFile(fsys, name)
@@ -148,7 +170,7 @@ func LoadContent(fsys fs.FS, dir string, ck Checks) (*Content, error) {
 
 // ParseContent reads one moments file (handy for tests).
 func ParseContent(name string, data []byte, ck Checks) (*Content, error) {
-	out := &Content{Looks: map[string]*Look{}}
+	out := &Content{Looks: map[string]*Look{}, Responses: map[string]map[string][]string{}}
 	return out, out.add(name, data, ck, map[string]string{})
 }
 
@@ -214,11 +236,17 @@ func (c *Content) add(name string, data []byte, ck Checks, seen map[string]strin
 			if !has(thens, ch.Then) {
 				return fmt.Errorf("%s: choice %d: then %q should be one of stay, sit, loaf, sleep, leave, away", where, i+1, ch.Then)
 			}
-			m.Choices = append(m.Choices, ChoiceEffect{Bond: ch.Bond, Manner: ch.Manner, Then: ch.Then})
+			m.Choices = append(m.Choices, ChoiceEffect{Bond: ch.Bond, Manner: ch.Manner, Then: ch.Then, Reply: ch.Reply})
 		}
-		if len(conv.Choices) == 0 {
-			// A moment waits for your answer, so it needs something to answer.
-			return fmt.Errorf("%s: needs 2 to 5 choices (a line with no choices belongs in \"observations\", shown in Look around)", where)
+		if len(conv.Choices) < 2 || len(conv.Choices) > 4 {
+			// A moment waits for your answer, so it needs something to answer:
+			// two to four choices, each with its own reply.
+			return fmt.Errorf("%s: needs 2 to 4 choices (a line with no choices belongs in \"observations\", shown in Look around)", where)
+		}
+		for i, ch := range d.Choices {
+			if len(ch.Reply) == 0 {
+				return fmt.Errorf("%s: choice %d (%q) needs a \"reply\" (what the cat does)", where, i+1, conv.Choices[i].Text)
+			}
 		}
 		c.Moments = append(c.Moments, m)
 	}
@@ -246,6 +274,24 @@ func (c *Content) add(name string, data []byte, ck Checks, seen map[string]strin
 		return err
 	}
 	c.Looks[cat.ID] = lk
+	if c.Responses == nil {
+		c.Responses = map[string]map[string][]string{}
+	}
+	c.Responses[cat.ID] = map[string][]string{}
+	for k, lines := range f.Responses {
+		if !has(responseKeys, k) {
+			return fmt.Errorf("%s: responses: %q should be calm, sudden or other", name, k)
+		}
+		for i, l := range lines {
+			if strings.TrimSpace(l) == "" {
+				return fmt.Errorf("%s: responses.%s line %d is empty", name, k, i+1)
+			}
+		}
+		c.Responses[cat.ID][k] = lines
+	}
+	if len(c.Responses[cat.ID]) == 0 {
+		return fmt.Errorf("%s: needs \"responses\" (what %s does after you answer a moment)", name, cat.Name)
+	}
 	for i, a := range f.Away {
 		where := fmt.Sprintf("%s: away line %d", name, i+1)
 		if !has([]string{"new", "knows", "yours"}, a.Bond) {

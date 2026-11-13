@@ -38,7 +38,8 @@ func catTalk(t *testing.T, cfg Config, minutes float64) (moments, smallTalk, cat
 			case b.kind == talkNarrator && g.greeted && b.Speaker() == "" && len(b.Choices()) == 0:
 				smallTalk++
 			}
-			if b.Speaker() != "" && b.kind != talkMoment {
+			// A cat's answer right after a moment is part of the moment.
+			if b.Speaker() != "" && b.kind != talkMoment && b.kind != talkCatReply {
 				catLines++
 			}
 		}
@@ -180,6 +181,13 @@ func TestCatWordsFit(t *testing.T) {
 		for _, ch := range m.Conv.Choices {
 			if canvas.Width(ch.Text) > talkTextW-2 {
 				t.Errorf("%s: choice %q is too long for one line", m.ID, ch.Text)
+			}
+		}
+		for _, ch := range m.Choices {
+			for _, v := range ch.Reply {
+				if n := len(dialogue.Wrap(v, talkTextW)); n > talkLines {
+					t.Errorf("%s: a cat's reply is %d lines (most is %d): %q", m.ID, n, talkLines, v)
+				}
 			}
 		}
 		if m.Conv.Speaker == "" {
@@ -712,4 +720,32 @@ func TestLookAroundOffersAFewThingsAtMostOneSudden(t *testing.T) {
 			}
 		}
 	}
+}
+
+// After you answer a moment, the cat answers too: her reply is shown in
+// her name before the café goes back to its quiet.
+func TestAMomentEndsWithTheCatAnswering(t *testing.T) {
+	g, now := inside(t, Config{Bonds: map[string]float64{"mimi": 30}})
+	if err := g.ShowMoment("mimi_watch"); err != nil {
+		t.Fatal(err)
+	}
+	now = run(g, now, 1)
+	g.Key(KeyConfirm) // show the page at once
+	now = run(g, now, 0.5)
+	pick(t, g, "Call her name")
+	g.Key(KeyConfirm)
+	saw := false
+	for i := 0; i < 300 && !saw; i++ {
+		now = run(g, now, 0.1)
+		if g.box != nil && g.box.kind == talkCatReply {
+			saw = true
+			if g.box.Speaker() != "Mimi" {
+				t.Errorf("the answer should be Mimi's, got %q", g.box.Speaker())
+			}
+		}
+	}
+	if !saw {
+		t.Fatal("after a moment the cat should answer, but nothing followed")
+	}
+	_ = now
 }

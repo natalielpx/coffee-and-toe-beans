@@ -481,6 +481,13 @@ func (g *Game) closingLine(c *cats.Cat) []string {
 		}
 	}
 	if len(pool) == 0 {
+		// Never leave the player hanging after an interaction: fall back
+		// to the cat's own words for having had enough.
+		if rest := g.cat.content.Looks[c.Def.ID].Rest; len(rest) > 0 {
+			pool = append(pool, text.Fill(rest[0], vals))
+		}
+	}
+	if len(pool) == 0 {
 		return nil
 	}
 	lines := dialogue.Wrap(pool[g.rng.IntN(len(pool))], talkTextW)

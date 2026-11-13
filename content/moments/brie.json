@@ -22,34 +22,115 @@
     "  bond: new (stranger or curious), knows (familiar or friend) or yours (your cat). gone: short (under long_from_hours) or long."
   ],
   "cat": "brie",
+  "responses": {
+    "calm": [
+      "Brie tilts her head a little, then goes back to what she was doing."
+    ],
+    "sudden": [
+      "Brie gives you a long, cool look, then turns her back on you."
+    ],
+    "other": [
+      "Brie considers this carefully, then settles down with a small sigh."
+    ]
+  },
   "moments": {
     "brie_sigh": {
       "pages": [
-        ["Brie lets out a long, dramatic sigh.", "Brie sighs. It goes on for quite a while."],
+        [
+          "Brie lets out a long, dramatic sigh.",
+          "Brie sighs. It goes on for quite a while."
+        ],
         "She glances at you, as if you should do something about it."
       ],
       "choices": [
-        {"text": "Sigh back", "bond": 2, "manner": "calm"},
-        {"text": "Ask her what's wrong", "bond": 1},
-        {"text": "Leave her to it", "bond": 1, "manner": "calm"}
+        {
+          "text": "Sigh back",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie sighs back, a long one, and looks very satisfied with the exchange."
+          ]
+        },
+        {
+          "text": "Ask her what's wrong",
+          "bond": 1,
+          "reply": [
+            "Brie gives a small, put-upon shrug. It's the cushion, apparently. It's always the cushion."
+          ]
+        },
+        {
+          "text": "Leave her to it",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie sighs once more, at nobody in particular, and goes back to her cushion."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_look": {
       "max_tier": "curious",
-      "pages": ["Brie is looking at you. Not at you, exactly. Past you, actually."],
+      "pages": [
+        "Brie is looking at you. Not at you, exactly. Past you, actually."
+      ],
       "choices": [
-        {"text": "Look away politely", "bond": 2, "manner": "calm"},
-        {"text": "Wave at her", "bond": -1, "manner": "sudden"},
-        {"text": "Look back", "bond": 1}
+        {
+          "text": "Look away politely",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie turns her head, very slightly, as though she had meant to do that all along."
+          ]
+        },
+        {
+          "text": "Wave at her",
+          "bond": -1,
+          "manner": "sudden",
+          "reply": [
+            "Brie flattens her ears and stares at you as though you had made an unforgivable noise."
+          ]
+        },
+        {
+          "text": "Look back",
+          "bond": 1,
+          "reply": [
+            "Brie holds your gaze a moment, then looks away again without comment."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_rain": {
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "spots": ["sill"],
-      "pages": ["Brie watches the rain run down the glass.", "She sighs. In her opinion, Paris should be dry."],
-      "choices": [{"text": "Agree with her", "bond": 2, "manner": "calm"}, {"text": "Say you like the rain", "bond": 0}],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Brie watches the rain run down the glass.",
+        "She sighs. In her opinion, Paris should be dry."
+      ],
+      "choices": [
+        {
+          "text": "Agree with her",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's tail twitches, pleased. Paris, she says, should be dry. You agree, and she notices."
+          ]
+        },
+        {
+          "text": "Say you like the rain",
+          "bond": 0,
+          "reply": [
+            "Brie looks at you as if you had said something very odd, then looks back at the rain."
+          ]
+        }
+      ],
       "ignore": 1
     },
     "brie_creme": {
@@ -60,9 +141,28 @@
         "She looks at the cup, then at you, then at the cup."
       ],
       "choices": [
-        {"text": "Tell her it's yours", "bond": 1},
-        {"text": "Let her smell the steam", "bond": 2, "manner": "calm"},
-        {"text": "Pretend you haven't noticed", "bond": 1}
+        {
+          "text": "Tell her it's yours",
+          "bond": 1,
+          "reply": [
+            "Brie sniffs in your direction and decides, reluctantly, that it is your business."
+          ]
+        },
+        {
+          "text": "Let her smell the steam",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie leans in and breathes deeply, eyes half closed, then sits back with a satisfied air."
+          ]
+        },
+        {
+          "text": "Pretend you haven't noticed",
+          "bond": 1,
+          "reply": [
+            "Brie looks at the cup for a long moment, then pointedly looks away from it too."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -73,16 +173,55 @@
         "When she's done, she looks very pleased with herself."
       ],
       "choices": [
-        {"text": "Tell her she looks lovely", "bond": 2, "manner": "calm"},
-        {"text": "Smooth down your own hair", "bond": 1},
-        {"text": "Keep reading", "bond": 1, "manner": "calm"}
+        {
+          "text": "Tell her she looks lovely",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie stops mid-lick, looks up and says nothing at all. But her tail lifts a little."
+          ]
+        },
+        {
+          "text": "Smooth down your own hair",
+          "bond": 1,
+          "reply": [
+            "Brie watches you fuss with your hair and seems to find it mildly entertaining."
+          ]
+        },
+        {
+          "text": "Keep reading",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie grooms her other paw, unbothered, as if you had never been there."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_blink": {
       "tier": "familiar",
-      "pages": ["Brie closes her eyes slowly, then opens them again.", "From a cat, that's a compliment."],
-      "choices": [{"text": "Blink back, slowly", "bond": 3, "manner": "calm"}, {"text": "Smile at her", "bond": 1}],
+      "pages": [
+        "Brie closes her eyes slowly, then opens them again.",
+        "From a cat, that's a compliment."
+      ],
+      "choices": [
+        {
+          "text": "Blink back, slowly",
+          "bond": 3,
+          "manner": "calm",
+          "reply": [
+            "Brie's eyes meet yours again, slower this time. She looks quietly pleased with you."
+          ]
+        },
+        {
+          "text": "Smile at her",
+          "bond": 1,
+          "reply": [
+            "Brie's whiskers twitch. From her, that is practically a grin."
+          ]
+        }
+      ],
       "ignore": 2
     },
     "brie_table": {
@@ -94,9 +233,29 @@
         "She doesn't look at you. But she stays, glancing at your book every now and then."
       ],
       "choices": [
-        {"text": "Make some room for her", "bond": 3, "manner": "calm"},
-        {"text": "Stroke her back", "bond": 2},
-        {"text": "Keep reading", "bond": 2, "manner": "calm"}
+        {
+          "text": "Make some room for her",
+          "bond": 3,
+          "manner": "calm",
+          "reply": [
+            "Brie settles beside your drink with a tiny sigh, as if the table had always been hers."
+          ]
+        },
+        {
+          "text": "Stroke her back",
+          "bond": 2,
+          "reply": [
+            "Brie arches into your hand, then stretches out along the table with her tail draped over your book."
+          ]
+        },
+        {
+          "text": "Keep reading",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie stays put, glancing at your book now and then in case it gets interesting."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -109,87 +268,259 @@
       ],
       "then": "loaf",
       "choices": [
-        {"text": "Keep very still", "bond": 2, "manner": "calm"},
-        {"text": "Scratch behind her ears", "bond": 2, "manner": "calm"},
-        {"text": "Say her name, softly", "bond": 1, "manner": "calm"}
+        {
+          "text": "Keep very still",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's purr deepens. She tucks her paws in, ready to stay exactly where she is."
+          ]
+        },
+        {
+          "text": "Scratch behind her ears",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie tilts her head into your fingers and purrs louder, then pretends it wasn't her."
+          ]
+        },
+        {
+          "text": "Say her name, softly",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie opens one eye at you, then closes it again, very slowly. Her purr goes on."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_s_pass": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Brie walks past your table without looking at you.", "Then she walks past again, slower."],
+      "pages": [
+        "Brie walks past your table without looking at you.",
+        "Then she walks past again, slower."
+      ],
       "choices": [
-        {"text": "Keep still and let her", "bond": 2, "manner": "calm"},
-        {"text": "Say \"Bonjour, Brie\"", "bond": 1},
-        {"text": "Hold out a hand", "bond": 0}
+        {
+          "text": "Keep still and let her",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie walks past without slowing, but her tail brushes the edge of your chair on the way."
+          ]
+        },
+        {
+          "text": "Say \"Bonjour, Brie\"",
+          "bond": 1,
+          "reply": [
+            "Brie stops, looks at you as if you had said something unexpectedly ordinary, and carries on."
+          ]
+        },
+        {
+          "text": "Hold out a hand",
+          "bond": 0,
+          "reply": [
+            "Brie gives your hand a long look, decides it isn't worth the effort, and walks on."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_s_chair": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "spots": ["floor"],
-      "pages": ["Brie sits on the floor and looks at the empty chair across from you. Then at you. Then at the chair."],
+      "spots": [
+        "floor"
+      ],
+      "pages": [
+        "Brie sits on the floor and looks at the empty chair across from you. Then at you. Then at the chair."
+      ],
       "choices": [
-        {"text": "Pull the chair out for her", "bond": 2},
-        {"text": "Pat the seat", "bond": 1},
-        {"text": "Pretend you don't understand", "bond": 1, "manner": "calm"},
-        {"text": "Put your bag on it", "bond": 0}
+        {
+          "text": "Pull the chair out for her",
+          "bond": 2,
+          "reply": [
+            "Brie considers the chair, then you, and climbs up. From her, a nod of thanks is a big thing."
+          ]
+        },
+        {
+          "text": "Pat the seat",
+          "bond": 1,
+          "reply": [
+            "Brie looks at the seat, then at you, and deigns to sit on it."
+          ]
+        },
+        {
+          "text": "Pretend you don't understand",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie sighs at the chair, then stays on the floor, slightly offended."
+          ]
+        },
+        {
+          "text": "Put your bag on it",
+          "bond": 0,
+          "reply": [
+            "Brie stares at the bag as if it were a personal insult, then sits on the floor again."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_s_fluff": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["A tuft of cream fur drifts past your nose. Across the room, Brie looks innocent."],
+      "pages": [
+        "A tuft of cream fur drifts past your nose. Across the room, Brie looks innocent."
+      ],
       "choices": [
-        {"text": "Catch it", "bond": 1},
-        {"text": "Sneeze, quietly", "bond": 1, "manner": "calm"},
-        {"text": "Look at Brie", "bond": 0}
+        {
+          "text": "Catch it",
+          "bond": 1,
+          "reply": [
+            "The tuft of fur lands in your palm. Brie watches you hold it with polite interest."
+          ]
+        },
+        {
+          "text": "Sneeze, quietly",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie's ears flick towards the sneeze. She doesn't turn round, but she heard it."
+          ]
+        },
+        {
+          "text": "Look at Brie",
+          "bond": 0,
+          "reply": [
+            "Brie looks away immediately, very innocent, and starts grooming a paw."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_s_book": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Brie looks at the book on your table, then at you, as if your taste in books were a disappointment."],
+      "pages": [
+        "Brie looks at the book on your table, then at you, as if your taste in books were a disappointment."
+      ],
       "choices": [
-        {"text": "Show her the cover", "bond": 2},
-        {"text": "Ask what she'd recommend", "bond": 1},
-        {"text": "Keep reading", "bond": 1, "manner": "calm"},
-        {"text": "Put the bookmark in, slowly", "bond": 1},
-        {"text": "Close the book", "bond": 0}
+        {
+          "text": "Show her the cover",
+          "bond": 2,
+          "reply": [
+            "Brie inspects the cover, sniffs, and looks away, somewhat less disappointed than before."
+          ]
+        },
+        {
+          "text": "Ask what she'd recommend",
+          "bond": 1,
+          "reply": [
+            "Brie looks at you for a long time, then names a book in a tone that makes it sound like a sentence."
+          ]
+        },
+        {
+          "text": "Keep reading",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie watches you turn the page, one eyebrow raised, and says nothing."
+          ]
+        },
+        {
+          "text": "Close the book",
+          "bond": 0,
+          "reply": [
+            "Brie yawns and sits at the very edge of the table, as far from your book as she can get."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_s_rain": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "spots": ["sill"],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "spots": [
+        "sill"
+      ],
       "pages": [
         "Brie sits on the sill with her back to the room.",
         "She is watching the rain, and she would like everyone to know it."
       ],
       "choices": [
-        {"text": "Watch the rain too", "bond": 2, "manner": "calm"},
-        {"text": "Leave her be", "bond": 1},
-        {"text": "Ask if she likes the rain", "bond": 0}
+        {
+          "text": "Watch the rain too",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's tail gives one slow flick. It is, she has decided, a good rain."
+          ]
+        },
+        {
+          "text": "Leave her be",
+          "bond": 1,
+          "reply": [
+            "Brie doesn't turn round. She seems to have forgotten you were there, which is how she prefers it."
+          ]
+        },
+        {
+          "text": "Ask if she likes the rain",
+          "bond": 0,
+          "reply": [
+            "Brie answers with a long, silent look at the window, as if the question were beneath her."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_s_yawn": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "poses": ["loaf"],
-      "pages": ["Brie yawns, very slowly, without covering her mouth. She seems to find you boring."],
+      "poses": [
+        "loaf"
+      ],
+      "pages": [
+        "Brie yawns, very slowly, without covering her mouth. She seems to find you boring."
+      ],
       "choices": [
-        {"text": "Look offended", "bond": 2},
-        {"text": "Yawn back", "bond": 1},
-        {"text": "Agree you're a bit boring", "bond": 1, "manner": "calm"},
-        {"text": "Read her a line from your book", "bond": 0},
-        {"text": "Tell her a joke", "bond": 0}
+        {
+          "text": "Look offended",
+          "bond": 2,
+          "reply": [
+            "Brie closes her mouth with a snap and looks at you as if you had been rude to the weather."
+          ]
+        },
+        {
+          "text": "Yawn back",
+          "bond": 1,
+          "reply": [
+            "Brie's eyes narrow. Then she yawns back, very politely, to show she is not impressed."
+          ]
+        },
+        {
+          "text": "Agree you're a bit boring",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie nods once, as though that settles it. Then she yawns again."
+          ]
+        },
+        {
+          "text": "Read her a line from your book",
+          "bond": 0,
+          "reply": [
+            "Brie listens for one sentence, then gets up and finds a different sunny spot."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -202,77 +533,237 @@
         "She thinks slightly better of you."
       ],
       "choices": [
-        {"text": "Lift your cup to her", "bond": 2},
-        {"text": "Take a slow sip", "bond": 1, "manner": "calm"},
-        {"text": "Hide the cup behind your book", "bond": 0}
+        {
+          "text": "Lift your cup to her",
+          "bond": 2,
+          "reply": [
+            "Brie comes over, breathes in the steam, and gives a small nod. Small, but a nod."
+          ]
+        },
+        {
+          "text": "Take a slow sip",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie's ears turn after your sip. She thinks slightly better of you, but she won't say so."
+          ]
+        },
+        {
+          "text": "Hide the cup behind your book",
+          "bond": 0,
+          "reply": [
+            "Brie gives the cup a wounded look, then turns her back on you, very deliberately."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_s_lamp": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "when": ["evening"],
-      "spots": ["sideboard"],
+      "when": [
+        "evening"
+      ],
+      "spots": [
+        "sideboard"
+      ],
       "pages": [
         "Brie settles by the lamp on the sideboard, in the warmest spot in the room.",
         "She closes her eyes, then opens one to check on you."
       ],
       "choices": [
-        {"text": "Close your eyes too", "bond": 2, "manner": "calm"},
-        {"text": "Nod politely", "bond": 1},
-        {"text": "Turn the page of your book", "bond": 1},
-        {"text": "Wave", "bond": 0}
+        {
+          "text": "Close your eyes too",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's eye closes again, and for a moment she finds your company tolerable."
+          ]
+        },
+        {
+          "text": "Nod politely",
+          "bond": 1,
+          "reply": [
+            "Brie gives a short nod, the sort you would give a neighbour on the stairs."
+          ]
+        },
+        {
+          "text": "Turn the page of your book",
+          "bond": 1,
+          "reply": [
+            "Brie watches you turn the page, then goes back to her lamp, satisfied you have been reading."
+          ]
+        },
+        {
+          "text": "Wave",
+          "bond": 0,
+          "reply": [
+            "Brie blinks slowly, then pointedly looks back at the lamp."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_s_tail": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "pages": ["Brie's tail swishes once, twice. Something you did has displeased her. You aren't sure what."],
+      "pages": [
+        "Brie's tail swishes once, twice. Something you did has displeased her. You aren't sure what."
+      ],
       "choices": [
-        {"text": "Apologise anyway", "bond": 2},
-        {"text": "Sit up straighter", "bond": 1},
-        {"text": "Stop moving altogether", "bond": 1, "manner": "calm"},
-        {"text": "Shrug", "bond": 0}
+        {
+          "text": "Apologise anyway",
+          "bond": 2,
+          "reply": [
+            "Brie's tail stops twitching. That was apparently the right answer, though she won't say so."
+          ]
+        },
+        {
+          "text": "Sit up straighter",
+          "bond": 1,
+          "reply": [
+            "Brie gives you a sideways look, then sits up a little straighter herself, which seems to help."
+          ]
+        },
+        {
+          "text": "Stop moving altogether",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie's tail slows, then stops. She decides you are doing well, for now."
+          ]
+        },
+        {
+          "text": "Shrug",
+          "bond": 0,
+          "reply": [
+            "Brie's tail thumps the floor once, very loudly, and she walks off without looking back."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_s_owner": {
       "tier": "stranger",
       "max_tier": "stranger",
-      "when": ["morning"],
-      "pages": ["Brie walks across the café as if she owned it. To be fair, she might."],
+      "when": [
+        "morning"
+      ],
+      "pages": [
+        "Brie walks across the café as if she owned it. To be fair, she might."
+      ],
       "choices": [
-        {"text": "Bow your head a little", "bond": 2},
-        {"text": "Say good morning", "bond": 1, "manner": "calm"},
-        {"text": "Ask if she's the owner", "bond": 1},
-        {"text": "Laugh", "bond": 0}
+        {
+          "text": "Bow your head a little",
+          "bond": 2,
+          "reply": [
+            "Brie gives a regal nod in return, as if you had passed some kind of test."
+          ]
+        },
+        {
+          "text": "Say good morning",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie sniffs and says nothing, but she slows down so you can see her go past."
+          ]
+        },
+        {
+          "text": "Ask if she's the owner",
+          "bond": 1,
+          "reply": [
+            "Brie looks at you very slowly, as though the question were the funniest thing she had heard all week."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 0,
+          "reply": [
+            "Brie stops walking. The silence afterwards is very long and very cold."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_c_collar": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Brie's collar has twisted round. She is pretending she hasn't noticed."],
+      "pages": [
+        "Brie's collar has twisted round. She is pretending she hasn't noticed."
+      ],
       "choices": [
-        {"text": "Straighten it, gently", "bond": 2},
-        {"text": "Point it out to her", "bond": 1},
-        {"text": "Pretend you haven't noticed either", "bond": 1, "manner": "calm"}
+        {
+          "text": "Straighten it, gently",
+          "bond": 2,
+          "reply": [
+            "Brie lets you fix her collar and holds perfectly still, eyes closed, until you are done."
+          ]
+        },
+        {
+          "text": "Point it out to her",
+          "bond": 1,
+          "reply": [
+            "Brie gives her collar a quick, embarrassed shake. The collar stays exactly as it was."
+          ]
+        },
+        {
+          "text": "Pretend you haven't noticed either",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie gives you a grateful look, the first you have had from her. Then she goes back to pretending."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_c_sun": {
       "tier": "curious",
       "max_tier": "curious",
-      "when": ["morning", "afternoon"],
-      "weather": ["clear", "cloudy"],
-      "spots": ["sill"],
-      "pages": ["A patch of sun falls on the sill. Brie moves into it with great dignity, one paw at a time."],
+      "when": [
+        "morning",
+        "afternoon"
+      ],
+      "weather": [
+        "clear",
+        "cloudy"
+      ],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "A patch of sun falls on the sill. Brie moves into it with great dignity, one paw at a time."
+      ],
       "choices": [
-        {"text": "Tell her it suits her", "bond": 2},
-        {"text": "Turn your chair to the sun too", "bond": 1},
-        {"text": "Let her have it", "bond": 1, "manner": "calm"},
-        {"text": "Close the curtain a little", "bond": 0}
+        {
+          "text": "Tell her it suits her",
+          "bond": 2,
+          "reply": [
+            "Brie lifts her chin and basks in the compliment, very visibly, in the sunlight."
+          ]
+        },
+        {
+          "text": "Turn your chair to the sun too",
+          "bond": 1,
+          "reply": [
+            "Brie gives you an approving glance, then settles deeper into the warm patch."
+          ]
+        },
+        {
+          "text": "Let her have it",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie purrs once, softly, in the sunlight. She clearly appreciates being left to it."
+          ]
+        },
+        {
+          "text": "Close the curtain a little",
+          "bond": 0,
+          "reply": [
+            "Brie looks at the curtain, then at you, and waits until you open it again."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -280,36 +771,114 @@
       "tier": "curious",
       "max_tier": "curious",
       "drink": "any",
-      "pages": ["Brie watches you drink. When you put the cup down, she sighs, as if you've done it wrong."],
+      "pages": [
+        "Brie watches you drink. When you put the cup down, she sighs, as if you've done it wrong."
+      ],
       "choices": [
-        {"text": "Drink more elegantly", "bond": 2},
-        {"text": "Ask her how it's done", "bond": 1},
-        {"text": "Keep drinking your way", "bond": 1, "manner": "calm"},
-        {"text": "Offer her a sip", "bond": 0}
+        {
+          "text": "Drink more elegantly",
+          "bond": 2,
+          "reply": [
+            "Brie watches you lift the cup with a small, impressed nod. You're improving, she thinks."
+          ]
+        },
+        {
+          "text": "Ask her how it's done",
+          "bond": 1,
+          "reply": [
+            "Brie gives a theatrical sigh, then shows you the proper way, with one dainty lift of the chin."
+          ]
+        },
+        {
+          "text": "Keep drinking your way",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie shakes her head slowly and turns to watch the window instead."
+          ]
+        },
+        {
+          "text": "Offer her a sip",
+          "bond": 0,
+          "reply": [
+            "Brie sniffs the cup, then steps back. Not that sort of cat, she thinks."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_c_knead": {
       "tier": "curious",
       "max_tier": "curious",
-      "spots": ["cushion"],
-      "pages": ["Brie kneads the cushion in the cat bed for a long time.", "Then she sits next to it instead."],
+      "spots": [
+        "cushion"
+      ],
+      "pages": [
+        "Brie kneads the cushion in the cat bed for a long time.",
+        "Then she sits next to it instead."
+      ],
       "choices": [
-        {"text": "Tell her it looks very comfortable", "bond": 2},
-        {"text": "Laugh, quietly", "bond": 1},
-        {"text": "See what she does next", "bond": 1, "manner": "calm"}
+        {
+          "text": "Tell her it looks very comfortable",
+          "bond": 2,
+          "reply": [
+            "Brie pauses in her kneading, looks pleased, and then gets properly comfortable."
+          ]
+        },
+        {
+          "text": "Laugh, quietly",
+          "bond": 1,
+          "reply": [
+            "Brie's whiskers twitch, and she pretends the cushion was not the joke."
+          ]
+        },
+        {
+          "text": "See what she does next",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie kneads a little longer, then flops down beside the cushion with great dignity."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_c_sneeze": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Brie sneezes. Then she looks around to see if anyone saw."],
+      "pages": [
+        "Brie sneezes. Then she looks around to see if anyone saw."
+      ],
       "choices": [
-        {"text": "Look away quickly", "bond": 2, "manner": "calm"},
-        {"text": "Say \"bless you\"", "bond": 2},
-        {"text": "Sneeze too, to keep her company", "bond": 1},
-        {"text": "Laugh", "bond": 0}
+        {
+          "text": "Look away quickly",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie looks away too, very quickly, and the moment is over before it began."
+          ]
+        },
+        {
+          "text": "Say \"bless you\"",
+          "bond": 2,
+          "reply": [
+            "Brie's ears flatten, pleased, and she says something that sounds rather like thank you."
+          ]
+        },
+        {
+          "text": "Sneeze too, to keep her company",
+          "bond": 1,
+          "reply": [
+            "Brie stares at you, then sneezes again herself, as if you had started it."
+          ]
+        },
+        {
+          "text": "Laugh",
+          "bond": 0,
+          "reply": [
+            "Brie's tail stiffens, and she walks off with her nose in the air."
+          ]
+        }
       ],
       "ignore": 1
     },
@@ -317,39 +886,108 @@
       "tier": "curious",
       "max_tier": "curious",
       "comes_to": "floor",
-      "pages": ["Brie has come close enough to read over your shoulder. She doesn't think much of the chapter."],
+      "pages": [
+        "Brie has come close enough to read over your shoulder. She doesn't think much of the chapter."
+      ],
       "choices": [
-        {"text": "Turn the page for her", "bond": 2},
-        {"text": "Read a line aloud", "bond": 1},
-        {"text": "Hold the book a little lower", "bond": 1, "manner": "calm"}
+        {
+          "text": "Turn the page for her",
+          "bond": 2,
+          "reply": [
+            "Brie watches the page turn with approval, then leans in to read the next one."
+          ]
+        },
+        {
+          "text": "Read a line aloud",
+          "bond": 1,
+          "reply": [
+            "Brie listens to the line, then corrects your pronunciation without looking up."
+          ]
+        },
+        {
+          "text": "Hold the book a little lower",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie settles at your feet, reading over the edge, and seems quite content with that."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_c_downpour": {
       "tier": "curious",
       "max_tier": "curious",
-      "weather": ["heavy_rain"],
+      "weather": [
+        "heavy_rain"
+      ],
       "pages": [
         "The rain is so loud that Brie flattens her ears.",
         "She glares at the window as if it were being rude on purpose."
       ],
       "choices": [
-        {"text": "Glare at the window too", "bond": 2},
-        {"text": "Draw the curtain a little", "bond": 1},
-        {"text": "Tell her it'll pass", "bond": 1, "manner": "calm"},
-        {"text": "Hum something over the noise", "bond": 0},
-        {"text": "Tap the glass", "bond": -1, "manner": "sudden"}
+        {
+          "text": "Glare at the window too",
+          "bond": 2,
+          "reply": [
+            "Her glare and yours meet in the glass. She looks, very briefly, like an ally."
+          ]
+        },
+        {
+          "text": "Draw the curtain a little",
+          "bond": 1,
+          "reply": [
+            "Brie watches the curtain slide across, then purrs softly. Somebody has finally listened."
+          ]
+        },
+        {
+          "text": "Tell her it'll pass",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie glances at you, unconvinced, but she doesn't argue. The rain goes on."
+          ]
+        },
+        {
+          "text": "Tap the glass",
+          "bond": -1,
+          "manner": "sudden",
+          "reply": [
+            "Brie flinches at the tap and skitters to the far end of the sill, offended."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_c_stretch": {
       "tier": "curious",
       "max_tier": "curious",
-      "pages": ["Brie stretches, front paws far ahead, back legs far behind. It takes a while. Everybody waits."],
+      "pages": [
+        "Brie stretches, front paws far ahead, back legs far behind. It takes a while. Everybody waits."
+      ],
       "choices": [
-        {"text": "Stretch too", "bond": 2},
-        {"text": "Applaud, softly", "bond": 1},
-        {"text": "Wait politely", "bond": 1, "manner": "calm"}
+        {
+          "text": "Stretch too",
+          "bond": 2,
+          "reply": [
+            "Brie gives you a look of deep approval and stretches again, a little longer this time."
+          ]
+        },
+        {
+          "text": "Applaud, softly",
+          "bond": 1,
+          "reply": [
+            "Brie takes a bow from the top of her stretch. The café pays attention."
+          ]
+        },
+        {
+          "text": "Wait politely",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie finishes her stretch in her own time and sits down looking refreshed."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -361,131 +999,389 @@
         "Brie sits as close as she dares to your café crème and looks at the ceiling, as if the cup weren't there."
       ],
       "choices": [
-        {"text": "Let her smell the foam", "bond": 2},
-        {"text": "Tell her it's very good today", "bond": 1},
-        {"text": "Look at the ceiling too", "bond": 1, "manner": "calm"},
-        {"text": "Pull the cup closer to you", "bond": 0}
+        {
+          "text": "Let her smell the foam",
+          "bond": 2,
+          "reply": [
+            "Brie leans in, sniffs the foam, and makes a small noise of pure contentment."
+          ]
+        },
+        {
+          "text": "Tell her it's very good today",
+          "bond": 1,
+          "reply": [
+            "Brie's eyes slide to the cup. She lets out a long, thoughtful breath, and nods."
+          ]
+        },
+        {
+          "text": "Look at the ceiling too",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie keeps her eyes on the ceiling, and her tail quietly stops twitching."
+          ]
+        },
+        {
+          "text": "Pull the cup closer to you",
+          "bond": 0,
+          "reply": [
+            "Brie gives the cup a wounded glance, then sits down with her back to you."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_c_sighs": {
       "tier": "curious",
       "max_tier": "curious",
-      "when": ["late night", "night"],
-      "poses": ["loaf"],
+      "when": [
+        "late night",
+        "night"
+      ],
+      "poses": [
+        "loaf"
+      ],
       "pages": [
         "Brie lies by the lamp with her paws tucked in.",
         "Every few minutes she lets out a small sigh, to remind the room she's there."
       ],
       "choices": [
-        {"text": "Sigh back, softly", "bond": 2, "manner": "calm"},
-        {"text": "Ask what's on her mind", "bond": 1},
-        {"text": "Say goodnight to her", "bond": 1},
-        {"text": "Keep very quiet", "bond": 1},
-        {"text": "Turn the lamp up", "bond": 0}
+        {
+          "text": "Sigh back, softly",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's sigh is answered with another, and this time she sounds almost content."
+          ]
+        },
+        {
+          "text": "Ask what's on her mind",
+          "bond": 1,
+          "reply": [
+            "Brie opens one eye and considers the question for a long time, then closes it again."
+          ]
+        },
+        {
+          "text": "Say goodnight to her",
+          "bond": 1,
+          "reply": [
+            "Brie's tail lifts, very slightly, in reply. Goodnight, it seems, is acceptable."
+          ]
+        },
+        {
+          "text": "Turn the lamp up",
+          "bond": 0,
+          "reply": [
+            "Brie's head snaps round. The lamp goes back down, and she sighs again, louder."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_f_reserved": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Brie jumps onto the chair across from you and sits as if she had a reservation."],
+      "pages": [
+        "Brie jumps onto the chair across from you and sits as if she had a reservation."
+      ],
       "choices": [
-        {"text": "Ask what she'll have", "bond": 2},
-        {"text": "Slide the menu towards her", "bond": 2},
-        {"text": "Nod, as to an old acquaintance", "bond": 1, "manner": "calm"},
-        {"text": "Tell her that seat is taken", "bond": 0}
+        {
+          "text": "Ask what she'll have",
+          "bond": 2,
+          "reply": [
+            "Brie gives you a knowing look, the kind you give someone who has always ordered the same thing."
+          ]
+        },
+        {
+          "text": "Slide the menu towards her",
+          "bond": 2,
+          "reply": [
+            "Brie taps the menu once with a paw, which from her is a very warm form of thanks."
+          ]
+        },
+        {
+          "text": "Nod, as to an old acquaintance",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie nods back and settles into the seat as if she has been coming here for years."
+          ]
+        },
+        {
+          "text": "Tell her that seat is taken",
+          "bond": 0,
+          "reply": [
+            "Brie looks at the seat, then at you, and stays exactly where she is, very smug."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_f_forehead": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Brie licks a paw and smooths down a bit of fur on her forehead. She looks at you to check it worked."],
+      "pages": [
+        "Brie licks a paw and smooths down a bit of fur on her forehead. She looks at you to check it worked."
+      ],
       "choices": [
-        {"text": "Tell her it's perfect", "bond": 2},
-        {"text": "Point out the bit she missed", "bond": 1},
-        {"text": "Nod approvingly", "bond": 1, "manner": "calm"}
+        {
+          "text": "Tell her it's perfect",
+          "bond": 2,
+          "reply": [
+            "Brie tilts her head and looks very pleased with herself, fur smooth and shining."
+          ]
+        },
+        {
+          "text": "Point out the bit she missed",
+          "bond": 1,
+          "reply": [
+            "Brie licks the spot you pointed to, then gives you a look that says she knew that already."
+          ]
+        },
+        {
+          "text": "Nod approvingly",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie nods back at you, a small, grave nod, and goes back to her grooming."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_f_sill": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "spots": ["sill"],
-      "pages": ["Brie sits on the sill and moves over, a little, as if someone might want to join her."],
-      "choices": [
-        {"text": "Lean over and look out with her", "bond": 2},
-        {"text": "Ask what she's looking at", "bond": 1},
-        {"text": "Point out the chimney pots", "bond": 1},
-        {"text": "Thank her, but stay put", "bond": 1, "manner": "calm"},
-        {"text": "Open the window a crack", "bond": 0}
+      "spots": [
+        "sill"
       ],
-      "ignore": 4
+      "pages": [
+        "Brie sits on the sill and moves over, a little, as if someone might want to join her."
+      ],
+      "choices": [
+        {
+          "text": "Lean over and look out with her",
+          "bond": 2,
+          "reply": [
+            "Brie makes room on the sill, and you both watch the rooftops in companionable quiet."
+          ]
+        },
+        {
+          "text": "Ask what she's looking at",
+          "bond": 1,
+          "reply": [
+            "Brie points her nose at a chimney pot across the way. That, apparently, is what she is looking at."
+          ]
+        },
+        {
+          "text": "Thank her, but stay put",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie tucks her paws under, comfortable, and seems content that you declined so politely."
+          ]
+        },
+        {
+          "text": "Open the window a crack",
+          "bond": 0,
+          "reply": [
+            "Brie's whiskers go flat in the cold draught, and she gives you a very reproachful look."
+          ]
+        }
+      ],
+      "ignore": 3
     },
     "brie_f_flop": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Brie flops onto her side with a heavy sigh, as if the whole day had been too much."],
-      "choices": [
-        {"text": "Ask her what happened", "bond": 2},
-        {"text": "Sigh too", "bond": 2},
-        {"text": "Offer your scarf as a pillow", "bond": 2},
-        {"text": "Tell her it's nearly evening", "bond": 1},
-        {"text": "Let her rest", "bond": 1, "then": "loaf", "manner": "calm"}
+      "pages": [
+        "Brie flops onto her side with a heavy sigh, as if the whole day had been too much."
       ],
-      "ignore": 5
+      "choices": [
+        {
+          "text": "Ask her what happened",
+          "bond": 2,
+          "reply": [
+            "Brie lifts her head just enough to tell you, in great detail, exactly how awful it was."
+          ]
+        },
+        {
+          "text": "Sigh too",
+          "bond": 2,
+          "reply": [
+            "Brie sighs, you sigh, and for a moment you are both very tired of the day together."
+          ]
+        },
+        {
+          "text": "Offer your scarf as a pillow",
+          "bond": 2,
+          "reply": [
+            "Brie accepts the scarf with a grumble, then sinks into it with an enormous sigh of relief."
+          ]
+        },
+        {
+          "text": "Let her rest",
+          "bond": 1,
+          "then": "loaf",
+          "manner": "calm",
+          "reply": [
+            "Brie closes her eyes and goes still, and the afternoon seems to slow down around her."
+          ]
+        }
+      ],
+      "ignore": 4
     },
     "brie_f_bookmark": {
       "tier": "familiar",
       "max_tier": "familiar",
       "comes_to": "floor",
-      "pages": ["Your bookmark has fallen on the floor. Brie is sitting next to it, looking innocent."],
+      "pages": [
+        "Your bookmark has fallen on the floor. Brie is sitting next to it, looking innocent."
+      ],
       "choices": [
-        {"text": "Ask her how that happened", "bond": 2},
-        {"text": "Pick it up and thank her", "bond": 1, "manner": "calm"},
-        {"text": "Leave it with her", "bond": 1}
+        {
+          "text": "Ask her how that happened",
+          "bond": 2,
+          "reply": [
+            "Brie looks at the bookmark, then the floor, then you. She says nothing, extremely loudly."
+          ]
+        },
+        {
+          "text": "Pick it up and thank her",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie dips her head, very pleased, and watches you tuck the bookmark safely back in."
+          ]
+        },
+        {
+          "text": "Leave it with her",
+          "bond": 1,
+          "reply": [
+            "Brie curls round the bookmark and makes it clear it is hers now, and the book can wait."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_f_snow": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "weather": ["snow"],
+      "weather": [
+        "snow"
+      ],
       "pages": [
         "Brie watches the snow fall past the window.",
         "Her tail curls round her paws, and she looks almost happy."
       ],
       "choices": [
-        {"text": "Watch the snow with her", "bond": 2, "manner": "calm"},
-        {"text": "Tell her it matches her fur", "bond": 2},
-        {"text": "Ask if she's ever been out in it", "bond": 1},
-        {"text": "Draw a cat on the misty glass", "bond": 1}
+        {
+          "text": "Watch the snow with her",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's tail stops curling, and she simply watches the snow, perfectly content, beside you."
+          ]
+        },
+        {
+          "text": "Tell her it matches her fur",
+          "bond": 2,
+          "reply": [
+            "Brie looks down at her own cream fur, then at the snow, and decides you might be right."
+          ]
+        },
+        {
+          "text": "Ask if she's ever been out in it",
+          "bond": 1,
+          "reply": [
+            "Brie gives a small, dignified shrug. Once, she says, and she did not care for it."
+          ]
+        },
+        {
+          "text": "Draw a cat on the misty glass",
+          "bond": 1,
+          "reply": [
+            "Brie studies your drawing with narrowed eyes, then adds a whisker of her own with one paw."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_f_purr": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "pages": ["Brie starts to purr, then seems to remember herself and stops."],
+      "pages": [
+        "Brie starts to purr, then seems to remember herself and stops."
+      ],
       "choices": [
-        {"text": "Pretend you didn't hear", "bond": 2, "manner": "calm"},
-        {"text": "Tell her it's all right to purr", "bond": 2},
-        {"text": "Purr back, badly", "bond": 1}
+        {
+          "text": "Pretend you didn't hear",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's purr starts up again, very quietly, now that she thinks you're not listening."
+          ]
+        },
+        {
+          "text": "Tell her it's all right to purr",
+          "bond": 2,
+          "reply": [
+            "Brie hesitates, then lets the purr out properly. It's a rather loud one, for a cat so dignified."
+          ]
+        },
+        {
+          "text": "Purr back, badly",
+          "bond": 1,
+          "reply": [
+            "Brie looks at you with pure disdain, and then, very slowly, starts purring again."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_f_gold": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "when": ["evening", "night"],
-      "spots": ["sideboard"],
-      "pages": ["Brie sits by the lamp on the sideboard. In its light her fur looks almost gold. She knows."],
+      "when": [
+        "evening",
+        "night"
+      ],
+      "spots": [
+        "sideboard"
+      ],
+      "pages": [
+        "Brie sits by the lamp on the sideboard. In its light her fur looks almost gold. She knows."
+      ],
       "choices": [
-        {"text": "Tell her she looks lovely", "bond": 2},
-        {"text": "Ask her to hold that pose", "bond": 1},
-        {"text": "Just look", "bond": 1, "manner": "calm"},
-        {"text": "Say it's a bit much", "bond": 0}
+        {
+          "text": "Tell her she looks lovely",
+          "bond": 2,
+          "reply": [
+            "Brie lifts her chin and lets the lamplight fall on her fur. She knew it, and now you know it too."
+          ]
+        },
+        {
+          "text": "Ask her to hold that pose",
+          "bond": 1,
+          "reply": [
+            "Brie holds the pose, one paw raised, for a long time. She is enjoying herself immensely."
+          ]
+        },
+        {
+          "text": "Just look",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie stays very still in the lamplight and lets you admire her quietly for a while."
+          ]
+        },
+        {
+          "text": "Say it's a bit much",
+          "bond": 0,
+          "reply": [
+            "Brie's eyes go flat. The lamplight stays on her, and she does not move an inch."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -498,26 +1394,82 @@
         "She pushes it towards you with her nose, as if you'd dropped it."
       ],
       "choices": [
-        {"text": "Thank her very much", "bond": 2},
-        {"text": "Keep it as a souvenir", "bond": 2, "manner": "calm"},
-        {"text": "Put it in your drink", "bond": 1},
-        {"text": "Give it back to her", "bond": 1}
+        {
+          "text": "Thank her very much",
+          "bond": 2,
+          "reply": [
+            "Brie looks very pleased with the thanks and pushes the sugar cube a little closer to you."
+          ]
+        },
+        {
+          "text": "Keep it as a souvenir",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie nods approvingly. A cube of sugar, kept, is a fine souvenir of a fine cat."
+          ]
+        },
+        {
+          "text": "Put it in your drink",
+          "bond": 1,
+          "reply": [
+            "Brie watches you drop the cube in your cup, then turns away with a faint sniff of approval."
+          ]
+        },
+        {
+          "text": "Give it back to her",
+          "bond": 1,
+          "reply": [
+            "Brie takes the cube with great dignity and carries it off to the windowsill."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_f_tower": {
       "tier": "familiar",
       "max_tier": "familiar",
-      "when": ["evening", "night"],
-      "weather": ["clear", "cloudy"],
+      "when": [
+        "evening",
+        "night"
+      ],
+      "weather": [
+        "clear",
+        "cloudy"
+      ],
       "pages": [
         "The Eiffel Tower lights up. Brie turns to look at it, then back at you, as if to say: you're welcome."
       ],
       "choices": [
-        {"text": "Thank her", "bond": 2},
-        {"text": "Say \"magnifique\"", "bond": 2},
-        {"text": "Watch it with her", "bond": 1, "manner": "calm"},
-        {"text": "Ask if she arranged it", "bond": 1}
+        {
+          "text": "Thank her",
+          "bond": 2,
+          "reply": [
+            "Brie gives a small nod at the tower, as if she had arranged it herself, which she may well have."
+          ]
+        },
+        {
+          "text": "Say \"magnifique\"",
+          "bond": 2,
+          "reply": [
+            "Brie's ears flick up. Her accent, it seems, is still better than yours."
+          ]
+        },
+        {
+          "text": "Watch it with her",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie's gaze stays on the tower, shining, and her tail curls round her paws."
+          ]
+        },
+        {
+          "text": "Ask if she arranged it",
+          "bond": 1,
+          "reply": [
+            "Brie gives you a very long look and does not answer. Of course she arranged it."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -525,12 +1477,41 @@
       "tier": "friend",
       "max_tier": "friend",
       "comes_to": "table",
-      "pages": ["Brie lies down across your open book.", "You can't read any more, and that seems to be the idea."],
+      "pages": [
+        "Brie lies down across your open book.",
+        "You can't read any more, and that seems to be the idea."
+      ],
       "choices": [
-        {"text": "Stroke her instead", "bond": 2},
-        {"text": "Close the book and give up", "bond": 2, "then": "loaf", "manner": "calm"},
-        {"text": "Read the bit you can see", "bond": 1},
-        {"text": "Lift a corner, gently", "bond": 0}
+        {
+          "text": "Stroke her instead",
+          "bond": 2,
+          "reply": [
+            "Brie stretches under your hand and rolls onto her back across the page, purring."
+          ]
+        },
+        {
+          "text": "Close the book and give up",
+          "bond": 2,
+          "then": "loaf",
+          "manner": "calm",
+          "reply": [
+            "Brie settles, pleased, and curls round the closed book as if it had always been her plan."
+          ]
+        },
+        {
+          "text": "Read the bit you can see",
+          "bond": 1,
+          "reply": [
+            "Brie stays where she is, eyes half shut, listening to you read over her back."
+          ]
+        },
+        {
+          "text": "Lift a corner, gently",
+          "bond": 0,
+          "reply": [
+            "Brie stretches out flat across the page, unmoving, and gives you a look that says no."
+          ]
+        }
       ],
       "ignore": 2
     },
@@ -539,11 +1520,32 @@
       "max_tier": "friend",
       "drink": "any",
       "comes_to": "table",
-      "pages": ["Brie sits beside your cup and watches every sip go by, very seriously."],
+      "pages": [
+        "Brie sits beside your cup and watches every sip go by, very seriously."
+      ],
       "choices": [
-        {"text": "Let her sniff the cup", "bond": 2},
-        {"text": "Raise the cup to her", "bond": 1},
-        {"text": "Drink slowly, for her sake", "bond": 1, "manner": "calm"}
+        {
+          "text": "Let her sniff the cup",
+          "bond": 2,
+          "reply": [
+            "Brie leans in, breathes deeply, and gives your cup the seal of approval."
+          ]
+        },
+        {
+          "text": "Raise the cup to her",
+          "bond": 1,
+          "reply": [
+            "Brie inspects the cup at the proper height and nods. The gesture is accepted."
+          ]
+        },
+        {
+          "text": "Drink slowly, for her sake",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie watches every sip with grave attention and seems to think you are doing very well."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -555,62 +1557,188 @@
         "Then she keeps walking, as if it were an accident."
       ],
       "choices": [
-        {"text": "Scratch her ears as she goes", "bond": 2},
-        {"text": "Laugh softly", "bond": 1},
-        {"text": "Pretend it was an accident too", "bond": 1, "manner": "calm"},
-        {"text": "Call her back", "bond": 0}
+        {
+          "text": "Scratch her ears as she goes",
+          "bond": 2,
+          "reply": [
+            "Brie stops, leans back into your fingers, then walks on slowly, purring."
+          ]
+        },
+        {
+          "text": "Laugh softly",
+          "bond": 1,
+          "reply": [
+            "Brie looks back over her shoulder, mildly amused, and comes back for another bump."
+          ]
+        },
+        {
+          "text": "Pretend it was an accident too",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie gives you a sideways look. Then she bumps you again, on purpose, just to prove it."
+          ]
+        },
+        {
+          "text": "Call her back",
+          "bond": 0,
+          "reply": [
+            "Brie stops, sits down, and does not come back. She is busy with something important."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_fr_longsigh": {
       "tier": "friend",
       "max_tier": "friend",
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "spots": ["sill"],
-      "pages": ["Brie lets out the longest sigh yet. Then she looks at you, as if it's your turn."],
-      "choices": [
-        {"text": "Sigh, even longer", "bond": 3},
-        {"text": "Say \"I know\"", "bond": 2},
-        {"text": "Complain about the weather with her", "bond": 2},
-        {"text": "Ask if it's really that bad", "bond": 1},
-        {"text": "Sigh, a short one", "bond": 1, "manner": "calm"}
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
       ],
-      "ignore": 5
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Brie lets out the longest sigh yet. Then she looks at you, as if it's your turn."
+      ],
+      "choices": [
+        {
+          "text": "Sigh, even longer",
+          "bond": 3,
+          "reply": [
+            "Brie's sigh goes on and on, and at the end of it she leans her head against your arm."
+          ]
+        },
+        {
+          "text": "Say \"I know\"",
+          "bond": 2,
+          "reply": [
+            "Brie nods deeply, as if you had finally understood her at last."
+          ]
+        },
+        {
+          "text": "Complain about the weather with her",
+          "bond": 2,
+          "reply": [
+            "Brie looks out at the rain and grumbles, and it turns into a rather good shared grumble."
+          ]
+        },
+        {
+          "text": "Sigh, a short one",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie returns your short sigh with a little nod. That will do, for now."
+          ]
+        }
+      ],
+      "ignore": 4
     },
     "brie_fr_blink": {
       "tier": "friend",
       "max_tier": "friend",
-      "pages": ["Brie looks at you and closes her eyes, very slowly. She keeps them closed a long time."],
+      "pages": [
+        "Brie looks at you and closes her eyes, very slowly. She keeps them closed a long time."
+      ],
       "choices": [
-        {"text": "Blink back, just as slowly", "bond": 3, "manner": "calm"},
-        {"text": "Smile", "bond": 2},
-        {"text": "Wink", "bond": 1}
+        {
+          "text": "Blink back, just as slowly",
+          "bond": 3,
+          "manner": "calm",
+          "reply": [
+            "Brie's eyes stay closed a moment longer than yours, then open on you, soft and warm."
+          ]
+        },
+        {
+          "text": "Smile",
+          "bond": 2,
+          "reply": [
+            "Brie's ears tilt forward. She looks like she might purr if she weren't trying so hard not to."
+          ]
+        },
+        {
+          "text": "Wink",
+          "bond": 1,
+          "reply": [
+            "Brie gives a slow, exaggerated wink back, which is more than she gives most people."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_fr_knee": {
       "tier": "friend",
       "max_tier": "friend",
-      "pages": ["Brie puts one front paw on your knee and looks up at you. She is considering it."],
+      "pages": [
+        "Brie puts one front paw on your knee and looks up at you. She is considering it."
+      ],
       "choices": [
-        {"text": "Tell her she's welcome", "bond": 2},
-        {"text": "Keep very still", "bond": 2, "manner": "calm"},
-        {"text": "Pat your knee", "bond": 1},
-        {"text": "Shift your legs", "bond": 0}
+        {
+          "text": "Tell her she's welcome",
+          "bond": 2,
+          "reply": [
+            "Brie puts one paw on your knee, then the other, and settles in properly."
+          ]
+        },
+        {
+          "text": "Keep very still",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie climbs up one paw at a time and folds herself onto your knee with a sigh."
+          ]
+        },
+        {
+          "text": "Pat your knee",
+          "bond": 1,
+          "reply": [
+            "Brie gets up on your knee, looks around the café from up there, and seems to approve."
+          ]
+        },
+        {
+          "text": "Shift your legs",
+          "bond": 0,
+          "reply": [
+            "Brie steps straight back down onto the floor, deeply offended by the movement."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_fr_windows": {
       "tier": "friend",
       "max_tier": "friend",
-      "when": ["evening"],
+      "when": [
+        "evening"
+      ],
       "pages": [
         "Brie sits beside your chair and purrs, quietly, while the windows across the street light up one by one."
       ],
       "choices": [
-        {"text": "Count the windows with her", "bond": 2},
-        {"text": "Rest a hand near her", "bond": 2, "manner": "calm"},
-        {"text": "Hum along", "bond": 1}
+        {
+          "text": "Count the windows with her",
+          "bond": 2,
+          "reply": [
+            "Brie counts, out loud and very seriously, every window across the street with a light on."
+          ]
+        },
+        {
+          "text": "Rest a hand near her",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie leans into your hand without looking at it, the way a cat does when she has decided to trust you."
+          ]
+        },
+        {
+          "text": "Hum along",
+          "bond": 1,
+          "reply": [
+            "Brie's purr changes pitch to match your humming. It's an accomplished purr."
+          ]
+        }
       ],
       "ignore": 2
     },
@@ -624,47 +1752,148 @@
         "She stops just short of it and looks at you."
       ],
       "choices": [
-        {"text": "Let her have a little", "bond": 2},
-        {"text": "Laugh", "bond": 2},
-        {"text": "Move the cup slowly away", "bond": 1},
-        {"text": "Say \"non\", very gently", "bond": 1, "manner": "calm"},
-        {"text": "Wipe her paw with a napkin", "bond": 0}
+        {
+          "text": "Let her have a little",
+          "bond": 2,
+          "reply": [
+            "Brie takes a careful lick of the foam, then looks at you, very pleased with the arrangement."
+          ]
+        },
+        {
+          "text": "Move the cup slowly away",
+          "bond": 1,
+          "reply": [
+            "Brie watches the cup travel away from her paw and sighs, but she doesn't follow it."
+          ]
+        },
+        {
+          "text": "Say \"non\", very gently",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie pulls her paw back at once and sits up, nobly accepting the refusal."
+          ]
+        },
+        {
+          "text": "Wipe her paw with a napkin",
+          "bond": 0,
+          "reply": [
+            "Brie holds her paw up for the napkin with great dignity, then sniffs at it afterwards."
+          ]
+        }
       ],
-      "ignore": 4
+      "ignore": 3
     },
     "brie_fr_groomed": {
       "tier": "friend",
       "max_tier": "friend",
-      "pages": ["Brie licks your hand twice, then stops. You have been groomed. It wasn't optional."],
+      "pages": [
+        "Brie licks your hand twice, then stops. You have been groomed. It wasn't optional."
+      ],
       "choices": [
-        {"text": "Thank her", "bond": 2},
-        {"text": "Groom her back with your fingers", "bond": 2},
-        {"text": "Hold still for more", "bond": 1, "manner": "calm"},
-        {"text": "Wipe your hand", "bond": 0}
+        {
+          "text": "Thank her",
+          "bond": 2,
+          "reply": [
+            "Brie looks very satisfied with herself, as if the grooming was her idea all along."
+          ]
+        },
+        {
+          "text": "Groom her back with your fingers",
+          "bond": 2,
+          "reply": [
+            "Brie closes her eyes and lets you run your fingers through her fur, purring very low."
+          ]
+        },
+        {
+          "text": "Hold still for more",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie licks your hand again, then again, and seems to enjoy your stillness very much."
+          ]
+        },
+        {
+          "text": "Wipe your hand",
+          "bond": 0,
+          "reply": [
+            "Brie looks at your hand, then at you, and says nothing at all. It's a judgement."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_fr_dream": {
       "tier": "friend",
       "max_tier": "friend",
-      "poses": ["sleep"],
-      "pages": ["Brie is asleep with her tail over her nose. Now and then, she sighs in her sleep."],
+      "poses": [
+        "sleep"
+      ],
+      "pages": [
+        "Brie is asleep with her tail over her nose. Now and then, she sighs in her sleep."
+      ],
       "choices": [
-        {"text": "Whisper goodnight", "bond": 2},
-        {"text": "Turn your pages more quietly", "bond": 2, "manner": "calm"},
-        {"text": "Watch her dream", "bond": 1}
+        {
+          "text": "Whisper goodnight",
+          "bond": 2,
+          "reply": [
+            "Brie's tail twitches in her sleep, as if she heard you, and perhaps she did."
+          ]
+        },
+        {
+          "text": "Turn your pages more quietly",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's ears stay relaxed, and she sighs happily into her dream without stirring."
+          ]
+        },
+        {
+          "text": "Watch her dream",
+          "bond": 1,
+          "reply": [
+            "Brie's paws move, just slightly, as she chases something lovely through her sleep."
+          ]
+        }
       ],
       "ignore": 2
     },
     "brie_y_ankle": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "pages": ["Brie walks across the café and settles against your ankle, as if that's simply where she goes now."],
+      "pages": [
+        "Brie walks across the café and settles against your ankle, as if that's simply where she goes now."
+      ],
       "choices": [
-        {"text": "Reach down and stroke her", "bond": 2},
-        {"text": "Tell her she's your favourite", "bond": 2},
-        {"text": "Stay just as you are", "bond": 2, "manner": "calm"},
-        {"text": "Wiggle your toes", "bond": 1}
+        {
+          "text": "Reach down and stroke her",
+          "bond": 2,
+          "reply": [
+            "Brie purrs straight into your hand, then tucks herself closer against your ankle."
+          ]
+        },
+        {
+          "text": "Tell her she's your favourite",
+          "bond": 2,
+          "reply": [
+            "Brie's tail curls round your ankle. She doesn't say it back, but she certainly doesn't deny it."
+          ]
+        },
+        {
+          "text": "Stay just as you are",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie settles more firmly against you, as if you had been waiting for her to notice."
+          ]
+        },
+        {
+          "text": "Wiggle your toes",
+          "bond": 1,
+          "reply": [
+            "Brie flinches at the wiggle, then pats your toes back, very gently, with one paw."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -672,38 +1901,116 @@
       "tier": "your_cat",
       "max_tier": "your_cat",
       "comes_to": "table",
-      "pages": ["Brie lies down beside your book, puts her chin on the page and falls asleep."],
+      "pages": [
+        "Brie lies down beside your book, puts her chin on the page and falls asleep."
+      ],
       "choices": [
-        {"text": "Let her sleep", "bond": 2, "then": "sleep", "manner": "calm"},
-        {"text": "Stroke her head once", "bond": 2, "then": "sleep"},
-        {"text": "Read the other page", "bond": 1, "then": "sleep"}
+        {
+          "text": "Let her sleep",
+          "bond": 2,
+          "then": "sleep",
+          "manner": "calm",
+          "reply": [
+            "Brie's chin stays on the page, her breathing slows, and she is gone within a minute."
+          ]
+        },
+        {
+          "text": "Stroke her head once",
+          "bond": 2,
+          "then": "sleep",
+          "reply": [
+            "Brie sighs into the stroke and drifts off, her chin still resting on your book."
+          ]
+        },
+        {
+          "text": "Read the other page",
+          "bond": 1,
+          "then": "sleep",
+          "reply": [
+            "Brie lets out a small, contented snore and sleeps on, undisturbed by the page turn."
+          ]
+        }
       ],
       "ignore": 1
     },
     "brie_y_sigh": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "pages": ["Brie sighs her long, theatrical sigh.", "But this time she's looking at you, and she's purring."],
-      "choices": [
-        {"text": "Sigh back", "bond": 2},
-        {"text": "Tell her you missed her too", "bond": 2},
-        {"text": "Scratch her chin", "bond": 2},
-        {"text": "Just smile", "bond": 1, "manner": "calm"},
-        {"text": "Roll your eyes at her", "bond": 1}
+      "pages": [
+        "Brie sighs her long, theatrical sigh.",
+        "But this time she's looking at you, and she's purring."
       ],
-      "ignore": 4
+      "choices": [
+        {
+          "text": "Sigh back",
+          "bond": 2,
+          "reply": [
+            "Brie's sigh is the most content sound you have ever heard her make, and she knows it."
+          ]
+        },
+        {
+          "text": "Tell her you missed her too",
+          "bond": 2,
+          "reply": [
+            "Brie's purr gets louder. She pretends it is about the café, but it is not about the café."
+          ]
+        },
+        {
+          "text": "Just smile",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie purrs quietly back at you, and that is her answer for now."
+          ]
+        },
+        {
+          "text": "Roll your eyes at her",
+          "bond": 1,
+          "reply": [
+            "Brie rolls her own eyes, very slowly, in reply. It's practically a conversation."
+          ]
+        }
+      ],
+      "ignore": 3
     },
     "brie_y_guard": {
       "tier": "your_cat",
       "max_tier": "your_cat",
       "drink": "cafe_creme",
       "comes_to": "table",
-      "pages": ["Brie sits by your café crème as if she were guarding it from the rest of the café."],
+      "pages": [
+        "Brie sits by your café crème as if she were guarding it from the rest of the café."
+      ],
       "choices": [
-        {"text": "Thank your guard", "bond": 2},
-        {"text": "Share a little foam", "bond": 2},
-        {"text": "Let her keep watch", "bond": 1, "manner": "calm"},
-        {"text": "Ask who she's guarding it from", "bond": 1}
+        {
+          "text": "Thank your guard",
+          "bond": 2,
+          "reply": [
+            "Brie sits up very straight, pleased, and watches the café with renewed seriousness."
+          ]
+        },
+        {
+          "text": "Share a little foam",
+          "bond": 2,
+          "reply": [
+            "Brie licks a little foam from your cup, then glares at the rest of the café, daring it to try."
+          ]
+        },
+        {
+          "text": "Let her keep watch",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie keeps watch over your cup while you drink, sitting perfectly still and very alert."
+          ]
+        },
+        {
+          "text": "Ask who she's guarding it from",
+          "bond": 1,
+          "reply": [
+            "Brie looks at you the way you would look at a puzzle someone else has already solved."
+          ]
+        }
       ],
       "ignore": 3
     },
@@ -715,48 +2022,149 @@
         "Everything here is hers now."
       ],
       "choices": [
-        {"text": "Rub her cheek back", "bond": 2},
-        {"text": "Tell her it's all hers", "bond": 2},
-        {"text": "Ask if that includes the book", "bond": 1},
-        {"text": "Laugh", "bond": 1},
-        {"text": "Let her", "bond": 1, "manner": "calm"}
+        {
+          "text": "Rub her cheek back",
+          "bond": 2,
+          "reply": [
+            "Brie rubs her cheek against your hand again, slowly, as if marking the whole café as yours too."
+          ]
+        },
+        {
+          "text": "Tell her it's all hers",
+          "bond": 2,
+          "reply": [
+            "Brie's eyes half close, and she rubs her cheek on the book once more, very contentedly."
+          ]
+        },
+        {
+          "text": "Ask if that includes the book",
+          "bond": 1,
+          "reply": [
+            "Brie gives the book a long, pointed rub. Yes, it includes the book."
+          ]
+        },
+        {
+          "text": "Let her",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie carries on rubbing, cheek to hand to book and back again, and purrs without stopping."
+          ]
+        }
       ],
-      "ignore": 5
+      "ignore": 4
     },
     "brie_y_call": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "spots": ["sill"],
-      "pages": ["Brie calls to you from the windowsill: one short, polite meow. She wants you to see something."],
+      "spots": [
+        "sill"
+      ],
+      "pages": [
+        "Brie calls to you from the windowsill: one short, polite meow. She wants you to see something."
+      ],
       "choices": [
-        {"text": "Go and look with her", "bond": 3},
-        {"text": "Ask her what it is", "bond": 2},
-        {"text": "Meow back", "bond": 1},
-        {"text": "Look from your seat", "bond": 1, "manner": "calm"}
+        {
+          "text": "Go and look with her",
+          "bond": 3,
+          "reply": [
+            "Brie leads you to the window, tail high, and shows you the lamp-lit rooftops with pride."
+          ]
+        },
+        {
+          "text": "Ask her what it is",
+          "bond": 2,
+          "reply": [
+            "Brie chirps back a short explanation, mostly about a bird on a chimney, and is very serious about it."
+          ]
+        },
+        {
+          "text": "Meow back",
+          "bond": 1,
+          "reply": [
+            "Brie's head turns quickly, delighted, and she meows once more to be sure you heard."
+          ]
+        },
+        {
+          "text": "Look from your seat",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie looks back at you over her shoulder, then goes on watching the window, a little pleased you tried."
+          ]
+        }
       ],
       "ignore": 4
     },
     "brie_y_rain": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "weather": ["drizzle", "rain", "heavy_rain"],
-      "pages": ["It's raining again. Brie doesn't sigh this time. She just curls up closer to you."],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ],
+      "pages": [
+        "It's raining again. Brie doesn't sigh this time. She just curls up closer to you."
+      ],
       "choices": [
-        {"text": "Stroke her", "bond": 2},
-        {"text": "Tell her it's cosy like this", "bond": 2},
-        {"text": "Listen to the rain together", "bond": 2, "manner": "calm"}
+        {
+          "text": "Stroke her",
+          "bond": 2,
+          "reply": [
+            "Brie stays snuggled against you, her fur warm under your hand as the rain runs down the glass."
+          ]
+        },
+        {
+          "text": "Tell her it's cosy like this",
+          "bond": 2,
+          "reply": [
+            "Brie purrs in agreement. It is cosy like this, and she is the expert on cosy."
+          ]
+        },
+        {
+          "text": "Listen to the rain together",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie's ears turn to the rain, and yours too. You both listen for a long, peaceful while."
+          ]
+        }
       ],
       "ignore": 3
     },
     "brie_y_late": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "when": ["late night"],
-      "pages": ["It's very late. Brie sits by your feet and looks at the door, then at you, as if to say: not yet."],
+      "when": [
+        "late night"
+      ],
+      "pages": [
+        "It's very late. Brie sits by your feet and looks at the door, then at you, as if to say: not yet."
+      ],
       "choices": [
-        {"text": "Stay a while longer", "bond": 3, "manner": "calm"},
-        {"text": "Tell her you're not going yet", "bond": 2},
-        {"text": "Pick her up for a cuddle", "bond": 2}
+        {
+          "text": "Stay a while longer",
+          "bond": 3,
+          "manner": "calm",
+          "reply": [
+            "Brie's tail wraps round your feet. Not yet, she agrees, and settles back down."
+          ]
+        },
+        {
+          "text": "Tell her you're not going yet",
+          "bond": 2,
+          "reply": [
+            "Brie gives you a slow blink, which means yes, she heard, and she is glad."
+          ]
+        },
+        {
+          "text": "Pick her up for a cuddle",
+          "bond": 2,
+          "reply": [
+            "Brie allows herself to be lifted, purring, and settles into your arms as if she planned it."
+          ]
+        }
       ],
       "ignore": 1
     },
@@ -764,44 +2172,144 @@
       "tier": "your_cat",
       "max_tier": "your_cat",
       "comes_to": "table",
-      "pages": ["Brie grooms herself on your table, very thoroughly, and now and then grooms your sleeve by mistake."],
+      "pages": [
+        "Brie grooms herself on your table, very thoroughly, and now and then grooms your sleeve by mistake."
+      ],
       "choices": [
-        {"text": "Hold out your sleeve", "bond": 2},
-        {"text": "Stroke her back", "bond": 2},
-        {"text": "Tell her she missed a spot", "bond": 1},
-        {"text": "Let her finish", "bond": 1, "manner": "calm"}
+        {
+          "text": "Hold out your sleeve",
+          "bond": 2,
+          "reply": [
+            "Brie grooms the sleeve carefully, as if it were her own, then gives it a final, tidy lick."
+          ]
+        },
+        {
+          "text": "Stroke her back",
+          "bond": 2,
+          "reply": [
+            "Brie arches into your hand and carries on grooming your sleeve with great care."
+          ]
+        },
+        {
+          "text": "Tell her she missed a spot",
+          "bond": 1,
+          "reply": [
+            "Brie looks deeply offended, then licks the spot you pointed out, very thoroughly."
+          ]
+        },
+        {
+          "text": "Let her finish",
+          "bond": 1,
+          "manner": "calm",
+          "reply": [
+            "Brie finishes the sleeve properly, then the rest of her own paw, and sits back looking spotless."
+          ]
+        }
       ],
       "ignore": 4
     },
     "brie_y_chirp": {
       "tier": "your_cat",
       "max_tier": "your_cat",
-      "when": ["morning"],
-      "pages": ["Brie greets you with a soft chirp you've never heard her make. She looks a little embarrassed."],
+      "when": [
+        "morning"
+      ],
+      "pages": [
+        "Brie greets you with a soft chirp you've never heard her make. She looks a little embarrassed."
+      ],
       "choices": [
-        {"text": "Chirp back", "bond": 2},
-        {"text": "Say \"good morning, Brie\"", "bond": 2, "manner": "calm"},
-        {"text": "Ask her to do it again", "bond": 1},
-        {"text": "Pretend you didn't hear", "bond": 1}
+        {
+          "text": "Chirp back",
+          "bond": 2,
+          "reply": [
+            "Brie's ears shoot up at once. She chirps again, and this time she doesn't look embarrassed."
+          ]
+        },
+        {
+          "text": "Say \"good morning, Brie\"",
+          "bond": 2,
+          "manner": "calm",
+          "reply": [
+            "Brie blinks, pleased, and comes to sit beside you for the rest of the morning."
+          ]
+        },
+        {
+          "text": "Ask her to do it again",
+          "bond": 1,
+          "reply": [
+            "Brie shakes her head very firmly, but her tail is curling up at the tip."
+          ]
+        },
+        {
+          "text": "Pretend you didn't hear",
+          "bond": 1,
+          "reply": [
+            "Brie gives you a very small, grateful chirp, and the moment passes quietly between you."
+          ]
+        }
       ],
       "ignore": 2
     }
   },
   "observations": [
-    {"text": ["Brie flicks an ear.", "Brie yawns, showing every tooth."], "poses": ["sit", "loaf"]},
-    {"text": "Brie is sitting very straight, like a little statue.", "poses": ["sit"]},
-    {"text": "Brie is grooming her chest fluff.", "poses": ["sit", "loaf"]},
-    {"text": "Brie's eyes are half closed.", "poses": ["loaf"]},
-    {"text": ["Brie is asleep, her tail over her face.", "Brie is fast asleep."], "poses": ["sleep"]},
+    {
+      "text": [
+        "Brie flicks an ear.",
+        "Brie yawns, showing every tooth."
+      ],
+      "poses": [
+        "sit",
+        "loaf"
+      ]
+    },
+    {
+      "text": "Brie is sitting very straight, like a little statue.",
+      "poses": [
+        "sit"
+      ]
+    },
+    {
+      "text": "Brie is grooming her chest fluff.",
+      "poses": [
+        "sit",
+        "loaf"
+      ]
+    },
+    {
+      "text": "Brie's eyes are half closed.",
+      "poses": [
+        "loaf"
+      ]
+    },
+    {
+      "text": [
+        "Brie is asleep, her tail over her face.",
+        "Brie is fast asleep."
+      ],
+      "poses": [
+        "sleep"
+      ]
+    },
     {
       "text": "Brie watches a raindrop, and sighs.",
-      "spots": ["sill"],
-      "weather": ["drizzle", "rain", "heavy_rain"]
+      "spots": [
+        "sill"
+      ],
+      "weather": [
+        "drizzle",
+        "rain",
+        "heavy_rain"
+      ]
     },
     {
       "text": "Brie has found the warm spot by the lamp.",
-      "spots": ["sideboard"],
-      "when": ["evening", "night"]
+      "spots": [
+        "sideboard"
+      ],
+      "when": [
+        "evening",
+        "night"
+      ]
     }
   ],
   "look": {
@@ -823,28 +2331,39 @@
       {
         "text": "Hold out your hand",
         "tier": "curious",
-        "reply": ["Brie sniffs your fingers, then looks away, as if they weren't worth the trouble."],
+        "reply": [
+          "Brie sniffs your fingers, then looks away, as if they weren't worth the trouble."
+        ],
         "bond": 2,
         "manner": "calm"
       },
       {
         "text": "Say hello to her",
         "tier": "curious",
-        "reply": ["Brie flicks an ear. That counts as a hello."],
+        "reply": [
+          "Brie flicks an ear. That counts as a hello."
+        ],
         "bond": 1
       },
       {
         "text": "Let her sleep",
         "tier": "curious",
-        "poses": ["sleep"],
-        "reply": ["You leave Brie to her nap. Her tail twitches once."],
+        "poses": [
+          "sleep"
+        ],
+        "reply": [
+          "Brie's tail twitches once, then she settles back into her nap."
+        ],
         "bond": 1,
         "manner": "calm"
       },
       {
         "text": "Stroke her back",
         "tier": "familiar",
-        "reply": ["Brie arches into your hand, just once.", "Then she sits down again, very dignified."],
+        "reply": [
+          "Brie arches into your hand, just once.",
+          "Then she sits down again, very dignified."
+        ],
         "bond": 2,
         "manner": "calm"
       },
@@ -852,14 +2371,18 @@
         "text": "Let her smell your café crème",
         "tier": "familiar",
         "drink": "cafe_creme",
-        "reply": ["Brie sniffs the cup for a long moment, then sighs. Approved."],
+        "reply": [
+          "Brie sniffs the cup for a long moment, then sighs. Approved."
+        ],
         "bond": 3,
         "manner": "calm"
       },
       {
         "text": "Scratch under her chin",
         "tier": "friend",
-        "reply": ["Brie closes her eyes and lifts her chin a little higher."],
+        "reply": [
+          "Brie closes her eyes and lifts her chin a little higher."
+        ],
         "bond": 3,
         "manner": "calm"
       },
@@ -868,13 +2391,17 @@
         "tier": "friend",
         "drink": "any",
         "comes_to": "table",
-        "reply": ["Brie takes her time. Then she jumps onto your table and settles down beside your drink."],
+        "reply": [
+          "Brie takes her time. Then she jumps onto your table and settles down beside your drink."
+        ],
         "bond": 2
       },
       {
         "text": "Run your fingers through her fur",
         "tier": "your_cat",
-        "reply": ["Brie purrs, very quietly, so nobody else hears."],
+        "reply": [
+          "Brie purrs, very quietly, so nobody else hears."
+        ],
         "bond": 2,
         "manner": "calm",
         "then": "loaf"
@@ -887,7 +2414,11 @@
       "gone": "short",
       "text": "Brie hasn't moved from her spot. She doesn't seem to have noticed you left."
     },
-    {"bond": "new", "gone": "short", "text": "Brie is grooming. She looks up, then goes back to it."},
+    {
+      "bond": "new",
+      "gone": "short",
+      "text": "Brie is grooming. She looks up, then goes back to it."
+    },
     {
       "bond": "new",
       "gone": "long",
@@ -898,7 +2429,11 @@
       "gone": "long",
       "text": "Brie is on the windowsill, where she always is. She doesn't look round."
     },
-    {"bond": "knows", "gone": "short", "text": "Brie looks at you as if you were late."},
+    {
+      "bond": "knows",
+      "gone": "short",
+      "text": "Brie looks at you as if you were late."
+    },
     {
       "bond": "knows",
       "gone": "short",
@@ -909,7 +2444,11 @@
       "gone": "long",
       "text": "Brie turns her back to you when you come in. Then she looks over her shoulder, to make sure you saw."
     },
-    {"bond": "knows", "gone": "long", "text": "Brie pretends she didn't miss you. She isn't very good at it."},
+    {
+      "bond": "knows",
+      "gone": "long",
+      "text": "Brie pretends she didn't miss you. She isn't very good at it."
+    },
     {
       "bond": "yours",
       "gone": "short",
