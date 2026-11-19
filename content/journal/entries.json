@@ -1,0 +1,31 @@
+{
+  "_about": [
+    "One entry per cat and milestone: meet (first moment with the cat), curious, familiar, friend, your_cat (the bond step ups), and bad (the first choice that lowers the bond).",
+    "Written as the player's own words, first person, British spelling. The game adds the header (day, date, time, weather).",
+    "Never put tier names, numbers or the word bond in these lines."
+  ],
+  "brie": {
+    "meet": "Brie had the best cushion before I'd even sat down. I guess I'm the guest here. She hasn't argued.",
+    "curious": "Brie turned her head towards me, very slowly, then turned it back to the window as though nothing had happened. I'm pretending that this isn't a big deal.",
+    "familiar": "I was sitting closer than I'd planned, and Brie didn't move. She didn't leave either. What does that mean in cat etiquette?",
+    "friend": "When I set my cup down, Brie let out a long, dramatic sigh, as if I'd finally done something right. Then she went back to sleep.",
+    "your_cat": "Brie stayed on her cushion all afternoon. Every so often she looked over at me, as if to check I was still there. I was.",
+    "bad": "I think I was too quick with Brie. I reached for her and she gave me a look of disapproval. I'll lay low for the time being."
+  },
+  "hunter": {
+    "meet": "Hunter came in at full speed, stopped dead by my cup, and looked at it as if expecting it to run away from him.",
+    "curious": "He sat on the sill and watched the steam rise for a long while, without once looking at me. I'm fairly sure that's an invitation.",
+    "familiar": "He chased a bit of string across the floor, lost interest halfway, and came back to lie on my bag. We're getting somewhere.",
+    "friend": "Hunter stayed for a good while today. He left the moment I said so out loud. Typical.",
+    "your_cat": "Hunter came in out of the rain, shook himself over my bag, and didn't apologise. He doesn't do apologies. He did, however, sit down beside me. I'd take that over an apology any day.",
+    "bad": "I moved Hunter off my table because I was in a hurry. He looked at me as if to ask what he'd done wrong. I hope he'll have forgotten by my next cup of coffee."
+  },
+  "mimi": {
+    "meet": "Mimi was on top of the bookcase when I came in. I looked up, she looked down, and we agreed to leave things exactly as they were.",
+    "curious": "She came down from the bookcase, then stopped and watched me, as if checking whether I was still sitting in the same place.",
+    "familiar": "I didn't move at all. Her ear turned towards me, very slowly, and stayed turned for the whole cup, though she was pretending to be asleep.",
+    "friend": "She sat one cushion away from me today. I kept my hands round my cup. I needed to pee, but I got my priorities right and stayed still until she left.",
+    "your_cat": "Mimi fell asleep on the cushion beside me, one paw tucked under her chin. I stayed very still and barely dared to breathe for the rest of the afternoon.",
+    "bad": "I reached for Mimi when she came near, forgetting she was the shy one. She was gone and didn't come back for the day. Next time: let her come to me."
+  }
+}

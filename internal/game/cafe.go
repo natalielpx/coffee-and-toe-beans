@@ -35,7 +35,6 @@ const (
 	talkServed                   // a drink arriving
 	talkMoment                   // a moment with a cat (waits for you)
 	talkNarrator                 // the narrator: welcome, small talk
-	talkCatReply                 // the cat's answer after a moment (so nothing ends in silence)
 )
 
 // talkBox is a conversation on screen (or waiting for its turn).
@@ -46,6 +45,8 @@ type talkBox struct {
 
 	catOf  *cats.Cat    // for a moment: whose it is
 	moment *cats.Moment // ...and which
+
+	then func() // runs once the box has passed (the journal opens after its first line)
 }
 
 // cup is the drink on your table.
@@ -89,7 +90,9 @@ func (g *Game) open(id string, kind talkKind, vals map[string]string) {
 	g.say(kind, c.Open(vals, g.rng, g.talkOptions()))
 }
 
-func (g *Game) busy() bool { return g.pause != nil || g.menu != nil || g.look != nil }
+func (g *Game) busy() bool {
+	return g.pause != nil || g.menu != nil || g.look != nil || g.jrnl != nil
+}
 
 func (g *Game) nextTalk() {
 	if g.box != nil || g.busy() || g.phase != phaseCafe || len(g.queue) == 0 {
@@ -131,13 +134,15 @@ func (g *Game) settle() {
 	if b.Answered() && !b.handled && b.kind == talkMoment {
 		b.handled = true
 		if b.moment != nil {
-			g.catReplyAfter(b)
 			g.endMoment(b)
 		}
 	}
 	if b.Answered() && !b.handled {
 		b.handled = true
 		r, _ := b.Done()
+		if r.Ignored {
+			r.Do = "" // a question left alone does nothing
+		}
 		switch r.Do {
 		case "order":
 			g.box = nil
@@ -156,6 +161,10 @@ func (g *Game) settle() {
 		}
 	}
 	if _, done := b.Done(); done {
+		if f := b.then; f != nil {
+			b.then = nil
+			f()
+		}
 		g.box = nil
 		g.hush(g.Now())
 		g.nextTalk()

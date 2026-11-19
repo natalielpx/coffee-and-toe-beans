@@ -8,7 +8,8 @@
     "  cup (table only: none, warm, cooling, low, empty; {drink} is your drink). Lines with conditions are picked more often;",
     "  each needs at least one line with none. Keep each line to about two lines of the box (90 letters)."
   ],
-  "names": {"window": "The window", "table": "Your table"},
+  "names": {"window": "The window", "table": "Your table",
+    "bookshelf": "The bookshelf"},
   "spots": {
     "sill": "on the windowsill",
     "shelf_top": "on top of the bookcase",

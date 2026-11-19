@@ -1,4 +1,5 @@
 {
+  "leaflet": {"name": "Hunter", "age": "Two years old", "gender": "male", "likes": ["steam", "string", "raindrops on the glass", "evenings"], "dislikes": ["the vacuum", "closed doors", "waiting"], "tips": "Play with him. He comes often and leaves quickly; that's just how he is.", "story": "He arrived as a kitten asleep in a crate of coffee beans from the market. Nobody claimed him.", "comment": "He's broken two mugs and stolen all my hair ties. I'd do it all again."},
   "_about": [
     "One cat of Coffee and Toe Beans. Add a cat by adding a file like this one (its name is the cat's id) and its sprites in content/sprites.",
     "poses: sit, stand, loaf (lying, awake) and sleep (curled up). Each pose names a sprite for each frame:",

@@ -10,6 +10,7 @@
 package save
 
 import (
+	"coffee-and-toe-beans/internal/journal"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -23,7 +24,7 @@ import (
 // Version is the save format this game writes. Raise it when a field
 // changes meaning; new fields can simply be added (old saves leave them
 // empty, and the game fills in a default).
-const Version = 1
+const Version = 2
 
 // Data is everything the café remembers.
 type Data struct {
@@ -56,6 +57,10 @@ type Data struct {
 	// Settings are the comfort settings (the settings screen arrives in
 	// milestone 5).
 	Settings Settings `json:"settings"`
+
+	// Journal is the notebook on the bookshelf (version 2). Older saves
+	// load with an empty journal; nothing is back-filled.
+	Journal journal.State `json:"journal"`
 }
 
 // Cup is the drink left on the table, kept as ages rather than clock

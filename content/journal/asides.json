@@ -1,0 +1,82 @@
+{
+  "_about": [
+    "Asides: at most one per entry, and often none. Each one is picked only when its conditions match.",
+    "weather, when (parts of the day: late night, dawn, morning, afternoon, evening, night) and drink are lists; an empty list means any.",
+    "A name is listed under a condition only when it matches; no aside is repeated until the ones that match are used up."
+  ],
+  "asides": [
+    {
+      "id": "rain",
+      "text": "It's raining enough to justify using an umbrella, but somehow Parisians don't.",
+      "weather": [
+        "rain"
+      ]
+    },
+    {
+      "id": "drizzle",
+      "text": "It's drizzling so subtly I almost didn't notice.",
+      "weather": [
+        "drizzle"
+      ]
+    },
+    {
+      "id": "heavy_rain",
+      "text": "It's pouring outside and I'm glad I'm in here with a nice hot beverage.",
+      "weather": [
+        "heavy_rain"
+      ]
+    },
+    {
+      "id": "snow",
+      "text": "It doesn't snow much in Paris, perhaps today will be a lucky day.",
+      "weather": [
+        "snow"
+      ]
+    },
+    {
+      "id": "clear_night",
+      "text": "The sky is clear enough to see the lamps on the far side of the city.",
+      "weather": [
+        "clear"
+      ],
+      "when": [
+        "evening",
+        "night",
+        "late night"
+      ]
+    },
+    {
+      "id": "clear_day",
+      "text": "The Eiffel Tower is especially beautiful on sunny days like this.",
+      "weather": [
+        "clear"
+      ],
+      "when": [
+        "morning",
+        "afternoon"
+      ]
+    },
+    {
+      "id": "lamps",
+      "text": "The lamps are on now. There's a lot of chatter from the bar across the street.",
+      "when": [
+        "evening",
+        "night"
+      ]
+    },
+    {
+      "id": "earl_grey",
+      "text": "Earl Grey has a faint perfume of bergamot, as though someone opened a window in London.",
+      "drink": [
+        "earl_grey"
+      ]
+    },
+    {
+      "id": "matcha",
+      "text": "The matcha is very green. I'm told that's good for me, so I'm trying not to think about it.",
+      "drink": [
+        "matcha_latte"
+      ]
+    }
+  ]
+}

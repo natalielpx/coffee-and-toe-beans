@@ -129,3 +129,16 @@ func TestItalicText(t *testing.T) {
 		t.Fatalf("got %q", visible(line))
 	}
 }
+
+func TestBoldText(t *testing.T) {
+	c := New(4, 1)
+	c.TextBold(0, 0, "ab", rgb.White, rgb.Black)
+	c.Text(2, 0, "cd", rgb.White, rgb.Black)
+	line := c.Lines(TrueColor)[0]
+	if !strings.Contains(line, "\x1b[1m") || !strings.Contains(line, "\x1b[22m") {
+		t.Fatalf("bold codes missing: %q", line)
+	}
+	if visible(line) != "abcd" {
+		t.Fatalf("got %q", visible(line))
+	}
+}

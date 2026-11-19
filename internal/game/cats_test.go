@@ -38,8 +38,7 @@ func catTalk(t *testing.T, cfg Config, minutes float64) (moments, smallTalk, cat
 			case b.kind == talkNarrator && g.greeted && b.Speaker() == "" && len(b.Choices()) == 0:
 				smallTalk++
 			}
-			// A cat's answer right after a moment is part of the moment.
-			if b.Speaker() != "" && b.kind != talkMoment && b.kind != talkCatReply {
+			if b.Speaker() != "" && b.kind != talkMoment {
 				catLines++
 			}
 		}
@@ -58,11 +57,11 @@ func TestTheCatsAndTheNarratorTakeTheirTime(t *testing.T) {
 	bonds := map[string]float64{"brie": 30, "hunter": 30, "mimi": 30}
 	m, st, lines, who, _ := catTalk(t, Config{Seed: 11, Bonds: bonds, Start: t0.Add(12 * time.Hour)}, 180)
 	t.Logf("3 café hours: %d moments, %d small talk", m, st)
-	// A moment every 5-10 minutes and small talk every 8-15, but never on
+	// A moment every 10-20 minutes and small talk every 8-15, but never on
 	// top of each other or of the café's own words: fewer than the bare
 	// numbers, never more.
-	if m < 6 || m > 180/5 {
-		t.Errorf("%d cat moments in 3 hours; expected roughly one every 5-10 minutes", m)
+	if m < 6 || m > 180/10 {
+		t.Errorf("%d cat moments in 3 hours; expected roughly one every 10-20 minutes", m)
 	}
 	if st < 7 || st > 180/8+1 {
 		t.Errorf("%d small talk in 3 hours; expected roughly one every 8-15 minutes", st)
@@ -183,13 +182,6 @@ func TestCatWordsFit(t *testing.T) {
 				t.Errorf("%s: choice %q is too long for one line", m.ID, ch.Text)
 			}
 		}
-		for _, ch := range m.Choices {
-			for _, v := range ch.Reply {
-				if n := len(dialogue.Wrap(v, talkTextW)); n > talkLines {
-					t.Errorf("%s: a cat's reply is %d lines (most is %d): %q", m.ID, n, talkLines, v)
-				}
-			}
-		}
 		if m.Conv.Speaker == "" {
 			t.Errorf("%s: no name for the box", m.ID)
 		}
@@ -251,7 +243,7 @@ func TestLookAroundFromTheMenu(t *testing.T) {
 	for _, tg := range g.look.targets {
 		ids = append(ids, tg.id())
 	}
-	if got := strings.Join(ids, " "); got != "mimi window brie table" {
+	if got := strings.Join(ids, " "); got != "bookshelf mimi window brie table" {
 		t.Errorf("targets should go left to right: got %q", got)
 	}
 	if tg, _ := g.lookTarget(); tg.id() != "mimi" {
@@ -264,7 +256,7 @@ func TestLookAroundFromTheMenu(t *testing.T) {
 	}
 	g.Key(KeyLeft)
 	g.Key(KeyLeft)
-	if tg, _ := g.lookTarget(); tg.id() != "mimi" {
+	if tg, _ := g.lookTarget(); tg.id() != "bookshelf" {
 		t.Error("← stops at the leftmost thing")
 	}
 	for i := 0; i < 5; i++ {
@@ -720,32 +712,4 @@ func TestLookAroundOffersAFewThingsAtMostOneSudden(t *testing.T) {
 			}
 		}
 	}
-}
-
-// After you answer a moment, the cat answers too: her reply is shown in
-// her name before the café goes back to its quiet.
-func TestAMomentEndsWithTheCatAnswering(t *testing.T) {
-	g, now := inside(t, Config{Bonds: map[string]float64{"mimi": 30}})
-	if err := g.ShowMoment("mimi_watch"); err != nil {
-		t.Fatal(err)
-	}
-	now = run(g, now, 1)
-	g.Key(KeyConfirm) // show the page at once
-	now = run(g, now, 0.5)
-	pick(t, g, "Call her name")
-	g.Key(KeyConfirm)
-	saw := false
-	for i := 0; i < 300 && !saw; i++ {
-		now = run(g, now, 0.1)
-		if g.box != nil && g.box.kind == talkCatReply {
-			saw = true
-			if g.box.Speaker() != "Mimi" {
-				t.Errorf("the answer should be Mimi's, got %q", g.box.Speaker())
-			}
-		}
-	}
-	if !saw {
-		t.Fatal("after a moment the cat should answer, but nothing followed")
-	}
-	_ = now
 }

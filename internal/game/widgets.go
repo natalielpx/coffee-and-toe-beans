@@ -77,6 +77,22 @@ func (p panel) write(col, row int, s string, ink rgb.Color) {
 	p.writeStyled(col, row, s, ink, false)
 }
 
+// writeBold writes bold text (the card's name).
+func (p panel) writeBold(col, row int, s string, ink rgb.Color) {
+	x := p.x + col
+	cy := p.y + row
+	for _, r := range s {
+		w := canvas.RuneWidth(r)
+		if w == 0 {
+			continue
+		}
+		bg := p.bgAt(x, cy)
+		fg := bg.Lerp(ink, p.alpha)
+		p.c.TextBold(x, cy, string(r), fg, bg)
+		x += w
+	}
+}
+
 func (p panel) writeStyled(col, row int, s string, ink rgb.Color, italic bool) {
 	x := p.x + col
 	cy := p.y + row

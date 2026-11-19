@@ -5,6 +5,7 @@
 package game
 
 import (
+	"coffee-and-toe-beans/internal/journal"
 	"fmt"
 	"io/fs"
 	"math"
@@ -126,9 +127,15 @@ type Game struct {
 	pause    *pauseMenu
 	settings *settingsMenu // the Settings screen, over the pause menu
 	menu     *drinksMenu
-	box      *talkBox   // the dialogue box on screen
-	queue    []*talkBox // conversations waiting their turn
-	look     *lookMode  // Look around (from the Esc menu), or nil
+	box      *talkBox     // the dialogue box on screen
+	queue    []*talkBox   // conversations waiting their turn
+	look     *lookMode    // Look around (from the Esc menu), or nil
+	jrnl     *journalMode // the journal, when it is open, or nil
+
+	jcontent       *journal.Content   // the journal's words
+	jBonds         map[string]float64 // each cat's bond when last checked, for journal entries
+	bookX, bookTop int                // where the bookshelf is in the room
+	hasBookshelf   bool
 
 	inCafe  float64   // real seconds since stepping inside
 	greeted bool      // the "arrive" conversation has been offered
@@ -224,10 +231,14 @@ func New(cfg Config, fsys fs.FS, realNow time.Time) (*Game, error) {
 	if err := g.loadLook(fsys); err != nil {
 		return nil, err
 	}
+	if err := g.loadJournal(fsys); err != nil {
+		return nil, err
+	}
 	if err := g.loadMemory(fsys, realNow); err != nil {
 		return nil, err
 	}
 	g.applySettings(false)
+	g.syncJournalBonds()
 	g.Tick(realNow)
 	return g, nil
 }
@@ -309,6 +320,7 @@ func (g *Game) Tick(realNow time.Time) {
 	case phaseCafe:
 		g.inCafe += dt
 		g.autosave(dt)
+		g.checkBonds()
 		g.updateTalk(dt, now)
 		if g.look != nil {
 			g.updateLook(dt)
@@ -343,6 +355,10 @@ func (g *Game) Key(k Key) {
 	}
 	if g.pause != nil {
 		g.pauseKey(k)
+		return
+	}
+	if g.jrnl != nil {
+		g.journalKey(k)
 		return
 	}
 	if g.menu != nil {
@@ -408,6 +424,7 @@ const (
 	actLook
 	actSettings
 	actLeave
+	actJournal
 )
 
 type pauseMenu struct {
@@ -422,7 +439,7 @@ func (g *Game) openPause() {
 	// so colours can be set before stepping in.
 	p := &pauseMenu{items: []menuAction{actSettings, actLeave}}
 	if g.phase == phaseCafe {
-		p.items = []menuAction{actOrder, actLook, actSettings, actLeave}
+		p.items = []menuAction{actOrder, actLook, actJournal, actSettings, actLeave}
 	}
 	g.pause = p
 	g.holdTalk(true)
@@ -441,6 +458,8 @@ func (g *Game) label(a menuAction) string {
 		return g.ui.MenuLook
 	case actSettings:
 		return g.ui.MenuSettings
+	case actJournal:
+		return g.jcontent.Text.Menu
 	}
 	return g.ui.MenuOrder
 }
@@ -472,6 +491,8 @@ func (g *Game) pauseKey(k Key) {
 			g.openLook()
 		case actSettings:
 			g.openSettings()
+		case actJournal:
+			g.openJournalNow()
 		}
 	}
 }
@@ -512,7 +533,9 @@ func (g *Game) View() string {
 		g.dim(c, ox, oy, 1-t)
 		g.drawTitle(c, ox, oy, math.Max(0, 1-g.progress*2.2))
 	case phaseCafe:
-		if g.look != nil {
+		if g.jrnl != nil {
+			g.drawJournal(c, ox, oy)
+		} else if g.look != nil {
 			g.drawLook(c, ox, oy)
 		} else if g.box != nil {
 			g.drawTalk(c, ox, oy, g.box)

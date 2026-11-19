@@ -40,7 +40,7 @@ func TestPauseMenuOrder(t *testing.T) {
 
 	g, _ = inside(t, Config{})
 	g.Key(KeyBack)
-	want := []menuAction{actOrder, actLook, actSettings, actLeave}
+	want := []menuAction{actOrder, actLook, actJournal, actSettings, actLeave}
 	got := items(g)
 	if len(got) != len(want) {
 		t.Fatalf("café menu: got %v, want %v", got, want)
@@ -184,7 +184,7 @@ func TestDrinksMenuFromThePauseMenu(t *testing.T) {
 
 func TestEveningDrinks(t *testing.T) {
 	ids := func(hh, mm int) []string {
-		start := time.Date(2026, 11, 7, hh, mm, 0, 0, paris)
+		start := time.Date(2026, 11, 7, hh, mm, 0, 0, time.Local)
 		g, _ := inside(t, Config{Start: start})
 		g.Key(KeyBack)
 		g.Key(KeyConfirm)
@@ -215,7 +215,7 @@ func TestEveningDrinks(t *testing.T) {
 		t.Errorf("at 23:00 both are served: %v", late)
 	}
 
-	start := time.Date(2026, 11, 7, 12, 0, 0, 0, paris)
+	start := time.Date(2026, 11, 7, 12, 0, 0, 0, time.Local)
 	g, _ := inside(t, Config{Start: start})
 	g.openDrinks(false)
 	if s := screen(g); !strings.Contains(s, "from 17:00") || !strings.Contains(s, "from 21:00") {
@@ -240,13 +240,6 @@ func TestTheCupCoolsEmptiesAndStays(t *testing.T) {
 		t.Fatal("an empty cup stays on the table")
 	}
 
-	// A cat moment may come by in the meantime (moments come every 5-10
-	// minutes and always wait for an answer). Answer it, so the offer, which
-	// waits its turn behind it, can be seen.
-	for k := 0; k < 20 && g.box != nil && g.box.kind == talkMoment; k++ {
-		g.Key(KeyConfirm)
-		now = run(g, now, 1)
-	}
 	// A little later, one gentle offer of another.
 	sawOffer := false
 	for i := 0; i < 100 && !sawOffer; i++ {

@@ -13,9 +13,108 @@ Version 1 is finished; this file now also records what version 2 starts from.
 | M3 — The cats | Done (7 Nov 2026): bigger room, the three cats, wandering, moments, bonds, Look around |
 | M4 — The narrator and memory | Done; reviewed by Nala, nothing to change (7 Nov 2026) |
 | **M5 — Comfort and polish** | **Done** (8 Nov 2026): settings, 256-colour fixes, README, CI, releases. Ready to publish **v1.0.0** |
+| **1.x — The journal** | **Built** (14 Nov 2026), checked headless; **not yet played in a real terminal**. See "The journal" below |
 
 **Version 1 is complete.** Next: Nala publishes v1.0.0 (steps in the handover
 and at the end of this file), then version 2.
+
+## The journal (1.x, 13–14 Nov 2026)
+
+The notebook on the café's bookshelf: the player's story with the cats, written
+down, with Nala's note. The cats' cards are a separate item. Its brief is
+`claude/journal-prompt.md`; every line is in `claude/journal-words-draft.md`,
+approved by Nala on 13 Nov 2026.
+
+**Where it lives**
+- `content/journal/` (text.json, entries.json, moments.json, asides.json): all
+  the words. Cat cards are in `content/cats/<id>.json` under `leaflet`.
+  Journal moments are marked `"journal": true` in `content/moments/<id>.json`.
+- `internal/journal/` (standard library only): loads and checks the content;
+  writes each entry once; picks at most one aside, without repeats until the
+  matching ones are used up (and never the one just used); lays entries out
+  newest first, one or two to a page; lays out cat cards.
+- `internal/game/journal.go`: the book and the cat cards, the bookshelf in
+  Look around, the Esc menu entry, and the hooks that write entries.
+- `internal/save`: the journal is saved in `save.json` (`journal`), save
+  version 2. Older saves load with an empty journal.
+
+**How entries get written**
+- The first moment with a cat: the meeting entry.
+- A bond step up to a tier: one entry per tier, the first time it is reached.
+  Bond changes are checked each café tick, so drift, looking and moments all count.
+- A cat's first bond drop: its first bad moment, with the approved text. The
+  brief no longer asks every bad-moment entry to end with a note to self;
+  Mimi's approved entry keeps hers ("Next time: let her come to me.").
+- A journal moment, the first time it is answered.
+- A moment left open when you leave writes nothing (`Ignored`). Nothing is
+  written for bonds that were already there when you come back.
+- Each entry says softly "You make a note in your journal" after the moment
+  ends, queued behind any open cat moment.
+
+**Decisions made here (not in the brief)**
+- The header uses the café clock, and the weather the café is showing.
+- Asides: chance 35% per entry. Weather and time-of-day matching uses the
+  café's own parts of the day (late night, dawn, morning, afternoon, evening,
+  night).
+- Pages hold up to 24 lines, two entries at most. The book is 100 × 38
+  cells, centred, inside 104 × 42.
+- The first-time line plays when you first open the book, and the book opens
+  when it has passed. Later openings show the short line.
+- Look around: selecting the bookshelf shows its line, then "Read something?"
+  with two choices, Journal or About the cats (↑ ↓ and Enter; Esc closes it).
+  The bookshelf's place comes from `interiors/french.json`
+  (the bookshelf element), so other rooms can put it elsewhere.
+
+**Tests added:** `internal/journal` (content loads and checks, header
+format, once-only writing, asides fit and rotate, newest first and page sizes,
+no numbers or tier names in entries, no full stops in lists, card widths,
+save round-trip); `internal/game/journal_game_test.go` (meeting, bond steps
+and drops, nothing for an open moment, journal moment once, the first line
+then the book, Esc menu and bookshelf opening it, cat cards turning and closing, newest
+entry first, relaunch); golden frames in `internal/game/testdata/golden/`
+for the first spread, the cat cards and an entry spread (regenerate with
+`UPDATE_GOLDEN=1 go test ./internal/game`).
+
+**Existing tests changed** (the menu and Look around changed on purpose):
+- `TestPauseMenuOrder`: the café menu now includes "Read journal" (it opens the
+  book at once; the first-time line plays only from the bookshelf).
+- `TestStepInsideAndLeave`: Leave is now the fifth item (four ↓ presses).
+- `TestLookAroundFromTheMenu`: the bookshelf is the leftmost place to look.
+
+## Acceptance check against brief.md (14 Nov 2026)
+
+This is what was checked, and how. "Automated" means a test in the repo ran
+here. "Not checked" means it needs a real terminal or Nala's Mac.
+
+| # | Criterion | Result |
+|---|-----------|--------|
+| 1 | Builds and runs on Linux and macOS without extra installs | **Not checked.** The sandbox can't download Bubble Tea (Go's module proxy returns 403, a policy block). The packages without Bubble Tea compile and pass. `internal/ui` and `cmd/` were not compiled. `go.sum` is not in the source zip; `go mod tidy` creates it. |
+| 2 | No panics in a 2-hour `--fast` session | **Passed, headless.** Two café hours at `--fast` with random arrow keys and Enter, no panic, saves without error, then a relaunch (`internal/game/session_test.go`). Not run in a terminal. |
+| 3 | Dawn, day, dusk and night visibly different; smooth; follows the seasons | **Partly.** Measured on the rendered room: day is clearly brighter and warmer (mean brightness 144 against 65–72; red minus blue 34 against 13–22). Dawn, dusk and night are close together, and night is slightly warmer than dusk. The Paris sunrise and sunset tests pass. **Nala to look at dawn, dusk and night on her Mac.** |
+| 4 | Ambient weather animated | Automated tests pass; not seen on screen. |
+| 5 | Fully playable with arrows, Enter and Esc only; leaving via the Esc menu; no other key closes the game | **Passed in the code, with one question.** The key mapping is arrows, Enter and Space, Esc, and Ctrl+C. **Question for Nala:** Ctrl+C quits at once (and saves). The brief says no other key closes the game. Left as the usual interrupt key unless you say otherwise. |
+| 6 | Mimi never approaches a stranger on her own; calm raises her bond, sudden lowers it | Passed (`TestMimiKeepsHerDistanceFromStrangers`, `TestMimiLikesCalmAndNotSudden`, `TestMimiLeavesAfterSomethingSudden`). |
+| 7 | Every cat moment waits for an answer; the cat stays; no visible "pass"; leaving resolves gently | Passed (`TestAMomentWaitsForYou`, `TestAMomentLeftOpenWhenLeavingWritesNothing`; the ignored choice is never shown). |
+| 8 | Quitting and relaunching restores bonds, settings and favourite drink, and shows an away note | Passed, headless: quiet mode, the favourite drink, Brie's bond, and a three-day gap all come back (`TestQuitAndRelaunchKeepTheCafe`). The away note's words were not read on screen. |
+| 9 | A save cut off mid-write does not crash | Passed (`TestWritingIsSafe`, `TestBrokenSavesAreKeptAndReplaced`). |
+| 10 | Reduced motion removes flicker and fast animation; quiet mode halves narrator frequency | Passed in tests (`TestReducedMotionStopsTheTitlePulseAndBlink`, `TestQuietAndPacingSettingsCutTheTalk`). Flicker not seen. |
+| 11 | Looks intentional in macOS Terminal's 256-colour mode | **Not checked.** Needs Nala's Mac. |
+| 12 | All player-facing text lives in `content/` | Passed by search: no player-facing sentences in the Go code. The journal's text is all in `content/journal/`. |
+| — | Every setting, through the real Settings screen, each value, with café time under each | Passed, headless (`TestEverySettingIsChangedAndPlayedUnder`): each setting is changed with ←→ through every value, the save matches each change, and café time runs under each. |
+
+**For Nala to check on her Mac**
+1. Unzip, `go mod tidy`, `go build ./... && go test ./...` (the golden frames
+   should pass as they are).
+2. Play: the bookshelf in Look around ("Read something?": Journal and About the
+   cats), the Esc menu's "Read journal", the first-time line from the bookshelf,
+   a few cat moments, and the journal's pages and the cat cards.
+3. Dawn, dusk and night (`--time 06:45`, `--time 19:40`, `--time 23:30`), and
+   Macintosh Terminal in 256 colours.
+4. Decide Ctrl+C (criterion 5).
+
+**Not done**
+- The real-terminal run, and the Mac build.
+- The journal's screens have not been seen in colour; the golden frames are text.
 
 ## Version 1 in short
 

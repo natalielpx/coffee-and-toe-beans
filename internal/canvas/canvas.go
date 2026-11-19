@@ -39,6 +39,7 @@ type textCell struct {
 	set    bool
 	cont   bool // right half of a wide character
 	italic bool
+	bold   bool
 }
 
 // Canvas is W x H terminal cells, which is W x 2H pixels.
@@ -147,7 +148,16 @@ func (c *Canvas) TextItalic(cx, cy int, s string, fg, bg rgb.Color) int {
 	return c.putText(cx, cy, s, fg, bg, true)
 }
 
+// TextBold is Text in bold (terminals without bold show it normal).
+func (c *Canvas) TextBold(cx, cy int, s string, fg, bg rgb.Color) int {
+	return c.putStyled(cx, cy, s, fg, bg, false, true)
+}
+
 func (c *Canvas) putText(cx, cy int, s string, fg, bg rgb.Color, italic bool) int {
+	return c.putStyled(cx, cy, s, fg, bg, italic, false)
+}
+
+func (c *Canvas) putStyled(cx, cy int, s string, fg, bg rgb.Color, italic, bold bool) int {
 	if cy < 0 || cy >= c.H {
 		return 0
 	}
@@ -164,7 +174,7 @@ func (c *Canvas) putText(cx, cy int, s string, fg, bg rgb.Color, italic bool) in
 			if w == 2 && x+1 >= c.W {
 				r, w = ' ', 1 // no room for a wide character at the edge
 			}
-			c.text[cy*c.W+x] = textCell{r: r, fg: fg, bg: bg, set: true, italic: italic}
+			c.text[cy*c.W+x] = textCell{r: r, fg: fg, bg: bg, set: true, italic: italic, bold: bold}
 			if w == 2 {
 				c.text[cy*c.W+x+1] = textCell{set: true, cont: true}
 			}
@@ -251,7 +261,7 @@ func (c *Canvas) Lines(mode Mode) []string {
 	for cy := 0; cy < c.H; cy++ {
 		buf = buf[:0]
 		curFG, curBG := unset, unset
-		curItalic := false
+		curItalic, curBold := false, false
 		for cx := 0; cx < c.W; cx++ {
 			t := c.text[cy*c.W+cx]
 			if t.cont {
@@ -280,6 +290,14 @@ func (c *Canvas) Lines(mode Mode) []string {
 					buf = append(buf, "\x1b[23m"...)
 				}
 				curItalic = t.italic
+			}
+			if t.bold != curBold {
+				if t.bold {
+					buf = append(buf, "\x1b[1m"...)
+				} else {
+					buf = append(buf, "\x1b[22m"...)
+				}
+				curBold = t.bold
 			}
 			needFG := fg != unset && fg != curFG
 			needBG := bg != curBG

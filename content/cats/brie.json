@@ -1,4 +1,5 @@
 {
+  "leaflet": {"name": "Brie", "age": "Seven years old", "gender": "female", "likes": ["café crème", "calm guests", "the best cushion in the house"], "dislikes": ["rain", "hurry", "being picked up"], "tips": "Ignore her a little. She'll decide when you're worth her time.", "story": "She walked in on opening day, before the paint was dry, chose a cushion and never left.", "comment": "I tell people she's my cat. If she could speak, she would probably say otherwise."},
   "_about": [
     "One cat of Coffee and Toe Beans. Add a cat by adding a file like this one (its name is the cat's id) and its sprites in content/sprites.",
     "poses: sit, stand, loaf (lying, awake) and sleep (curled up). Each pose names a sprite for each frame:",

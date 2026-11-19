@@ -46,6 +46,7 @@ const (
 	lookWindow = "window"
 	lookTable  = "table"
 	lookCat    = "cat"
+	lookBook   = "bookshelf" // opens the journal
 )
 
 type lookTarget struct {
@@ -203,6 +204,9 @@ func (g *Game) lookTargets() []lookTarget {
 		{kind: lookWindow, x: win.X, top: 6},
 		{kind: lookTable, x: stand[0] + 5, top: stand[1] - 15},
 	}
+	if g.hasBookshelf {
+		out = append(out, lookTarget{kind: lookBook, x: g.bookX, top: g.bookTop})
+	}
 	r := roomFor(g)
 	for _, c := range g.cat.world.Cats {
 		if !c.Settled() {
@@ -214,7 +218,7 @@ func (g *Game) lookTargets() []lookTarget {
 		}
 		out = append(out, lookTarget{kind: lookCat, cat: c, x: spots[c.Spot()].X, top: box.Y0})
 	}
-	order := map[string]int{lookWindow: 0, lookCat: 1, lookTable: 2}
+	order := map[string]int{lookWindow: 0, lookCat: 1, lookTable: 2, lookBook: 3}
 	sort.SliceStable(out, func(i, j int) bool {
 		if out[i].x != out[j].x {
 			return out[i].x < out[j].x
@@ -362,7 +366,7 @@ func (g *Game) updateLook(dt float64) {
 	if l.sel >= len(l.targets) {
 		l.sel = len(l.targets) - 1
 	}
-	if n := len(g.lookActions()); l.choice >= n {
+	if n := g.lookChoices(); l.choice >= n {
 		l.choice = 0
 	}
 }
@@ -397,10 +401,20 @@ func (g *Game) lookKey(k Key) {
 			l.choice--
 		}
 	case KeyDown:
-		if l.choice < len(acts)-1 {
+		if l.choice < g.lookChoices()-1 {
 			l.choice++
 		}
 	case KeyConfirm:
+		if t, _ := g.lookTarget(); t.kind == lookBook {
+			// The bookshelf asks what to read: Journal, or About the cats.
+			g.closeLook()
+			if l.choice == 1 {
+				g.openCatCards()
+			} else {
+				g.openJournal()
+			}
+			return
+		}
 		if len(acts) == 0 {
 			return
 		}
@@ -414,6 +428,19 @@ func (g *Game) lookKey(k Key) {
 		l.reply = dialogue.Start(t.cat.Def.Name, pages, nil, 0, g.talkOptions())
 		l.replyOf = t.cat
 	}
+}
+
+// bookChoices are the bookshelf's question and its choices, in order.
+func (g *Game) bookChoices() []string {
+	return []string{g.jcontent.Text.ReadJournal, g.jcontent.Text.ReadCats}
+}
+
+// lookChoices is how many choices the panel offers for what you're looking at.
+func (g *Game) lookChoices() int {
+	if t, ok := g.lookTarget(); ok && t.kind == lookBook {
+		return len(g.bookChoices())
+	}
+	return len(g.lookActions())
 }
 
 // lookTitle and lookDescription are what the panel shows.
@@ -443,6 +470,8 @@ func (g *Game) lookDescription(t lookTarget) []string {
 		s = g.pickNote(g.lookWords.Window)
 	case lookTable:
 		s = g.pickNote(g.lookWords.Table)
+	case lookBook:
+		s = g.jcontent.Text.BookshelfLook
 	default:
 		s = g.catDescription(t.cat)
 	}
@@ -478,13 +507,6 @@ func (g *Game) closingLine(c *cats.Cat) []string {
 			if v = text.Fill(v, vals); !strings.Contains(shown, v) {
 				pool = append(pool, v)
 			}
-		}
-	}
-	if len(pool) == 0 {
-		// Never leave the player hanging after an interaction: fall back
-		// to the cat's own words for having had enough.
-		if rest := g.cat.content.Looks[c.Def.ID].Rest; len(rest) > 0 {
-			pool = append(pool, text.Fill(rest[0], vals))
 		}
 	}
 	if len(pool) == 0 {
@@ -570,6 +592,7 @@ func (g *Game) drawLook(c *canvas.Canvas, ox, oy int) {
 	}
 	desc := g.lookDescription(t)
 	acts := g.lookActions()
+	book := t.kind == lookBook
 	var closing []string
 	if t.cat != nil {
 		closing = l.done[t.cat.Def.ID]
@@ -581,6 +604,8 @@ func (g *Game) drawLook(c *canvas.Canvas, ox, oy int) {
 	switch {
 	case len(acts) > 0:
 		extra = len(acts) + 1
+	case book:
+		extra = len(g.bookChoices()) + 1 // the question, then its choices
 	case len(closing) > 0:
 		extra = len(closing) + 1
 	case resting:
@@ -608,6 +633,16 @@ func (g *Game) drawLook(c *canvas.Canvas, ox, oy int) {
 				p.write(4, row+i, a.Text, boxDim)
 			}
 		}
+	case book:
+		p.write(2, row, g.jcontent.Text.ReadAsk, boxInk)
+		for i, label := range g.bookChoices() {
+			if i == l.choice {
+				p.write(2, row+1+i, "▸", highlight)
+				p.write(4, row+1+i, label, boxInk)
+			} else {
+				p.write(4, row+1+i, label, boxDim)
+			}
+		}
 	case len(closing) > 0:
 		for i, s := range closing {
 			p.write(2, row+i, s, boxDim)
@@ -617,7 +652,7 @@ func (g *Game) drawLook(c *canvas.Canvas, ox, oy int) {
 		p.write(2, row, lk.Rest[0], boxDim)
 	}
 	hint := g.ui.LookHint
-	if len(acts) > 0 {
+	if len(acts) > 0 || book {
 		hint = g.ui.LookHintChoose
 	}
 	p.write(2, h-2, hint, boxFaint)

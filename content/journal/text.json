@@ -1,0 +1,28 @@
+{
+  "_about": [
+    "The journal: the words on its pages and in its menus. Approved by Nala (13 Nov 2026).",
+    "note: Nala's note, one paragraph per item. Use as written.",
+    "first_time: the narrator line the first time you open the journal; took_down after that.",
+    "read_*: the bookshelf question in Look around and its two choices. leaflet_*: the cat cards, shown by About the cats.",
+    "Keys in {curly braces} are filled in by the game; keep them as they are."
+  ],
+  "menu": "Read journal",
+  "bookshelf_look": "The tall bookcase, filled with books worn soft at their corners. Your journal still looks fairly new.",
+  "read_ask": "Read something?",
+  "read_journal": "Journal",
+  "read_cats": "About the cats",
+  "first_time": "As you scan through the books on the shelves, you notice a notebook with some cards in it.",
+  "took_down": "You take the notebook down from the shelf.",
+  "note_written": "You make a note in your journal.",
+  "book_controls": "← → turn pages  ·  Esc close",
+  "leaflet_controls": "← → other cats  ·  Esc or Enter close",
+  "leaflet_controls_one": "Esc or Enter close",
+  "note": [
+    "Welcome to Coffee and Toe Beans.",
+    "The cats here choose their own friends. Sit quietly, pay attention, and let them come to you. The closer they get to you, the more they'll let you share with them.",
+    "When something happens between you and one of them, you might want to write it down. Feel free to use this notebook as a journal.",
+    "Hope you enjoy the coffee, and thanks for keeping the cats company.",
+    "— Nala"
+  ],
+  "leaflet_title": "The cats"
+}
